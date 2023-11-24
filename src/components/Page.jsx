@@ -12,14 +12,6 @@ import Menue from "../pages/Menue";
 
 const Page = () => {
   const { name } = useParams();
-  // const pageName = [
-  //   "aktuelles",
-  //   "architektur",
-  //   "grafikdesign",
-  //   "innenarchitektur",
-  //   "kontakt",
-  //   "uebermich",
-  // ];
 
   return (
     <>
