@@ -9,6 +9,7 @@ import Grafikdesign from "../pages/Grafikdesign/Grafikdesign";
 import Kontakt from "../pages/Kontakt/Kontakt";
 import UeberMich from "../pages/UeberMich";
 import Menue from "../pages/Menue";
+import "../App.css";
 
 const Page = () => {
   const { name } = useParams();
@@ -33,7 +34,6 @@ const Page = () => {
       ) : (
         <App />
       )}
-      <Outlet />
       <Footer />
     </>
   );

@@ -1,5 +1,4 @@
 import { Link, useParams } from "react-router-dom";
-import { useState } from "react";
 
 const Header = () => {
   const { name } = useParams();
