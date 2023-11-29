@@ -164,6 +164,40 @@ const Carousel = () => {
     console.log("current translate: " + getCurrentCarouselTranslation());
   };
 
+  const scrollToPreviousChild = () => {
+    const carouselRealWidth = carouselTrackRef.current.scrollWidth;
+
+    childSizeValues = [];
+    childSizeValues = childRefs.map((currentChild) => {
+      return getChildSizeValues(currentChild);
+    });
+
+    const childAfterPreviousChildIndex = childSizeValues.findIndex((child) => {
+      console.log(child);
+
+      return child.childLeft >= preferedFirstChildPosition;
+    });
+    const previousChild = childSizeValues[childAfterPreviousChildIndex - 1];
+    console.log("previousChild left: " + previousChild.childLeft);
+    const currentTranslation = getCurrentCarouselTranslation();
+    const newPos =
+      currentTranslation -
+      (previousChild.childLeft - preferedFirstChildPosition);
+    changeTranslateValue(newPos);
+    console.log(
+      "lower noudary" +
+        -lowerBoundaryFactorForInfiniteEffect * carouselRealWidth
+    );
+    console.log(
+      "upper noudary" +
+        -upperBoundaryFactorForInfiniteEffect * carouselRealWidth
+    );
+    infiniteSlide(getCurrentCarouselTranslation(), carouselRealWidth);
+    console.log("childSizeValues width and left: ->");
+    console.log(childSizeValues);
+    console.log("current translate: " + getCurrentCarouselTranslation());
+  };
+
   const getChildSizeValues = (currentChild) => {
     const childDetails = currentChild.getBoundingClientRect();
     const childWidth = childDetails.width;
@@ -207,7 +241,7 @@ const Carousel = () => {
       <div>
         <p>Scrollen oder Klicken und Ziehen</p>
         <div>
-          <button onClick={() => console.log("links")}>links</button>
+          <button onClick={scrollToPreviousChild}>links</button>
           <button onClick={scrollToNextChild}>rechts</button>
         </div>
       </div>
