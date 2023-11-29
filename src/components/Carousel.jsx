@@ -14,10 +14,6 @@ const Carousel = () => {
   const [startPosX, setStartPosX] = useState();
   const [startTranslatePosition, setStartTranslatePosition] = useState();
   const [carouselCardList, setCardList] = useState([
-    // {
-    //   imgUrl: IMAGES.image5,
-    //   imgTitle: "randomImage5",
-    // },
     {
       imgUrl: IMAGES.image1,
       imgTitle: "randomImage1",
@@ -44,8 +40,6 @@ const Carousel = () => {
 
   const containerRef = useRef(null);
   const carouselTrackRef = useRef(null);
-  const scrollRef = useRef(700);
-  scrollRef.current = 700;
 
   const lowerBoundaryFactorForInfiniteEffect = 0.03;
   const upperBoundaryFactorForInfiniteEffect = 0.8;
@@ -55,10 +49,6 @@ const Carousel = () => {
   const preferedFirstChildPosition = 0;
 
   useEffect(() => {
-    // console.log("before erasing childRefs on container mount: " + childRefs);
-
-    // childRefs = [];
-    // console.log("after erasing childRefs on container mount: " + childRefs);
     const handleMouseMove = (event) => {
       setMousePosX(event.clientX);
     };
@@ -72,7 +62,6 @@ const Carousel = () => {
     return () => {
       containerRef.current.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", dragStop);
-      // clearChildRefs();
     };
   }, []);
 
@@ -143,28 +132,43 @@ const Carousel = () => {
     }
   };
 
+  const scrollToNextChild = () => {
+    const carouselRealWidth = carouselTrackRef.current.scrollWidth;
+
+    childSizeValues = [];
+    childSizeValues = childRefs.map((currentChild) => {
+      return getChildSizeValues(currentChild);
+    });
+
+    const nextChild = childSizeValues.find((child) => {
+      console.log(child);
+
+      return Math.floor(child.childLeft) > preferedFirstChildPosition;
+    });
+    console.log("nextChild left: " + nextChild.childLeft);
+    const currentTranslation = getCurrentCarouselTranslation();
+    const newPos =
+      currentTranslation - (nextChild.childLeft - preferedFirstChildPosition);
+    changeTranslateValue(newPos);
+    console.log(
+      "lower noudary" +
+        -lowerBoundaryFactorForInfiniteEffect * carouselRealWidth
+    );
+    console.log(
+      "upper noudary" +
+        -upperBoundaryFactorForInfiniteEffect * carouselRealWidth
+    );
+    infiniteSlide(getCurrentCarouselTranslation(), carouselRealWidth);
+    console.log("scrollToNextChild width and left: ->");
+    console.log(childSizeValues);
+    console.log("current translate: " + getCurrentCarouselTranslation());
+  };
+
   const getChildSizeValues = (currentChild) => {
     const childDetails = currentChild.getBoundingClientRect();
     const childWidth = childDetails.width;
     const childLeft = childDetails.left;
     return { childWidth, childLeft };
-
-    // childSizeValues.push({ childWidth, childLeft });
-    // console.log(childSizeValues);
-  };
-  const scrollToNextChild = () => {
-    childSizeValues = [];
-    console.log("scrollToNextChild: ->");
-    console.log(childRefs);
-    childSizeValues = childRefs.map((currentChild) => {
-      return getChildSizeValues(currentChild);
-    });
-    console.log("scrollToNextChild width and left: ->");
-    console.log(childSizeValues);
-  };
-
-  const clearChildRefs = () => {
-    setChildRefs([]);
   };
 
   return (
@@ -177,7 +181,9 @@ const Carousel = () => {
       >
         <div
           ref={carouselTrackRef}
-          className={"carousel " + (isDragging ? "dragging" : "")}
+          className={
+            isDragging ? "carousel-dragging dragging" : "carousel-btnScroll"
+          }
         >
           {carouselCardList.map((card, idx) => (
             <CarouselItem

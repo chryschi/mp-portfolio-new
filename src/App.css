@@ -55,10 +55,15 @@ html {
   height: 50vh;
 }
 
-.carousel {
+.carousel-btnScroll {
   display: flex;
   height: 100%;
+  transform: translateX(var(--scrollPos));
+}
 
+.carousel-dragging {
+  display: flex;
+  height: 100%;
   transform: translateX(var(--scrollPos));
 }
 
