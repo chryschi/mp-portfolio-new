@@ -55,13 +55,14 @@ html {
   height: 50vh;
 }
 
-.carousel-btnScroll {
+.carousel-transition {
   display: flex;
   height: 100%;
   transform: translateX(var(--scrollPos));
+  transition: transform 300ms ease-in;
 }
 
-.carousel-dragging {
+.carousel-no-transition {
   display: flex;
   height: 100%;
   transform: translateX(var(--scrollPos));
