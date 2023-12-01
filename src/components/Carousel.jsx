@@ -13,10 +13,7 @@ const Carousel = () => {
   const [isDragging, setDraggingState] = useState(false);
   const [startPosX, setStartPosX] = useState();
   const [startTranslatePosition, setStartTranslatePosition] = useState();
-  const [needScrollTransition, setNeedScrollTransition] = useState({
-    next: true,
-    previous: true,
-  });
+  const [currentCardIndex, setCurrentCardIndex] = useState([2]);
   const [carouselCardList, setCardList] = useState([
     {
       imgUrl: IMAGES.image1,
@@ -48,11 +45,17 @@ const Carousel = () => {
   let childRefsCopy = [];
 
   const LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = 0.03;
-  const UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = 0.8;
+  const UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = 0.7;
   const PREFERED_FIRST_CHILD_POSITION = 0;
   const NUMBER_OF_CAROUSEL_CARDS = 2 * carouselCardList.length;
 
   useEffect(() => {
+    console.log("childLeft position in first useEffect");
+    console.log(childLeftPositions);
+    console.log("childRefs in first useEffect");
+    console.log(childRefs);
+    console.log("childRefsCopy in first useEffect");
+    console.log(childRefsCopy);
     const handleMouseMove = (event) => {
       setMousePosX(event.clientX);
     };
@@ -63,13 +66,56 @@ const Carousel = () => {
       containerRef.current.addEventListener("mousemove", handleMouseMove);
     }
 
-    console.log(
-      "transition state, might be only updated right before rerender: " +
-        needScrollTransition.next
-    );
     return () => {
       window.removeEventListener("mouseup", dragStop);
       containerRef.current.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
+  useEffect(() => {
+    const transitionEnd = () => {
+      console.log("transition has ended!!");
+      const carouselRealWidth = carouselTrackRef.current.scrollWidth;
+      const currentTranslation = getCurrentCarouselTranslation();
+      console.log("childLeft position in transition useEffect");
+      console.log(childLeftPositions);
+      console.log("childRefs in transition useEffect");
+      console.log(childRefs);
+      console.log("childRefs-Copy in transition useEffect");
+      console.log(childRefsCopy);
+
+      childLeftPositions = [];
+
+      childLeftPositions = childRefsCopy.map((currentChild) => {
+        return getChildLeftPosition(currentChild);
+      });
+      const nextChildIndex = childLeftPositions.findIndex(
+        (childLeftPosition) => {
+          return Math.floor(childLeftPosition) > PREFERED_FIRST_CHILD_POSITION;
+        }
+      );
+      const nextChildLeft = childLeftPositions[nextChildIndex];
+      console.log(
+        "left of currentChild: " + childLeftPositions[nextChildIndex - 1]
+      );
+      console.log("left of nextChild: " + childLeftPositions[nextChildIndex]);
+      let newPos = Math.round(
+        currentTranslation - (nextChildLeft - PREFERED_FIRST_CHILD_POSITION)
+      );
+      if (positionTriggersInfiniteSlide(newPos, carouselRealWidth)) {
+        carouselTrackRef.current.style.transitionDuration = "0ms";
+        changeTranslateValue(currentTranslation + 0.5 * carouselRealWidth);
+        console.log("infinite effect triggered by transitionEnd!");
+      }
+    };
+
+    carouselTrackRef.current.addEventListener("transitionend", transitionEnd);
+
+    return () => {
+      carouselTrackRef.current.removeEventListener(
+        "transitionend",
+        transitionEnd
+      );
     };
   }, []);
 
@@ -132,21 +178,31 @@ const Carousel = () => {
   };
 
   const addRef = (ref) => {
-    childRefsCopy.push(ref.current);
-    if (childRefsCopy.length === NUMBER_OF_CAROUSEL_CARDS) {
+    if (childRefsCopy.length < NUMBER_OF_CAROUSEL_CARDS) {
+      childRefsCopy.push(ref.current);
+    } else if (childRefsCopy.length === NUMBER_OF_CAROUSEL_CARDS) {
       setChildRefs([...childRefsCopy]);
-      childRefsCopy = [];
     }
   };
 
   const scrollToNextChild = () => {
+    console.log("childRefs in scroll function");
+    console.log(childRefs);
+    carouselTrackRef.current.style.transitionDuration = "400ms";
     const carouselRealWidth = carouselTrackRef.current.scrollWidth;
     const currentTranslation = getCurrentCarouselTranslation();
 
     childLeftPositions = [];
+    // childRefsCopy = [...childRefs];
     childLeftPositions = childRefs.map((currentChild) => {
       return getChildLeftPosition(currentChild);
     });
+    console.log("childLeftPositions in scrollnext function");
+    console.log(childLeftPositions);
+    console.log("childRefsCopy in scrollnext function");
+    console.log(childRefsCopy);
+    console.log("childRefs in scrollnext function");
+    console.log(childRefs);
 
     const nextChildIndex = childLeftPositions.findIndex((childLeftPosition) => {
       console.log(childLeftPosition);
@@ -159,40 +215,6 @@ const Carousel = () => {
     let newPos = Math.round(
       currentTranslation - (nextChildLeft - PREFERED_FIRST_CHILD_POSITION)
     );
-    console.log(
-      "current transition state (should be true)" + needScrollTransition.next
-    );
-
-    if (nextChildIndex + 2 < NUMBER_OF_CAROUSEL_CARDS) {
-      const futurePosition = Math.round(
-        currentTranslation -
-          (childLeftPositions[nextChildIndex + 2] -
-            PREFERED_FIRST_CHILD_POSITION)
-      );
-      if (positionTriggersInfiniteSlide(futurePosition, carouselRealWidth)) {
-        setNeedScrollTransition({ ...needScrollTransition, next: false });
-      }
-    } else {
-      console.log("überübernächstes Kind out of bounds AAAHAHAHHAAH");
-    }
-
-    if (nextChildIndex + 1 < NUMBER_OF_CAROUSEL_CARDS) {
-      const futurePosition = Math.round(
-        currentTranslation -
-          (childLeftPositions[nextChildIndex + 1] -
-            PREFERED_FIRST_CHILD_POSITION)
-      );
-      if (positionTriggersInfiniteSlide(futurePosition, carouselRealWidth)) {
-        console.log("nextChild triggers infinite Slide");
-        newPos += Math.ceil(0.5 * carouselRealWidth);
-
-        setNeedScrollTransition({ ...needScrollTransition, next: true });
-      } else {
-        console.log("nextChild doesn*t trigger infinite slider");
-      }
-    } else {
-      console.log("nextChild is out of bounds");
-    }
 
     changeTranslateValue(newPos);
 
@@ -204,10 +226,6 @@ const Carousel = () => {
       "upper boundary" +
         -UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
     );
-    infiniteSlide(getCurrentCarouselTranslation(), carouselRealWidth);
-    console.log("scrollToNextChild width and left: ->");
-    console.log(childLeftPositions);
-    console.log("current translate: " + getCurrentCarouselTranslation());
   };
 
   const positionTriggersInfiniteSlide = (pos, carouselRealWidth) => {
@@ -244,6 +262,7 @@ const Carousel = () => {
       (previousChild.childLeft - PREFERED_FIRST_CHILD_POSITION);
 
     changeTranslateValue(newPos);
+
     console.log(
       "lower noudary" +
         -LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
@@ -277,9 +296,7 @@ const Carousel = () => {
           className={
             isDragging
               ? "carousel-no-transition dragging"
-              : needScrollTransition.next
-              ? "carousel-transition"
-              : "carousel-no-transition"
+              : "carousel-transition"
           }
         >
           {carouselCardList.map((card, idx) => (
@@ -292,6 +309,7 @@ const Carousel = () => {
           ))}
           {carouselCardList.map((card, idx) => (
             <CarouselItem
+              uselItem
               key={idx + carouselCardList.length}
               imgUrl={card.imgUrl}
               imgTitle={card.imgTitle}

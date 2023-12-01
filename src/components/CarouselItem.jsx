@@ -5,6 +5,7 @@ const CarouselItem = ({ imgUrl, imgTitle, addRef }) => {
 
   useEffect(() => {
     addRef(itemRef);
+    console.log(`${imgTitle} was added to carousel!`);
   }, []);
 
   return (
