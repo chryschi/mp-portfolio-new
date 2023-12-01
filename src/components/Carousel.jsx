@@ -20,23 +20,25 @@ const Carousel = () => {
   let childRefsCopy = [];
 
   useEffect(() => {
+    const currentContainerRef = containerRef.current;
     const handleMouseMove = (event) => {
       setMousePosX(event.clientX);
     };
 
     window.addEventListener("mouseup", dragStop);
 
-    if (containerRef.current) {
-      containerRef.current.addEventListener("mousemove", handleMouseMove);
+    if (currentContainerRef) {
+      currentContainerRef.addEventListener("mousemove", handleMouseMove);
     }
 
     return () => {
       window.removeEventListener("mouseup", dragStop);
-      containerRef.current.removeEventListener("mousemove", handleMouseMove);
+      currentContainerRef.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
 
   useEffect(() => {
+    const currentCarouselRef = carouselTrackRef.current;
     const transitionEnd = () => {
       const carouselRealWidth = carouselTrackRef.current.scrollWidth;
       const currentTranslation = getCurrentCarouselTranslation();
@@ -68,21 +70,19 @@ const Carousel = () => {
       }
     };
 
-    carouselTrackRef.current.addEventListener("transitionend", transitionEnd);
+    currentCarouselRef.addEventListener("transitionend", transitionEnd);
 
     return () => {
-      carouselTrackRef.current.removeEventListener(
-        "transitionend",
-        transitionEnd
-      );
+      currentCarouselRef.removeEventListener("transitionend", transitionEnd);
     };
   }, []);
 
   useEffect(() => {
+    const currentCarouselRef = carouselTrackRef.current;
     const handleWheel = (e) => {
       e.preventDefault();
 
-      const carouselRealWidth = carouselTrackRef.current.scrollWidth;
+      const carouselRealWidth = currentCarouselRef.scrollWidth;
       const currentCarouselTranslation = getCurrentCarouselTranslation();
       const newTranslateValue = currentCarouselTranslation - e.deltaY * 0.6;
 
@@ -90,10 +90,14 @@ const Carousel = () => {
       infiniteSlide(newTranslateValue, carouselRealWidth);
     };
 
-    carouselTrackRef.current.addEventListener("wheel", handleWheel);
+    currentCarouselRef.addEventListener("wheel", handleWheel, {
+      passive: false,
+    });
 
     return () => {
-      carouselTrackRef.current.removeEventListener("wheel", handleWheel);
+      currentCarouselRef.removeEventListener("wheel", handleWheel, {
+        passive: false,
+      });
     };
   }, []);
 
