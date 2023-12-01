@@ -13,7 +13,7 @@ const Carousel = () => {
   const [isDragging, setDraggingState] = useState(false);
   const [startPosX, setStartPosX] = useState();
   const [startTranslatePosition, setStartTranslatePosition] = useState();
-  const [currentCardIndex, setCurrentCardIndex] = useState([2]);
+  // const [currentCardIndex, setCurrentCardIndex] = useState([2]);
   const [carouselCardList, setCardList] = useState([
     {
       imgUrl: IMAGES.image1,
@@ -44,18 +44,18 @@ const Carousel = () => {
   let childLeftPositions = [];
   let childRefsCopy = [];
 
-  const LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = 0.03;
-  const UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = 0.7;
+  const UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = -0.3;
+  const LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = -0.7;
   const PREFERED_FIRST_CHILD_POSITION = 0;
   const NUMBER_OF_CAROUSEL_CARDS = 2 * carouselCardList.length;
 
   useEffect(() => {
-    console.log("childLeft position in first useEffect");
-    console.log(childLeftPositions);
-    console.log("childRefs in first useEffect");
-    console.log(childRefs);
-    console.log("childRefsCopy in first useEffect");
-    console.log(childRefsCopy);
+    // console.log("childLeft position in first useEffect");
+    // console.log(childLeftPositions);
+    // console.log("childRefs in first useEffect");
+    // console.log(childRefs);
+    // console.log("childRefsCopy in first useEffect");
+    // console.log(childRefsCopy);
     const handleMouseMove = (event) => {
       setMousePosX(event.clientX);
     };
@@ -76,19 +76,14 @@ const Carousel = () => {
     const transitionEnd = () => {
       console.log("transition has ended!!");
       const carouselRealWidth = carouselTrackRef.current.scrollWidth;
+      console.log("carousel width" + carouselRealWidth);
       const currentTranslation = getCurrentCarouselTranslation();
-      console.log("childLeft position in transition useEffect");
-      console.log(childLeftPositions);
-      console.log("childRefs in transition useEffect");
-      console.log(childRefs);
-      console.log("childRefs-Copy in transition useEffect");
-      console.log(childRefsCopy);
 
       childLeftPositions = [];
-
       childLeftPositions = childRefsCopy.map((currentChild) => {
         return getChildLeftPosition(currentChild);
       });
+
       const nextChildIndex = childLeftPositions.findIndex(
         (childLeftPosition) => {
           return Math.floor(childLeftPosition) > PREFERED_FIRST_CHILD_POSITION;
@@ -99,13 +94,24 @@ const Carousel = () => {
         "left of currentChild: " + childLeftPositions[nextChildIndex - 1]
       );
       console.log("left of nextChild: " + childLeftPositions[nextChildIndex]);
-      let newPos = Math.round(
+
+      let nextPos = Math.round(
         currentTranslation - (nextChildLeft - PREFERED_FIRST_CHILD_POSITION)
       );
-      if (positionTriggersInfiniteSlide(newPos, carouselRealWidth)) {
-        carouselTrackRef.current.style.transitionDuration = "0ms";
-        changeTranslateValue(currentTranslation + 0.5 * carouselRealWidth);
-        console.log("infinite effect triggered by transitionEnd!");
+      console.log("nextPos: " + nextPos);
+
+      const previousChildLeft = childLeftPositions[nextChildIndex - 1];
+      console.log("previousChildLeft" + previousChildLeft);
+      if (previousChildLeft) {
+        const previousPos = Math.round(
+          currentTranslation -
+            (previousChildLeft - PREFERED_FIRST_CHILD_POSITION)
+        );
+        console.log("previousPos: " + previousPos);
+
+        nextPos <= previousPos
+          ? infiniteSlide(nextPos, carouselRealWidth)
+          : infiniteSlide(previousPos, carouselRealWidth);
       }
     };
 
@@ -143,23 +149,28 @@ const Carousel = () => {
     document.documentElement.style.setProperty("--scrollPos", newPos);
   };
 
-  const infiniteSlide = (currentCarouselTranslation, carouselRealWidth) => {
+  const infiniteSlide = (desiredCarouselTranslation, carouselRealWidth) => {
     if (
-      currentCarouselTranslation >
-      -LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
+      desiredCarouselTranslation >
+      UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
     ) {
       let current = getCurrentCarouselTranslation();
       current -= 0.5 * carouselRealWidth;
       current = Math.ceil(current);
+      carouselTrackRef.current.style.transitionDuration = "0ms";
       changeTranslateValue(current);
+      console.log("infinite effect triggered by transitionEnd!");
     } else if (
-      currentCarouselTranslation <
-      -UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
+      desiredCarouselTranslation <
+      LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
     ) {
       let current = getCurrentCarouselTranslation();
       current += 0.5 * carouselRealWidth;
       current = Math.ceil(current);
+      carouselTrackRef.current.style.transitionDuration = "0ms";
+
       changeTranslateValue(current);
+      console.log("infinite effect triggered by transitionEnd!");
     }
   };
 
@@ -185,7 +196,7 @@ const Carousel = () => {
     }
   };
 
-  const scrollToNextChild = () => {
+  const scrollToChild = (mode) => {
     console.log("childRefs in scroll function");
     console.log(childRefs);
     carouselTrackRef.current.style.transitionDuration = "400ms";
@@ -193,10 +204,10 @@ const Carousel = () => {
     const currentTranslation = getCurrentCarouselTranslation();
 
     childLeftPositions = [];
-    // childRefsCopy = [...childRefs];
     childLeftPositions = childRefs.map((currentChild) => {
       return getChildLeftPosition(currentChild);
     });
+
     console.log("childLeftPositions in scrollnext function");
     console.log(childLeftPositions);
     console.log("childRefsCopy in scrollnext function");
@@ -208,30 +219,65 @@ const Carousel = () => {
       console.log(childLeftPosition);
       return Math.floor(childLeftPosition) > PREFERED_FIRST_CHILD_POSITION;
     });
-    const nextChildLeft = childLeftPositions[nextChildIndex];
-    console.log(
-      "previous left of currentChild: " + childLeftPositions[nextChildIndex]
-    );
-    let newPos = Math.round(
-      currentTranslation - (nextChildLeft - PREFERED_FIRST_CHILD_POSITION)
-    );
 
-    changeTranslateValue(newPos);
+    if (mode === "next") {
+      console.log("next is fired");
 
-    console.log(
-      "lower boundary" +
-        -LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
-    );
-    console.log(
-      "upper boundary" +
-        -UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
-    );
+      const nextChildLeft = childLeftPositions[nextChildIndex];
+      console.log(
+        "OLD left of currentChild: " + childLeftPositions[nextChildIndex]
+      );
+      let newPos = Math.round(
+        currentTranslation - (nextChildLeft - PREFERED_FIRST_CHILD_POSITION)
+      );
+      console.log("new Pos (which should be current translate" + newPos);
+
+      changeTranslateValue(newPos);
+      console.log("current translate" + getCurrentCarouselTranslation());
+
+      console.log(
+        "lower boundary" +
+          LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
+      );
+      console.log(
+        "upper boundary" +
+          UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
+      );
+    }
+
+    if (mode === "previous") {
+      console.log("previous is fired");
+
+      let previousChildLeft = childLeftPositions[nextChildIndex - 2];
+      console.log("previous Childleft before updating" + previousChildLeft);
+      if (Math.round(childLeftPositions[nextChildIndex - 1]) < 0) {
+        previousChildLeft = childLeftPositions[nextChildIndex - 1];
+      }
+      console.log(
+        "previous left of currentChild (after updating): " + previousChildLeft
+      );
+      let newPos = Math.round(
+        currentTranslation - (previousChildLeft - PREFERED_FIRST_CHILD_POSITION)
+      );
+      console.log("new Pos (which should be current translate" + newPos);
+      changeTranslateValue(newPos);
+      console.log("current translate" + getCurrentCarouselTranslation());
+
+      console.log(
+        "upper boundary" +
+          UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
+      );
+      console.log(
+        "Lower boundary" +
+          LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
+      );
+    }
   };
 
   const positionTriggersInfiniteSlide = (pos, carouselRealWidth) => {
     if (
-      pos > -LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth ||
-      pos < -UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
+      pos > UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth ||
+      pos < LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
     ) {
       return true;
     } else {
@@ -239,43 +285,44 @@ const Carousel = () => {
     }
   };
 
-  const scrollToPreviousChild = () => {
-    const carouselRealWidth = carouselTrackRef.current.scrollWidth;
+  // const scrollToChild = (mode) => {
 
-    childLeftPositions = [];
-    childLeftPositions = childRefs.map((currentChild) => {
-      return getChildLeftPosition(currentChild);
-    });
+  //   const carouselRealWidth = carouselTrackRef.current.scrollWidth;
 
-    const childAfterPreviousChildIndex = childLeftPositions.findIndex(
-      (childLeft) => {
-        console.log(childLeft);
+  //   childLeftPositions = [];
+  //   childLeftPositions = childRefs.map((currentChild) => {
+  //     return getChildLeftPosition(currentChild);
+  //   });
 
-        return childLeft >= PREFERED_FIRST_CHILD_POSITION;
-      }
-    );
-    const previousChild = childLeftPositions[childAfterPreviousChildIndex - 1];
-    console.log("previousChild left: " + previousChild.childLeft);
-    const currentTranslation = getCurrentCarouselTranslation();
-    const newPos =
-      currentTranslation -
-      (previousChild.childLeft - PREFERED_FIRST_CHILD_POSITION);
+  //   const childAfterPreviousChildIndex = childLeftPositions.findIndex(
+  //     (childLeft) => {
+  //       console.log(childLeft);
 
-    changeTranslateValue(newPos);
+  //       return childLeft >= PREFERED_FIRST_CHILD_POSITION;
+  //     }
+  //   );
+  //   const previousChild = childLeftPositions[childAfterPreviousChildIndex - 1];
+  //   console.log("previousChild left: " + previousChild.childLeft);
+  //   const currentTranslation = getCurrentCarouselTranslation();
+  //   const newPos =
+  //     currentTranslation -
+  //     (previousChild.childLeft - PREFERED_FIRST_CHILD_POSITION);
 
-    console.log(
-      "lower noudary" +
-        -LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
-    );
-    console.log(
-      "upper noudary" +
-        -UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
-    );
-    infiniteSlide(getCurrentCarouselTranslation(), carouselRealWidth);
-    console.log("childLeftPositions width and left: ->");
-    console.log(childLeftPositions);
-    console.log("current translate: " + getCurrentCarouselTranslation());
-  };
+  //   changeTranslateValue(newPos);
+
+  //   console.log(
+  //     "lower noudary" +
+  //       -LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
+  //   );
+  //   console.log(
+  //     "upper noudary" +
+  //       -UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
+  //   );
+  //   infiniteSlide(getCurrentCarouselTranslation(), carouselRealWidth);
+  //   console.log("childLeftPositions width and left: ->");
+  //   console.log(childLeftPositions);
+  //   console.log("current translate: " + getCurrentCarouselTranslation());
+  // };
 
   const getChildLeftPosition = (currentChild) => {
     const childDetails = currentChild.getBoundingClientRect();
@@ -322,8 +369,8 @@ const Carousel = () => {
       <div>
         <p>Scrollen oder Klicken und Ziehen</p>
         <div>
-          <button onClick={scrollToPreviousChild}>links</button>
-          <button onClick={scrollToNextChild}>rechts</button>
+          <button onClick={() => scrollToChild("previous")}>links</button>
+          <button onClick={() => scrollToChild("next")}>rechts</button>
         </div>
       </div>
     </>
