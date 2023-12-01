@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import CarouselItem from "./CarouselItem";
-import cardDetails from "./carousel-config";
+// import cardDetails from "../pages/Aktuelles/carousel-config";
 
-const Carousel = () => {
+const Carousel = ({ images }) => {
   const [mousePosX, setMousePosX] = useState();
   const [isDragging, setDraggingState] = useState(false);
   const [startPosX, setStartPosX] = useState();
@@ -15,7 +15,7 @@ const Carousel = () => {
   const UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = -0.2;
   const LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = -0.7;
   const PREFERED_FIRST_CHILD_POSITION = 0;
-  const NUMBER_OF_CAROUSEL_CARDS = 2 * cardDetails.length;
+  const NUMBER_OF_CAROUSEL_CARDS = 2 * images.length;
   let childLeftPositions = [];
   let childRefsCopy = [];
 
@@ -224,7 +224,7 @@ const Carousel = () => {
           ref={carouselTrackRef}
           className={"carousel " + (isDragging ? "dragging" : "")}
         >
-          {cardDetails.map((card, idx) => (
+          {images.map((card, idx) => (
             <CarouselItem
               key={idx}
               imgUrl={card.imgUrl}
@@ -232,10 +232,10 @@ const Carousel = () => {
               addRef={addRef}
             />
           ))}
-          {cardDetails.map((card, idx) => (
+          {images.map((card, idx) => (
             <CarouselItem
               uselItem
-              key={idx + cardDetails.length}
+              key={idx + images.length}
               imgUrl={card.imgUrl}
               imgTitle={card.imgTitle}
               addRef={addRef}
