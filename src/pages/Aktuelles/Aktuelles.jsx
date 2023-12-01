@@ -11,9 +11,9 @@ const Aktuelles = () => {
   useEffect(() => {
     if (project === undefined) {
       setProjectName("Aktuelles");
-    } else {
+    } else if (projectName in catalog) {
       setProjectName(project);
-      console.log(project);
+      // console.log(project);
     }
   }, [project]);
 

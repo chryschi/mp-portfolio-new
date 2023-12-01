@@ -1,5 +1,5 @@
-import { imagesAktuelles } from "./imageList_Aktuelles";
-import { imagesProjectPortfolio } from "./portfolio_Aktuelles.jsx";
+import { imagesAktuelles } from "./imageLists/imageList_Aktuelles.jsx";
+import { imagesProjectPortfolio } from "./imageLists/imageList_project_portfolio.jsx";
 
 export const catalog = {
   Aktuelles: { images: imagesAktuelles, title: "Aktuelles" },

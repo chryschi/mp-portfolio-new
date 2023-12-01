@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 const Header = () => {
   const { name, project } = useParams();
+  const [currentPage, setCurrentPage] = useState();
 
   const title =
     name === "innenarchitektur"
@@ -25,6 +27,17 @@ const Header = () => {
     portfolio: "MPR Portfolio",
   };
 
+  useEffect(() => {
+    if (name !== "menue") {
+      let currentUrl = "/" + name;
+      if (project !== undefined) {
+        currentUrl += "/" + project;
+      }
+      console.log(currentUrl);
+      setCurrentPage(currentUrl);
+    }
+  }, [name, project]);
+
   return (
     <div>
       {project === undefined ? (
@@ -32,10 +45,12 @@ const Header = () => {
       ) : (
         <>
           {projectTitles[project]}
-          <span className="material-symbols-outlined">close</span>
+          <Link to={`/${name}`}>
+            <span className="material-symbols-outlined">close</span>
+          </Link>
         </>
       )}
-      <Link to="/menue">
+      <Link to={name === "menue" ? currentPage : "/menue"}>
         <span className="material-symbols-outlined">
           {name === "menue" ? "close" : "menu"}
         </span>

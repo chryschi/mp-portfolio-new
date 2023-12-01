@@ -1,4 +1,4 @@
-import IMAGES from "../../assets/IMAGES";
+import IMAGES from "../../../assets/IMAGES";
 
 export const imagesProjectPortfolio = [
   {
