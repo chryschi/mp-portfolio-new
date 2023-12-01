@@ -1,6 +1,6 @@
 import IMAGES from "../../assets/IMAGES";
 
-export const cardDetails = [
+export const imagesAktuelles = [
   {
     imgUrl: IMAGES.image1,
     imgTitle: "randomImage1",

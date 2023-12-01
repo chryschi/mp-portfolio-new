@@ -7,7 +7,7 @@ import Page from "./Page";
 const Router = () => {
   const router = createBrowserRouter([
     { path: "/", element: <App /> },
-    { path: "/:name", element: <Page /> },
+    { path: "/:name/:project?", element: <Page /> },
   ]);
 
   return <RouterProvider router={router} />;

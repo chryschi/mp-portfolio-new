@@ -1,10 +1,25 @@
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Carousel from "../../components/Carousel";
-import { cardDetails as images } from "./imageList_Aktuelles.jsx";
+import { catalog } from "./catalog_Aktuelles.jsx";
 
 const Aktuelles = () => {
+  const { project } = useParams();
+
+  const [projectName, setProjectName] = useState("Aktuelles");
+
+  useEffect(() => {
+    if (project === undefined) {
+      setProjectName("Aktuelles");
+    } else {
+      setProjectName(project);
+      console.log(project);
+    }
+  }, [project]);
+
   return (
     <>
-      <Carousel images={images} />
+      <Carousel images={catalog[`${projectName}`].images} />
     </>
   );
 };

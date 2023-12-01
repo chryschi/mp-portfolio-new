@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 
 const Header = () => {
-  const { name } = useParams();
+  const { name, project } = useParams();
 
   const title =
     name === "innenarchitektur"
@@ -20,10 +20,21 @@ const Header = () => {
       ? "Aktuelles"
       : "";
 
+  const projectTitles = {
+    "project-biberach": "Biberach HEy Hey 2017",
+    portfolio: "MPR Portfolio",
+  };
+
   return (
     <div>
-      {title}
-
+      {project === undefined ? (
+        title
+      ) : (
+        <>
+          {projectTitles[project]}
+          <span className="material-symbols-outlined">close</span>
+        </>
+      )}
       <Link to="/menue">
         <span className="material-symbols-outlined">
           {name === "menue" ? "close" : "menu"}

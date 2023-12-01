@@ -12,7 +12,7 @@ import Menue from "../pages/Menue";
 import "../App.css";
 
 const Page = () => {
-  const { name } = useParams();
+  const { name, project } = useParams();
 
   return (
     <>
