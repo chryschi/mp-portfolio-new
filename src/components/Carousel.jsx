@@ -78,6 +78,25 @@ const Carousel = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const handleWheel = (e) => {
+      e.preventDefault();
+
+      const carouselRealWidth = carouselTrackRef.current.scrollWidth;
+      const currentCarouselTranslation = getCurrentCarouselTranslation();
+      const newTranslateValue = currentCarouselTranslation - e.deltaY * 0.6;
+
+      changeTranslateValue(newTranslateValue);
+      infiniteSlide(newTranslateValue, carouselRealWidth);
+    };
+
+    carouselTrackRef.current.addEventListener("wheel", handleWheel);
+
+    return () => {
+      carouselTrackRef.current.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
+
   const dragStart = () => {
     carouselTrackRef.current.style.transitionDuration = "0ms";
     const currentCarouselTranslation = getCurrentCarouselTranslation();
