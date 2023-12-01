@@ -1,10 +1,4 @@
-import {
-  useEffect,
-  useState,
-  useRef,
-  useCallback,
-  useLayoutEffect,
-} from "react";
+import { useEffect, useState, useRef } from "react";
 import CarouselItem from "./CarouselItem";
 import cardDetails from "./carousel-config";
 
@@ -186,17 +180,6 @@ const Carousel = () => {
         currentTranslation - (previousChildLeft - PREFERED_FIRST_CHILD_POSITION)
       );
       changeTranslateValue(newPos);
-    }
-  };
-
-  const positionTriggersInfiniteSlide = (pos, carouselRealWidth) => {
-    if (
-      pos > UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth ||
-      pos < LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
-    ) {
-      return true;
-    } else {
-      return false;
     }
   };
 
