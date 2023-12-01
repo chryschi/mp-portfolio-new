@@ -23,9 +23,12 @@ const Header = () => {
   return (
     <div>
       {title}
-      <span>
-        <Link to="/menue">Burger</Link>
-      </span>
+
+      <Link to="/menue">
+        <span className="material-symbols-outlined">
+          {name === "menue" ? "close" : "menu"}
+        </span>
+      </Link>
     </div>
   );
 };
