@@ -1,45 +1,26 @@
-export const cardDetails = {
-  0: {
-    imgUrl: "https://picsum.photos/700/800?random=1",
+import IMAGES from "../assets/IMAGES";
+
+const cardDetails = [
+  {
+    imgUrl: IMAGES.image1,
     imgTitle: "randomImage1",
   },
-  1: {
-    imgUrl: "https://picsum.photos/700/800?random=2",
+  {
+    imgUrl: IMAGES.image2,
     imgTitle: "randomImage2",
   },
-  2: {
-    imgUrl: "https://picsum.photos/700/800?random=3",
+  {
+    imgUrl: IMAGES.image3,
     imgTitle: "randomImage3",
   },
-  3: {
-    imgUrl: "https://picsum.photos/700/800?random=4",
+  {
+    imgUrl: IMAGES.image4,
     imgTitle: "randomImage4",
   },
-  4: {
-    imgUrl: "https://picsum.photos/700/800?random=5",
+  {
+    imgUrl: IMAGES.image5,
     imgTitle: "randomImage5",
   },
-};
+];
 
-// [
-//     {
-//       imgUrl: "https://picsum.photos/700/800?random=1",
-//       imgTitle: "randomImage1",
-//     },
-//     {
-//       imgUrl: "https://picsum.photos/700/800?random=2",
-//       imgTitle: "randomImage2",
-//     },
-//     {
-//       imgUrl: "https://picsum.photos/700/800?random=3",
-//       imgTitle: "randomImage3",
-//     },
-//     {
-//       imgUrl: "https://picsum.photos/700/800?random=4",
-//       imgTitle: "randomImage4",
-//     },
-//     {
-//       imgUrl: "https://picsum.photos/700/800?random=5",
-//       imgTitle: "randomImage5",
-//     },
-//   ]
+export default cardDetails;

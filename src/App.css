@@ -8,7 +8,9 @@
 body,
 html {
   width: 100%;
-  background: grey;
+  background-image: url("assets/pattern_04.png");
+  /* background-repeat: round; */
+  background-size: 130%;
 }
 
 .logo {
@@ -55,17 +57,12 @@ html {
   height: 50vh;
 }
 
-.carousel-transition {
+.carousel {
+  list-style: none;
   display: flex;
   height: 100%;
   transform: translateX(var(--scrollPos));
   transition: transform 300ms ease-in;
-}
-
-.carousel-no-transition {
-  display: flex;
-  height: 100%;
-  transform: translateX(var(--scrollPos));
 }
 
 .dragging {
@@ -73,7 +70,7 @@ html {
   user-select: none;
 }
 
-.carousel-card {
+.carousel-img {
   height: 100%;
 }
 
