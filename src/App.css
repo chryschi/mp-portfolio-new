@@ -62,7 +62,7 @@ html {
   display: flex;
   height: 100%;
   transform: translateX(var(--scrollPos));
-  transition: transform 300ms ease-in;
+  transition: transform 500ms ease;
 }
 
 .dragging {
