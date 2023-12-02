@@ -50,7 +50,6 @@ html {
 }
 
 .carousel-container {
-  /* max-width: 100vw; */
   max-width: 100%;
   color: white;
   overflow: hidden;

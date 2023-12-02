@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import CarouselItem from "./CarouselItem";
-// import cardDetails from "../pages/Aktuelles/carousel-config";
 
 const Carousel = ({ images }) => {
   const [mousePosX, setMousePosX] = useState();
@@ -101,23 +100,6 @@ const Carousel = ({ images }) => {
       });
     };
   }, []);
-
-  // useEffect(() => {
-  //   const currentCarouselRef = carouselTrackRef.current;
-  //   const timer = setTimeout(() => {
-  //     currentCarouselRef.style.pointerEvents = "none";
-  //   }, 300);
-  //   const handleClickOnCarouselCard = () => {};
-  //   currentCarouselRef.addEventListener("click", handleClickOnCarouselCard);
-
-  //   return () => {
-  //     clearTimeout(timer);
-  //     currentCarouselRef.removeEventListener(
-  //       "click",
-  //       handleClickOnCarouselCard
-  //     );
-  //   };
-  // });
 
   const dragStart = () => {
     const currentCarouselRef = carouselTrackRef.current;
