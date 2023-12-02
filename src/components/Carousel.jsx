@@ -229,15 +229,16 @@ const Carousel = ({ images }) => {
               key={idx}
               imgUrl={card.imgUrl}
               imgTitle={card.imgTitle}
+              projectUrlName={card.projectUrlName}
               addRef={addRef}
             />
           ))}
           {images.map((card, idx) => (
             <CarouselItem
-              uselItem
               key={idx + images.length}
               imgUrl={card.imgUrl}
               imgTitle={card.imgTitle}
+              projectUrlName={card.projectUrlName}
               addRef={addRef}
             />
           ))}

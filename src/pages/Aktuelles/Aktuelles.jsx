@@ -13,7 +13,6 @@ const Aktuelles = () => {
       setProjectName("Aktuelles");
     } else if (projectName in catalog) {
       setProjectName(project);
-      // console.log(project);
     }
   }, [project]);
 

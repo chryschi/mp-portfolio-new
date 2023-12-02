@@ -1,7 +1,10 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { Link, useParams } from "react-router-dom";
+import { catalog } from "../pages/Aktuelles/catalog_Aktuelles";
 
-const CarouselItem = ({ imgUrl, imgTitle, addRef }) => {
+const CarouselItem = ({ imgUrl, imgTitle, projectUrlName, addRef }) => {
   const itemRef = useRef(null);
+  const { name } = useParams();
 
   useEffect(() => {
     addRef(itemRef);
@@ -10,13 +13,20 @@ const CarouselItem = ({ imgUrl, imgTitle, addRef }) => {
 
   return (
     <>
-      <img
-        ref={itemRef}
-        className="carousel-card"
-        src={imgUrl}
-        alt={imgTitle}
+      <Link
         draggable="false"
-      />
+        to={
+          projectUrlName in catalog ? `/${name}/${projectUrlName}` : "/notfound"
+        }
+      >
+        <img
+          ref={itemRef}
+          className="carousel-img"
+          src={imgUrl}
+          alt={imgTitle}
+          draggable="false"
+        />
+      </Link>
     </>
   );
 };

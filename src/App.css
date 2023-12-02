@@ -65,9 +65,14 @@ html {
   transition: transform 500ms ease;
 }
 
+.carousel > Link {
+  height: 100%;
+}
+
 .dragging {
   cursor: grab;
   user-select: none;
+  pointer-events: none;
 }
 
 .carousel-img {
