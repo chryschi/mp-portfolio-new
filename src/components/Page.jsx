@@ -9,28 +9,30 @@ import Grafikdesign from "../pages/Grafikdesign/Grafikdesign";
 import Kontakt from "../pages/Kontakt/Kontakt";
 import UeberMich from "../pages/UeberMich";
 import Menue from "../pages/Menue";
+import CarouselPage from "../pages/Aktuelles/Aktuelles";
 import "../App.css";
 
 const Page = () => {
-  const { name, project } = useParams();
+  const { name } = useParams();
+
+  const carouselPages = [
+    "innenarchitektur",
+    "grafikdesign",
+    "architektur",
+    "aktuelles",
+  ];
 
   return (
     <>
       <Header />
-      {name === "innenarchitektur" ? (
-        <Innenarchitektur />
-      ) : name === "grafikdesign" ? (
-        <Grafikdesign />
-      ) : name === "architektur" ? (
-        <Architektur />
-      ) : name === "kontakt" ? (
-        <Kontakt />
+      {carouselPages.includes(name) ? (
+        <CarouselPage />
       ) : name === "menue" ? (
         <Menue />
+      ) : name === "kontakt" ? (
+        <Kontakt />
       ) : name === "uebermich" ? (
         <UeberMich />
-      ) : name === "aktuelles" ? (
-        <Aktuelles />
       ) : (
         <App />
       )}
