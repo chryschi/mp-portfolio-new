@@ -123,7 +123,7 @@ const Carousel = ({ images }) => {
     const currentCarouselRef = carouselTrackRef.current;
     timer = setTimeout(() => {
       currentCarouselRef.style.pointerEvents = "none";
-    }, 250);
+    }, 150);
     carouselTrackRef.current.style.transitionDuration = "0ms";
     const currentCarouselTranslation = getCurrentCarouselTranslation();
     setDraggingState(true);
