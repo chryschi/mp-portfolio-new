@@ -11,6 +11,19 @@ const CarouselItem = ({ imgUrl, imgTitle, projectUrlName, addRef }) => {
     console.log(`${imgTitle} was added to carousel!`);
   }, []);
 
+  // const handleClickOnCarouselCard = () => {
+  //   const currentItemRef = itemRef.current;
+  //   timer = setTimeout(() => {
+  //     currentItemRef.style.pointerEvents = "none";
+  //   }, 250);
+  // };
+
+  // const cleanUpTimeout = () => {
+  //   clearTimeout(timer);
+  //   const currentItemRef = itemRef.current;
+  //   currentItemRef.style.pointerEvents = "auto";
+  // };
+
   return (
     <>
       <Link
@@ -20,6 +33,8 @@ const CarouselItem = ({ imgUrl, imgTitle, projectUrlName, addRef }) => {
         }
       >
         <img
+          // onClick={handleClickOnCarouselCard}
+          // onMouseUp={cleanUpTimeout}
           ref={itemRef}
           className="carousel-img"
           src={imgUrl}

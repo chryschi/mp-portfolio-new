@@ -55,6 +55,7 @@ html {
   color: white;
   overflow: hidden;
   height: 50vh;
+  cursor: grab;
 }
 
 .carousel {
@@ -67,12 +68,11 @@ html {
 
 .carousel > Link {
   height: 100%;
-  pointer-events: auto;
 }
 
 .dragging {
-  cursor: grab;
   user-select: none;
+  cursor: grabbing;
 }
 
 .carousel-img {
