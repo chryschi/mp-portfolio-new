@@ -4,7 +4,7 @@ import { catalog } from "../pages/Aktuelles/catalog_Aktuelles";
 
 const CarouselItem = ({ imgUrl, imgTitle, projectUrlName, addRef }) => {
   const itemRef = useRef(null);
-  const { name } = useParams();
+  const { name, project, slideshow } = useParams();
 
   useEffect(() => {
     addRef(itemRef);
@@ -29,7 +29,11 @@ const CarouselItem = ({ imgUrl, imgTitle, projectUrlName, addRef }) => {
       <Link
         draggable="false"
         to={
-          projectUrlName in catalog ? `/${name}/${projectUrlName}` : "/notfound"
+          projectUrlName in catalog && project === undefined
+            ? `/${name}/${projectUrlName}`
+            : project in catalog
+            ? `/${name}/${projectUrlName}/slideshow`
+            : "/notfound"
         }
       >
         <img

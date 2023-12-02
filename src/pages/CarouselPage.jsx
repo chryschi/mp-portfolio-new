@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Carousel from "../../components/Carousel";
-import { catalog } from "./catalog_Aktuelles.jsx";
+import Carousel from "../components/Carousel.jsx";
+import { catalog } from "./Aktuelles/catalog_Aktuelles.jsx";
 
 const CarouselPage = () => {
   const { name, project } = useParams();
@@ -23,14 +23,6 @@ const CarouselPage = () => {
       <Carousel images={catalog[`${projectName}`].images} />
     </>
   );
-  //     if () {
-  //       return (<>
-  // <Carousel images={catalog[`${projectName}`].images} /></>);
-
-  //       } else if (name === "kontakt") {
-  //         return <
-
-  //       }
 };
 
 export default CarouselPage;
