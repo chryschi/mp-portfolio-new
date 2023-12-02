@@ -67,12 +67,12 @@ html {
 
 .carousel > Link {
   height: 100%;
+  pointer-events: auto;
 }
 
 .dragging {
   cursor: grab;
   user-select: none;
-  pointer-events: none;
 }
 
 .carousel-img {

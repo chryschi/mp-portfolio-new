@@ -18,6 +18,7 @@ const Carousel = ({ images }) => {
   const NUMBER_OF_CAROUSEL_CARDS = 2 * images.length;
   let childLeftPositions = [];
   let childRefsCopy = [];
+  let timer;
 
   useEffect(() => {
     const currentContainerRef = containerRef.current;
@@ -101,7 +102,28 @@ const Carousel = ({ images }) => {
     };
   }, []);
 
+  // useEffect(() => {
+  //   const currentCarouselRef = carouselTrackRef.current;
+  //   const timer = setTimeout(() => {
+  //     currentCarouselRef.style.pointerEvents = "none";
+  //   }, 300);
+  //   const handleClickOnCarouselCard = () => {};
+  //   currentCarouselRef.addEventListener("click", handleClickOnCarouselCard);
+
+  //   return () => {
+  //     clearTimeout(timer);
+  //     currentCarouselRef.removeEventListener(
+  //       "click",
+  //       handleClickOnCarouselCard
+  //     );
+  //   };
+  // });
+
   const dragStart = () => {
+    const currentCarouselRef = carouselTrackRef.current;
+    timer = setTimeout(() => {
+      currentCarouselRef.style.pointerEvents = "none";
+    }, 250);
     carouselTrackRef.current.style.transitionDuration = "0ms";
     const currentCarouselTranslation = getCurrentCarouselTranslation();
     setDraggingState(true);
@@ -162,6 +184,9 @@ const Carousel = ({ images }) => {
 
   const dragStop = () => {
     setDraggingState(false);
+    clearTimeout(timer);
+    const currentCarouselRef = carouselTrackRef.current;
+    currentCarouselRef.style.pointerEvents = "auto";
   };
 
   const addRef = (ref) => {
@@ -216,6 +241,7 @@ const Carousel = ({ images }) => {
     <>
       <div
         className="carousel-container"
+        // onClick={handleClickOnCarouselCard}
         onMouseDown={dragStart}
         onMouseMove={dragging}
         ref={containerRef}
