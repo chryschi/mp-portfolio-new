@@ -238,6 +238,7 @@ const Carousel = ({ images }) => {
               imgUrl={card.imgUrl}
               imgTitle={card.imgTitle}
               projectUrlName={card.projectUrlName}
+              content={card.content}
               addRef={addRef}
             />
           ))}
@@ -247,6 +248,7 @@ const Carousel = ({ images }) => {
               imgUrl={card.imgUrl}
               imgTitle={card.imgTitle}
               projectUrlName={card.projectUrlName}
+              content={card.content}
               addRef={addRef}
             />
           ))}

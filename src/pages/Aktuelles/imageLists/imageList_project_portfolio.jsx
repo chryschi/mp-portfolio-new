@@ -2,6 +2,14 @@ import IMAGES from "../../../assets/IMAGES";
 
 export const imagesProjectPortfolio = [
   {
+    projectUrlName: "portfolio",
+    content: [
+      "Das ist Paragraph eins",
+      "Das ist Paragraph zwei",
+      "Das ist Paragraph drei",
+    ],
+  },
+  {
     imgUrl: IMAGES.image6,
     imgTitle: "randomImage6",
     projectUrlName: "portfolio",
