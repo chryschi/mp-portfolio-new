@@ -1,8 +1,8 @@
-const SlideshowItem = () => {
+const SlideshowItem = ({ imgUrl, imgTitle }) => {
   return (
     <>
       <div className="slide-img-wrapper">
-        <img src="" alt="" />
+        <img src={imgUrl} alt={imgTitle} />
       </div>
     </>
   );

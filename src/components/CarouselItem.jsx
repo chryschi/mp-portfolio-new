@@ -31,7 +31,7 @@ const CarouselItem = ({ imgUrl, imgTitle, projectUrlName, addRef }) => {
         to={
           projectUrlName in catalog && project === undefined
             ? `/${name}/${projectUrlName}`
-            : project in catalog
+            : project in catalog && slideshow === undefined
             ? `/${name}/${projectUrlName}/slideshow`
             : "/notfound"
         }

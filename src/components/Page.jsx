@@ -6,7 +6,7 @@ import UeberMich from "../pages/UeberMich";
 import Menue from "../pages/Menue";
 import CarouselPage from "../pages/CarouselPage";
 import "../App.css";
-import Slideshow from "./Slideshow";
+import SlideshowPage from "../pages/SlideshowPage";
 
 const Page = () => {
   const { name, slideshow } = useParams();
@@ -23,8 +23,8 @@ const Page = () => {
       <Header />
       {slideshow !== "slideshow" && carouselPages.includes(name) ? (
         <CarouselPage />
-      ) : slideshow === "slideshow" ? (
-        <Slideshow />
+      ) : slideshow === "slideshow" && carouselPages.includes(name) ? (
+        <SlideshowPage />
       ) : name === "menue" ? (
         <Menue />
       ) : name === "kontakt" ? (
