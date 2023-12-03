@@ -5,9 +5,10 @@ import { useLayoutEffect } from "react";
 
 const Slideshow = ({ images }) => {
   // const { name, project } = useParams();
-  const sliderRef = useRef(null);
+
   const [currentImageIndex, setCurrentImageIndex] = useState(1);
   const [translateX, setTranslateX] = useState(0);
+  const sliderRef = useRef(null);
   const lastImage = images[0];
   const firstImage = images[images.length - 1];
   const GAP_FACTOR_OF_WINDOW_WIDTH = 0.2;
@@ -49,29 +50,31 @@ const Slideshow = ({ images }) => {
       window.innerWidth * (currentImageIndex - 0.5 * GAP_FACTOR_OF_WINDOW_WIDTH)
     );
   }, []);
+  const transitionEnd = () => {
+    if (currentImageIndex <= 1) {
+      currentSliderRef.style.transitionDuration = "0ms";
+      setTranslateX(
+        window.innerWidth *
+          (currentImageIndex - 0.5 * GAP_FACTOR_OF_WINDOW_WIDTH)
+      );
+    } else if (currentImageIndex >= images.length) {
+      currentSliderRef.style.transitionDuration = "0ms";
+      setTranslateX(
+        window.innerWidth * (images.length - 0.5 * GAP_FACTOR_OF_WINDOW_WIDTH)
+      );
+    }
+  };
 
   useEffect(() => {
-    const currentSliderRef = sliderRef.current;
-    const transitionEnd = () => {
-      if (currentImageIndex <= 1) {
-        currentSliderRef.style.transitionDuration = "0ms";
-        setTranslateX(
-          window.innerWidth *
-            (currentImageIndex - 0.5 * GAP_FACTOR_OF_WINDOW_WIDTH)
-        );
-      } else if (currentImageIndex >= images.length) {
-        currentSliderRef.style.transitionDuration = "0ms";
-        setTranslateX(
-          window.innerWidth * (images.length - 0.5 * GAP_FACTOR_OF_WINDOW_WIDTH)
-        );
-      }
-    };
+    if (images.length > 1) {
+      const currentSliderRef = sliderRef.current;
 
-    currentSliderRef.addEventListener("transitionend", transitionEnd);
+      currentSliderRef.addEventListener("transitionend", transitionEnd);
 
-    return () => {
-      currentSliderRef.removeEventListener("transitionend", transitionEnd);
-    };
+      return () => {
+        currentSliderRef.removeEventListener("transitionend", transitionEnd);
+      };
+    }
   }, [currentImageIndex, images]);
 
   if (images.length > 1) {

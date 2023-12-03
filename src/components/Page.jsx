@@ -9,7 +9,7 @@ import "../App.css";
 import SlideshowPage from "../pages/SlideshowPage";
 
 const Page = () => {
-  const { name, slideshow, projektbeschreibung } = useParams();
+  const { name, slideshow } = useParams();
 
   const carouselPages = [
     "innenarchitektur",
@@ -21,10 +21,10 @@ const Page = () => {
   return (
     <>
       <Header />
-      {slideshow !== "slideshow" && carouselPages.includes(name) ? (
+      {slideshow === undefined && carouselPages.includes(name) ? (
         <CarouselPage />
-      ) : (slideshow === "slideshow" && carouselPages.includes(name)) ||
-        projektbeschreibung === "projektbeschreibung" ? (
+      ) : (slideshow === "projektbeschreibung" || slideshow === "slideshow") &&
+        carouselPages.includes(name) ? (
         <SlideshowPage />
       ) : name === "menue" ? (
         <Menue />

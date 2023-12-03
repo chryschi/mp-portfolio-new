@@ -7,7 +7,6 @@ const Router = () => {
   const router = createBrowserRouter([
     { path: "/", element: <App /> },
     { path: "/:name/:project?/:slideshow?", element: <Page /> },
-    { path: "/:name/:project?/:projektbeschreibung?", element: <Page /> },
   ]);
 
   return <RouterProvider router={router} />;
