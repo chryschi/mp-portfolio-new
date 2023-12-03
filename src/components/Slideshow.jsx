@@ -50,38 +50,28 @@ const Slideshow = ({ images }) => {
       window.innerWidth * (currentImageIndex - 0.5 * GAP_FACTOR_OF_WINDOW_WIDTH)
     );
   }, []);
+  //
   const transitionEnd = () => {
     if (currentImageIndex <= 1) {
-      currentSliderRef.style.transitionDuration = "0ms";
+      sliderRef.current.style.transitionDuration = "0ms";
       setTranslateX(
         window.innerWidth *
           (currentImageIndex - 0.5 * GAP_FACTOR_OF_WINDOW_WIDTH)
       );
     } else if (currentImageIndex >= images.length) {
-      currentSliderRef.style.transitionDuration = "0ms";
+      sliderRef.current.style.transitionDuration = "0ms";
       setTranslateX(
         window.innerWidth * (images.length - 0.5 * GAP_FACTOR_OF_WINDOW_WIDTH)
       );
     }
   };
 
-  useEffect(() => {
-    if (images.length > 1) {
-      const currentSliderRef = sliderRef.current;
-
-      currentSliderRef.addEventListener("transitionend", transitionEnd);
-
-      return () => {
-        currentSliderRef.removeEventListener("transitionend", transitionEnd);
-      };
-    }
-  }, [currentImageIndex, images]);
-
   if (images.length > 1) {
     return (
       <>
         <div className="slideshow-container">
           <div
+            onTransitionEnd={transitionEnd}
             ref={sliderRef}
             className="slider"
             style={{
