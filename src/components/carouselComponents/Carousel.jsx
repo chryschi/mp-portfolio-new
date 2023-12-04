@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useLayoutEffect } from "react";
 import CarouselItem from "./CarouselItem";
 
 const Carousel = ({ images }) => {
@@ -18,6 +18,11 @@ const Carousel = ({ images }) => {
   let childLeftPositions = [];
   let childRefsCopy = [];
   let timer;
+
+  useLayoutEffect(() => {
+    const carouselRealWidth = carouselTrackRef.current.scrollWidth;
+    changeTranslateValue(-0.5 * carouselRealWidth);
+  });
 
   useEffect(() => {
     const currentContainerRef = containerRef.current;
