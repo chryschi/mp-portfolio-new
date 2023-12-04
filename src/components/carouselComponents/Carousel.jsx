@@ -241,6 +241,7 @@ const Carousel = ({ images }) => {
           {images.map((card, idx) => (
             <CarouselItem
               key={idx}
+              id={idx}
               imgUrl={card.imgUrl}
               imgTitle={card.imgTitle}
               projectUrlName={card.projectUrlName}
@@ -251,6 +252,7 @@ const Carousel = ({ images }) => {
           {images.map((card, idx) => (
             <CarouselItem
               key={idx + images.length}
+              id={idx + images.length}
               imgUrl={card.imgUrl}
               imgTitle={card.imgTitle}
               projectUrlName={card.projectUrlName}

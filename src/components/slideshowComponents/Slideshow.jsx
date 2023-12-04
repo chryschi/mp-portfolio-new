@@ -1,13 +1,23 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useLayoutEffect,
+  useContext,
+} from "react";
 import SlideshowItem from "./SlideshowItem";
-import { useLayoutEffect } from "react";
+import { PageContext } from "../Page";
+
 import TextSlideshowItem from "./TextSlideshowItem";
 
 const Slideshow = ({ images }) => {
-  // const { name, project } = useParams();
-
-  const [currentImageIndex, setCurrentImageIndex] = useState(1);
+  const { firstImageIndexInSlideshow } = useContext(PageContext);
+  const transformIndex = () =>
+    firstImageIndexInSlideshow < images.length + 1
+      ? firstImageIndexInSlideshow
+      : firstImageIndexInSlideshow - images.length - 1;
+  const [currentImageIndex, setCurrentImageIndex] = useState(transformIndex);
   const [translateX, setTranslateX] = useState(0);
   const sliderRef = useRef(null);
   const lastImage = images[0];

@@ -1,24 +1,30 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { catalog } from "../../pages/Aktuelles/catalog_Aktuelles";
 import TextCarouselItem from "./TextCarouselItem";
+import { useContext } from "react";
+import { PageContext } from "../Page";
 
 const CarouselItem = ({
+  id,
   imgUrl,
   imgTitle,
   projectUrlName,
   addRef,
   content,
 }) => {
+  const { setFirstImageIndexInSlideshow } = useContext(PageContext);
   const itemRef = useRef(null);
   const { name, project, slideshow } = useParams();
 
   useEffect(() => {
     addRef(itemRef);
-    console.log(
-      `item was mounted with img Url ${imgUrl} and content ${content}`
-    );
   }, []);
+
+  const handleSelectImage = () => {
+    setFirstImageIndexInSlideshow(id);
+    console.log(`id ${id} was set! imgUrl ${imgUrl}`);
+  };
 
   if (imgUrl !== undefined) {
     return (
@@ -32,6 +38,7 @@ const CarouselItem = ({
               ? `/${name}/${projectUrlName}/slideshow`
               : "/notfound"
           }
+          onClick={handleSelectImage}
         >
           <figure>
             <figcaption style={{ visibility: "hidden" }}>{imgTitle}</figcaption>
