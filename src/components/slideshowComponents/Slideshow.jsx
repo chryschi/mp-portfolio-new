@@ -69,7 +69,15 @@ const Slideshow = ({ images }) => {
 
   if (images.length > 1) {
     return (
-      <>
+      <main>
+        <section className="button-scroll">
+          <div onClick={() => scrollToChild("previous")} className="previous">
+            <span className="material-symbols-outlined">navigate_before</span>
+          </div>
+          <div onClick={() => scrollToChild("next")} className="next">
+            <span className="material-symbols-outlined">navigate_next</span>
+          </div>
+        </section>
         <div className="slideshow-container">
           <div
             onTransitionEnd={transitionEnd}
@@ -101,19 +109,21 @@ const Slideshow = ({ images }) => {
             />
           </div>
         </div>
-        <div>
+        {/* <div>
           <button onClick={() => scrollToChild("previous")}>previous</button>
           <button onClick={() => scrollToChild("next")}>next</button>
+        </div> */}
+        <div className="slider-counter-container">
+          <div className="slider-counter">
+            {currentImageIndex === 0
+              ? images.length
+              : currentImageIndex === images.length + 1
+              ? 1
+              : currentImageIndex}
+            /{images.length}
+          </div>
         </div>
-        <div>
-          {currentImageIndex === 0
-            ? images.length
-            : currentImageIndex === images.length + 1
-            ? 1
-            : currentImageIndex}
-          /{images.length}
-        </div>
-      </>
+      </main>
     );
   } else {
     return (

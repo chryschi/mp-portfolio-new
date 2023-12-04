@@ -3,6 +3,8 @@
   padding: 0;
   text-align: center;
   width: 100%;
+
+  --accent-color: rgb(255, 82, 13);
 }
 
 body,
@@ -66,6 +68,36 @@ figure {
   height: 100%;
 }
 
+.button-scroll {
+  position: absolute;
+  height: 80vh;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  z-index: 10;
+}
+
+.button-scroll div {
+  width: 40vw;
+  display: flex;
+  align-items: center;
+}
+
+.button-scroll div:hover {
+  cursor: pointer;
+  color: var(--accent-color);
+}
+
+.button-scroll span {
+  position: absolute;
+}
+.previous span {
+  left: 3%;
+}
+.next span {
+  right: 3%;
+}
+
 .slideshow-container {
   width: 100%;
   overflow: hidden;
@@ -107,7 +139,13 @@ figure {
   align-self: flex-start;
 }
 
-.blue {
+.slider-counter-container {
+  display: flex;
+  justify-content: end;
+  padding: 1% 3%;
+}
+
+.slider .blue {
   background: blue;
 }
 
