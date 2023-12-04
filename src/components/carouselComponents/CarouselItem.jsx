@@ -30,15 +30,17 @@ const CarouselItem = ({
               : "/notfound"
           }
         >
-          <img
-            // onClick={handleClickOnCarouselCard}
-            // onMouseUp={cleanUpTimeout}
-            ref={itemRef}
-            className="carousel-img"
-            src={imgUrl}
-            alt={imgTitle}
-            draggable="false"
-          />
+          <figure>
+            <figcaption style={{ visibility: "hidden" }}>{imgTitle}</figcaption>
+            <img
+              ref={itemRef}
+              className="carousel-img"
+              src={imgUrl}
+              alt={imgTitle}
+              draggable="false"
+            />{" "}
+            <figcaption className="img-caption">{imgTitle}</figcaption>
+          </figure>
         </Link>
       </>
     );
