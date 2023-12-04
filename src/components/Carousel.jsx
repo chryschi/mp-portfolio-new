@@ -238,7 +238,7 @@ const Carousel = ({ images }) => {
               imgUrl={card.imgUrl}
               imgTitle={card.imgTitle}
               projectUrlName={card.projectUrlName}
-              content={card.content}
+              content={card.previewContent}
               addRef={addRef}
             />
           ))}
@@ -248,7 +248,7 @@ const Carousel = ({ images }) => {
               imgUrl={card.imgUrl}
               imgTitle={card.imgTitle}
               projectUrlName={card.projectUrlName}
-              content={card.content}
+              content={card.previewContent}
               addRef={addRef}
             />
           ))}

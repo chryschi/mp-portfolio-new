@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import SlideshowItem from "./SlideshowItem";
 import { useLayoutEffect } from "react";
+import TextSlideshowItem from "./TextSlideshowItem";
 
 const Slideshow = ({ images }) => {
   // const { name, project } = useParams();
@@ -110,11 +111,7 @@ const Slideshow = ({ images }) => {
     return (
       <div className="slideshow-container">
         <div className="slider">
-          <SlideshowItem
-            imgUrl={images[0].imgUrl}
-            imgTitle={images[0].imgTitle}
-            // project={firstImage.projectUrlName}
-          />
+          <TextSlideshowItem content={images[0].fullContent} />
         </div>
       </div>
     );

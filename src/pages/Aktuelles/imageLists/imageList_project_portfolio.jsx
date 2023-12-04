@@ -3,7 +3,16 @@ import IMAGES from "../../../assets/IMAGES";
 export const imagesProjectPortfolio = [
   {
     projectUrlName: "portfolio",
-    content: [
+    fullContent: {
+      bigTitle: "Projekt Protfolio (2023)",
+      smallTitle: "Das war toll",
+      paragraphs: [
+        "Das ist Paragraph eins full content",
+        "Das ist Paragraph zwei full content",
+        "Das ist Paragraph drei full content",
+      ],
+    },
+    previewContent: [
       "Das ist Paragraph eins",
       "Das ist Paragraph zwei",
       "Das ist Paragraph drei",
