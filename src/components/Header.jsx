@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 const Header = () => {
-  const { name, project } = useParams();
+  const { name, project, slideshow } = useParams();
   const [currentPage, setCurrentPage] = useState();
 
-  const title =
+  const mainPageTitle =
     name === "innenarchitektur"
       ? "Innenarchitektur"
       : name === "grafikdesign"
@@ -41,18 +41,32 @@ const Header = () => {
   return (
     <div>
       {project === undefined ? (
-        title
-      ) : (
+        mainPageTitle
+      ) : project !== undefined && slideshow === undefined ? (
         <>
           {projectTitles[project]}
           <Link to={`/${name}`}>
             <span className="material-symbols-outlined">close</span>
           </Link>
         </>
+      ) : (
+        ""
       )}
-      <Link to={name === "menue" ? currentPage : "/menue"}>
+      <Link
+        to={
+          name === "menue" ||
+          slideshow === "slideshow" ||
+          slideshow === "projektbeschreibung"
+            ? currentPage
+            : "/menue"
+        }
+      >
         <span className="material-symbols-outlined">
-          {name === "menue" ? "close" : "menu"}
+          {name === "menue" ||
+          slideshow === "slideshow" ||
+          slideshow === "projektbeschreibung"
+            ? "close"
+            : "menu"}
         </span>
       </Link>
     </div>
