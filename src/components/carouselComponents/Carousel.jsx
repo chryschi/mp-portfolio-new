@@ -22,7 +22,7 @@ const Carousel = ({ images }) => {
   useLayoutEffect(() => {
     const carouselRealWidth = carouselTrackRef.current.scrollWidth;
     changeTranslateValue(-0.5 * carouselRealWidth);
-  });
+  }, []);
 
   useEffect(() => {
     const currentContainerRef = containerRef.current;
