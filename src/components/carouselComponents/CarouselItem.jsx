@@ -15,6 +15,9 @@ const CarouselItem = ({
 
   useEffect(() => {
     addRef(itemRef);
+    console.log(
+      `item was mounted with img Url ${imgUrl} and content ${content}`
+    );
   }, []);
 
   if (imgUrl !== undefined) {
@@ -38,7 +41,7 @@ const CarouselItem = ({
               src={imgUrl}
               alt={imgTitle}
               draggable="false"
-            />{" "}
+            />
             <figcaption className="img-caption">{imgTitle}</figcaption>
           </figure>
         </Link>

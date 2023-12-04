@@ -5,7 +5,6 @@ const SlideshowItem = ({ imgUrl, imgTitle }) => {
         <figure>
           <figcaption style={{ visibility: "hidden" }}>{imgTitle}</figcaption>
           <img src={imgUrl} alt={imgTitle} />
-
           <figcaption className="img-caption">{imgTitle}</figcaption>
         </figure>
       </div>
