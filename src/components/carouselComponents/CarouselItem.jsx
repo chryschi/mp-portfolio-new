@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
-import { catalog } from "../pages/Aktuelles/catalog_Aktuelles";
+import { catalog } from "../../pages/Aktuelles/catalog_Aktuelles";
 import TextCarouselItem from "./TextCarouselItem";
 
 const CarouselItem = ({

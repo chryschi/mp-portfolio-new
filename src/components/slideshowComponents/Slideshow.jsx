@@ -105,6 +105,14 @@ const Slideshow = ({ images }) => {
           <button onClick={() => scrollToChild("previous")}>previous</button>
           <button onClick={() => scrollToChild("next")}>next</button>
         </div>
+        <div>
+          {currentImageIndex === 0
+            ? images.length
+            : currentImageIndex === images.length + 1
+            ? 1
+            : currentImageIndex}
+          /{images.length}
+        </div>
       </>
     );
   } else {

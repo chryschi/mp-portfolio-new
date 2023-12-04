@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { catalog } from "./Aktuelles/catalog_Aktuelles.jsx";
-import Slideshow from "../components/Slideshow.jsx";
+import Slideshow from "../components/slideshowComponents/Slideshow.jsx";
 
 const SlideshowPage = () => {
   const { name, project, slideshow } = useParams();
