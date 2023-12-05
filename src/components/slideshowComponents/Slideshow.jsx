@@ -13,18 +13,23 @@ import TextSlideshowItem from "./TextSlideshowItem";
 
 const Slideshow = ({ images }) => {
   const { firstImageIndexInSlideshow } = useContext(PageContext);
+
   const transformIndex = () =>
     firstImageIndexInSlideshow < images.length + 1
       ? firstImageIndexInSlideshow
       : firstImageIndexInSlideshow - images.length - 1;
   const [currentImageIndex, setCurrentImageIndex] = useState(transformIndex);
   const [translateX, setTranslateX] = useState(0);
+  const [disableScrollNavigation, setDisableScrollNavigation] = useState(false);
+
   const sliderRef = useRef(null);
+
   const lastImage = images[0];
   const firstImage = images[images.length - 1];
   const GAP_FACTOR_OF_WINDOW_WIDTH = 0.2;
 
   const scrollToChild = (mode) => {
+    setDisableScrollNavigation(true);
     sliderRef.current.style.transitionDuration = "400ms";
     if (mode === "next") {
       if (currentImageIndex >= images.length) {
@@ -63,6 +68,8 @@ const Slideshow = ({ images }) => {
   }, []);
   //
   const transitionEnd = () => {
+    setDisableScrollNavigation(false);
+
     if (currentImageIndex <= 1) {
       sliderRef.current.style.transitionDuration = "0ms";
       setTranslateX(
@@ -80,7 +87,12 @@ const Slideshow = ({ images }) => {
   if (images.length > 1) {
     return (
       <main>
-        <section className="button-scroll">
+        <section
+          className={
+            "button-scroll " +
+            (disableScrollNavigation ? "disable-navigation" : "")
+          }
+        >
           <div onClick={() => scrollToChild("previous")} className="previous">
             <span className="material-symbols-outlined">navigate_before</span>
           </div>

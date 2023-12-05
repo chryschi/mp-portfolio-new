@@ -149,6 +149,10 @@ figure {
   background: blue;
 }
 
+.disable-navigation {
+  pointer-events: none;
+}
+
 .green {
   background: green;
 }

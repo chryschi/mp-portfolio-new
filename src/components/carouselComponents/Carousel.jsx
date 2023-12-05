@@ -7,6 +7,7 @@ const Carousel = ({ images }) => {
   const [startPosX, setStartPosX] = useState();
   const [startTranslatePosition, setStartTranslatePosition] = useState();
   const [childRefs, setChildRefs] = useState([]);
+  const [disableButton, setDisableButton] = useState(false);
 
   const containerRef = useRef(null);
   const carouselTrackRef = useRef(null);
@@ -45,6 +46,7 @@ const Carousel = ({ images }) => {
   useEffect(() => {
     const currentCarouselRef = carouselTrackRef.current;
     const transitionEnd = () => {
+      setDisableButton(false);
       const carouselRealWidth = carouselTrackRef.current.scrollWidth;
       const currentTranslation = getCurrentCarouselTranslation();
 
@@ -185,6 +187,7 @@ const Carousel = ({ images }) => {
   };
 
   const scrollToChild = (mode) => {
+    setDisableButton(true);
     carouselTrackRef.current.style.transitionDuration = "400ms";
     const carouselRealWidth = carouselTrackRef.current.scrollWidth;
     const currentTranslation = getCurrentCarouselTranslation();
@@ -271,8 +274,18 @@ const Carousel = ({ images }) => {
       <div>
         <p>Scrollen oder Klicken und Ziehen</p>
         <div>
-          <button onClick={() => scrollToChild("previous")}>links</button>
-          <button onClick={() => scrollToChild("next")}>rechts</button>
+          <button
+            disabled={disableButton}
+            onClick={() => scrollToChild("previous")}
+          >
+            links
+          </button>
+          <button
+            disabled={disableButton}
+            onClick={() => scrollToChild("next")}
+          >
+            rechts
+          </button>
         </div>
       </div>
     </>
