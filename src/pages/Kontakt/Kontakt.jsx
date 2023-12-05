@@ -26,8 +26,8 @@ const Kontakt = () => {
         kann.
       </h1>
       <ul>
-        {contacts.map((entry) => (
-          <li>
+        {contacts.map((entry, idx) => (
+          <li key={idx}>
             <h3>{entry.label}</h3>
             <p>
               <a>{entry.linkContent}</a>

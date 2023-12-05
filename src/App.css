@@ -7,6 +7,10 @@
   --accent-color: rgb(255, 82, 13);
 }
 
+* {
+  margin: 0;
+}
+
 body,
 html {
   width: 100%;
@@ -145,18 +149,40 @@ figure {
   padding: 1% 3%;
 }
 
-.slider .blue {
-  background: blue;
+.slide-text-wrapper {
+  display: flex;
+  position: relative;
+  height: 100%;
+  width: 30vw;
+  left: 35vw;
+}
+
+.project-description {
+  overflow-y: hidden;
+}
+
+.scrollbar {
+  margin-left: 10px;
+}
+
+.scrollbar-thumb {
+  position: relative;
+  height: 15px;
+  width: 15px;
+  background-color: #bbb;
+  border-radius: 50%;
+  left: 4px;
+  z-index: 5;
+}
+
+.scrollbar-track {
+  border-left: 1px solid rgb(255, 230, 230);
+  height: 100%;
+  position: relative;
+  left: 11px;
+  opacity: 30%;
 }
 
 .disable-navigation {
   pointer-events: none;
-}
-
-.green {
-  background: green;
-}
-
-.red {
-  background: red;
 }
