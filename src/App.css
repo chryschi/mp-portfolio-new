@@ -1,7 +1,7 @@
 #root {
   margin: 0 auto;
   padding: 0;
-  text-align: center;
+  text-align: left;
   width: 100%;
 
   --accent-color: rgb(255, 82, 13);
@@ -15,7 +15,6 @@ body,
 html {
   width: 100%;
   background-image: url("assets/pattern_04.png");
-  /* background-repeat: round; */
   background-size: 120%;
 }
 
@@ -138,7 +137,6 @@ figure {
 }
 
 .slide-img-wrapper figcaption {
-  /* position: absolute; */
   writing-mode: vertical-rl;
   align-self: flex-start;
 }
@@ -157,31 +155,49 @@ figure {
   left: 35vw;
 }
 
-.project-description {
-  overflow-y: hidden;
+.description-container {
+  overflow-x: hidden;
 }
 
-.scrollbar {
-  margin-left: 10px;
+.description-container::-webkit-scrollbar {
+  width: 1px;
+}
+.description-container::-webkit-scrollbar-track {
+  width: 1px;
+  background: #888;
+}
+.description-container::-webkit-scrollbar-thumb {
+  background: white;
 }
 
-.scrollbar-thumb {
+/* KEEP FOR CUSTOM SCROLLBAR */
+
+/* .scrollbar { */
+/* margin-left: 10px; */
+/* padding: 10px 20px; */
+/* } */
+
+/* .scrollbar-thumb {
   position: relative;
   height: 15px;
   width: 15px;
   background-color: #bbb;
   border-radius: 50%;
-  left: 4px;
   z-index: 5;
+}
+
+.scrollbar-thumb:hover {
+  scale: 1.2;
+  cursor: pointer;
 }
 
 .scrollbar-track {
   border-left: 1px solid rgb(255, 230, 230);
   height: 100%;
   position: relative;
-  left: 11px;
+  left: 7px;
   opacity: 30%;
-}
+} */
 
 .disable-navigation {
   pointer-events: none;
