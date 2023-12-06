@@ -86,7 +86,7 @@ const Slideshow = ({ images }) => {
 
   if (images.length > 1) {
     return (
-      <main>
+      <>
         <section
           className={
             "button-scroll " +
@@ -145,7 +145,7 @@ const Slideshow = ({ images }) => {
             /{images.length}
           </div>
         </div>
-      </main>
+      </>
     );
   } else {
     return (

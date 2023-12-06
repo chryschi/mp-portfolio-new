@@ -3,7 +3,10 @@
   padding: 0;
   text-align: left;
   width: 100%;
-
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   --accent-color: rgb(255, 82, 13);
 }
 
@@ -16,6 +19,23 @@ html {
   width: 100%;
   background-image: url("assets/pattern_04.png");
   background-size: 120%;
+}
+
+/* header */
+header {
+  padding: 50px;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  padding: 25px 0;
 }
 
 figure {
@@ -32,10 +52,11 @@ figure {
 }
 
 .carousel-container {
+  padding: 50px 0;
   max-width: 100%;
   color: white;
   overflow: hidden;
-  height: 50vh;
+  height: 60vh;
   cursor: grab;
 }
 
@@ -60,6 +81,20 @@ figure {
 .carousel figcaption {
   writing-mode: vertical-rl;
   align-self: flex-start;
+  overflow: hidden;
+  margin-right: 26px;
+  margin-left: 14px;
+}
+
+.carousel .img-caption {
+  transform: translate3d(-20px, 0px, 0px);
+  transition: transform 200ms ease;
+}
+
+.carousel-navigation {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 50px;
 }
 
 .dragging {

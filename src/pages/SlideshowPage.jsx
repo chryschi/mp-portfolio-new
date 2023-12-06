@@ -18,13 +18,13 @@ const SlideshowPage = () => {
   }, [name, project]);
 
   return (
-    <>
+    <main>
       {slideshow === "slideshow" ? (
         <Slideshow images={images.slice(1)} />
       ) : (
         <Slideshow images={images.slice(0, 1)} />
       )}
-    </>
+    </main>
   );
 };
 

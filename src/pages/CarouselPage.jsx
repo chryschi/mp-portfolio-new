@@ -7,13 +7,13 @@ const CarouselPage = () => {
   const { name, project } = useParams();
 
   return (
-    <>
+    <main>
       {project === undefined ? (
         <Carousel images={catalog[`${name}`].images} />
       ) : (
         <Carousel images={catalog[`${project}`].images} />
       )}
-    </>
+    </main>
   );
 };
 

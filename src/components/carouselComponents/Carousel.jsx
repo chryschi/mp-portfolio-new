@@ -14,7 +14,7 @@ const Carousel = ({ images }) => {
 
   const UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = -0.2;
   const LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = -0.7;
-  const PREFERED_FIRST_CHILD_POSITION = 0;
+  const PREFERED_FIRST_CHILD_POSITION = 50;
   const NUMBER_OF_CAROUSEL_CARDS = 2 * images.length;
   let childLeftPositions = [];
   let childRefsCopy = [];
@@ -60,17 +60,13 @@ const Carousel = ({ images }) => {
         }
       );
       const nextChildLeft = childLeftPositions[nextChildIndex];
-      const nextPos = Math.round(
-        currentTranslation - (nextChildLeft - PREFERED_FIRST_CHILD_POSITION)
-      );
-
+      const nextPos =
+        currentTranslation - (nextChildLeft - PREFERED_FIRST_CHILD_POSITION);
       const previousChildLeft = childLeftPositions[nextChildIndex - 1];
       if (previousChildLeft) {
-        const previousPos = Math.round(
+        const previousPos =
           currentTranslation -
-            (previousChildLeft - PREFERED_FIRST_CHILD_POSITION)
-        );
-
+          (previousChildLeft - PREFERED_FIRST_CHILD_POSITION);
         nextPos <= previousPos
           ? infiniteSlide(nextPos, carouselRealWidth)
           : infiniteSlide(previousPos, carouselRealWidth);
@@ -125,7 +121,7 @@ const Carousel = ({ images }) => {
 
     const carouselRealWidth = carouselTrackRef.current.scrollWidth;
     const mouseMoveDelta = mousePosX - startPosX;
-    const newTranslateValue = Math.ceil(
+    const newTranslateValue = Math.round(
       startTranslatePosition + mouseMoveDelta
     );
     changeTranslateValue(newTranslateValue);
@@ -145,7 +141,7 @@ const Carousel = ({ images }) => {
     ) {
       let current = getCurrentCarouselTranslation();
       current -= 0.5 * carouselRealWidth;
-      current = Math.ceil(current);
+      current = Math.round(current);
       carouselTrackRef.current.style.transitionDuration = "0ms";
       changeTranslateValue(current);
     } else if (
@@ -154,7 +150,7 @@ const Carousel = ({ images }) => {
     ) {
       let current = getCurrentCarouselTranslation();
       current += 0.5 * carouselRealWidth;
-      current = Math.ceil(current);
+      current = Math.round(current);
       carouselTrackRef.current.style.transitionDuration = "0ms";
 
       changeTranslateValue(current);
@@ -165,10 +161,8 @@ const Carousel = ({ images }) => {
     const currentCarouselTranslation = getComputedStyle(
       document.documentElement
     ).getPropertyValue("--scrollPos");
-    const roundedTranslation = Math.ceil(
-      Number(currentCarouselTranslation.slice(0, -2))
-    );
-    return roundedTranslation;
+    const translation = Number(currentCarouselTranslation.slice(0, -2));
+    return translation;
   };
 
   const dragStop = () => {
@@ -210,20 +204,22 @@ const Carousel = ({ images }) => {
 
     if (mode === "next") {
       const nextChildLeft = childLeftPositions[nextChildIndex];
-      let newPos = Math.round(
-        currentTranslation - (nextChildLeft - PREFERED_FIRST_CHILD_POSITION)
-      );
+      let newPos =
+        currentTranslation - (nextChildLeft - PREFERED_FIRST_CHILD_POSITION);
       changeTranslateValue(newPos);
     }
 
     if (mode === "previous") {
       let previousChildLeft = childLeftPositions[nextChildIndex - 2];
-      if (Math.round(childLeftPositions[nextChildIndex - 1]) < 0) {
+      if (
+        Math.round(childLeftPositions[nextChildIndex - 1]) <
+        PREFERED_FIRST_CHILD_POSITION
+      ) {
         previousChildLeft = childLeftPositions[nextChildIndex - 1];
       }
-      let newPos = Math.round(
-        currentTranslation - (previousChildLeft - PREFERED_FIRST_CHILD_POSITION)
-      );
+      let newPos =
+        currentTranslation -
+        (previousChildLeft - PREFERED_FIRST_CHILD_POSITION);
       changeTranslateValue(newPos);
     }
   };
@@ -271,9 +267,9 @@ const Carousel = ({ images }) => {
         </div>
       </div>
 
-      <div>
-        <p>Scrollen oder Klicken und Ziehen</p>
-        <div>
+      <div className="carousel-navigation">
+        <p className="carousel-nav-text">Scrollen oder Klicken und Ziehen</p>
+        <div className="carousel-buttons">
           <button
             disabled={disableButton}
             onClick={() => scrollToChild("previous")}
@@ -287,6 +283,9 @@ const Carousel = ({ images }) => {
             rechts
           </button>
         </div>
+        <p className="carousel-nav-text" style={{ visibility: "hidden" }}>
+          Scrollen oder Klicken und Ziehen
+        </p>
       </div>
     </>
   );

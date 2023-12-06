@@ -39,7 +39,7 @@ const Header = () => {
   }, [name, project]);
 
   return (
-    <div>
+    <header>
       {project === undefined ? (
         mainPageTitle
       ) : project !== undefined && slideshow === undefined ? (
@@ -69,7 +69,7 @@ const Header = () => {
             : "menu"}
         </span>
       </Link>
-    </div>
+    </header>
   );
 };
 

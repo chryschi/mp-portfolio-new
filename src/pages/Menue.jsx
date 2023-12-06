@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Menue = () => {
   return (
-    <div>
+    <main>
       <ul>
         <Link to="/aktuelles">Aktuelles</Link>
         <Link to="/architektur">Architektur</Link>
@@ -11,7 +11,7 @@ const Menue = () => {
         <Link to="/kontakt">Kontakt</Link>
         <Link to="/uebermich">Über mich</Link>
       </ul>
-    </div>
+    </main>
   );
 };
 

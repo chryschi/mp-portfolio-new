@@ -16,6 +16,7 @@ const CarouselItem = ({
   const { setFirstImageIndexInSlideshow } = useContext(PageContext);
   const itemRef = useRef(null);
   const { name, project, slideshow } = useParams();
+  const [translateCaption, setTranslateCaption] = useState(-20);
 
   useEffect(() => {
     addRef(itemRef);
@@ -24,6 +25,13 @@ const CarouselItem = ({
   const handleSelectImage = () => {
     setFirstImageIndexInSlideshow(id);
     console.log(`id ${id} was set! imgUrl ${imgUrl}`);
+  };
+
+  const showImageCaption = () => {
+    setTranslateCaption(0);
+  };
+  const hideImageCaption = () => {
+    setTranslateCaption(-20);
   };
 
   if (imgUrl !== undefined) {
@@ -41,15 +49,26 @@ const CarouselItem = ({
           onClick={handleSelectImage}
         >
           <figure>
-            <figcaption style={{ visibility: "hidden" }}>{imgTitle}</figcaption>
+            {/* <figcaption style={{ visibility: "hidden" }}>{imgTitle}</figcaption> */}
             <img
               ref={itemRef}
               className="carousel-img"
+              onMouseEnter={showImageCaption}
+              onMouseLeave={hideImageCaption}
               src={imgUrl}
               alt={imgTitle}
               draggable="false"
             />
-            <figcaption className="img-caption">{imgTitle}</figcaption>
+            <figcaption>
+              <div
+                className="img-caption"
+                style={{
+                  transform: `translate3d(${translateCaption}px, 0px, 0px)`,
+                }}
+              >
+                {imgTitle}
+              </div>
+            </figcaption>
           </figure>
         </Link>
       </>
