@@ -55,7 +55,7 @@ const TextSlideshowItem = ({ content }) => {
 
   return (
     <div className="slide-text-wrapper">
-      <div
+      <article
         className="description-container"
         // ref={descriptionContainerRef}
       >
@@ -64,7 +64,7 @@ const TextSlideshowItem = ({ content }) => {
         {content.paragraphs.map((paragraph, idx) => (
           <p key={idx}>{paragraph}</p>
         ))}
-      </div>
+      </article>
       {/* <div className="scrollbar">
         <div
           className="scrollbar-thumb"

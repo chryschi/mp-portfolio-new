@@ -3,38 +3,44 @@ const Kontakt = () => {
     {
       label: "Überrasch mich mit einem Anruf",
       linkContent: "+49 (0) 159 04 233 041",
+      // linkUrl:,
     },
     {
       label: "Oder per EMail",
       linkContent: "prechtl.marius@googlemail.com",
+      // linkUrl:,
     },
     {
       label: "Folge mir auf Pinterest",
       linkContent: "mariusprechtl",
+      // linkUrl:,
     },
     {
       label: "Und auf Instagram",
       linkContent: "mariusprechtl",
+      // linkUrl:,
     },
   ];
 
   return (
     <main>
-      <h1>
+      <h2 className="call-to-action">
         Zeitlose und minimalistische Architektur für jeden. Let's do this. Da
         muss mir noch irgendwas tolles einfallen, was man hier hinschreiben
         kann.
-      </h1>
-      <ul>
-        {contacts.map((entry, idx) => (
-          <li key={idx}>
-            <h3>{entry.label}</h3>
-            <p>
-              <a>{entry.linkContent}</a>
-            </p>
-          </li>
-        ))}
-      </ul>
+      </h2>
+      <address>
+        <ul>
+          {contacts.map((entry, idx) => (
+            <li key={idx}>
+              <p className="address-type">{entry.label}</p>
+              <p>
+                <a>{entry.linkContent}</a>
+              </p>
+            </li>
+          ))}
+        </ul>
+      </address>
     </main>
   );
 };
