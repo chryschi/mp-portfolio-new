@@ -270,7 +270,7 @@ const Carousel = ({ images }) => {
       <div className="carousel-navigation">
         <p className="carousel-nav-text">Scrollen oder Klicken und Ziehen</p>
 
-        <div className="carousel-buttons">
+        <div className="carousel-button-container">
           <button
             disabled={disableButton}
             onClick={() => scrollToChild("previous")}

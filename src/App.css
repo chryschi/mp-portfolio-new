@@ -21,9 +21,43 @@ html {
   background-size: 120%;
 }
 
+/* google material icons */
+
+a,
+button {
+  display: flex;
+  color: white;
+}
+
+a:hover,
+button:hover {
+  color: var(--accent-color);
+}
+
+a > span,
+button > span {
+  justify-self: center;
+  align-self: center;
+  padding: 10px;
+}
+
+figcaption {
+  color: white;
+}
+
 /* header */
 header {
+  display: flex;
+  justify-content: space-between;
   padding: 50px;
+}
+
+header > div {
+  display: flex;
+}
+
+#project-title {
+  margin-right: 20px;
 }
 
 main {
@@ -50,6 +84,8 @@ figure {
 .read-the-docs {
   color: #888;
 }
+
+/* Carousel */
 
 .carousel-container {
   padding: 50px 0;
@@ -97,23 +133,11 @@ figure {
   padding: 0 50px;
 }
 
-.carousel-buttons {
+.carousel-button-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   gap: 150px;
-}
-
-.carousel-buttons button {
-  display: flex;
-  cursor: pointer;
-  color: white;
-  align-items: center;
-  justify-content: center;
-}
-
-.carousel-buttons > button:hover {
-  color: var(--accent-color);
 }
 
 .carousel-img {
@@ -128,6 +152,8 @@ figure {
 .disable-navigation {
   pointer-events: none;
 }
+
+/* Slider */
 
 .slideshow-button-scroll {
   position: absolute;

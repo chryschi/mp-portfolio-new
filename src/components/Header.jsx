@@ -41,14 +41,14 @@ const Header = () => {
   return (
     <header>
       {project === undefined ? (
-        mainPageTitle
+        <h1>mainPageTitle</h1>
       ) : project !== undefined && slideshow === undefined ? (
-        <>
-          {projectTitles[project]}
+        <div>
+          <h2 id="project-title">{projectTitles[project]}</h2>
           <Link to={`/${name}`}>
             <span className="material-symbols-outlined">close</span>
           </Link>
-        </>
+        </div>
       ) : (
         ""
       )}
