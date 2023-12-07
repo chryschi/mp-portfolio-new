@@ -10,6 +10,7 @@ import SlideshowItem from "./SlideshowItem";
 import { PageContext } from "../Page";
 
 import TextSlideshowItem from "./TextSlideshowItem";
+import "./Slideshow.css";
 
 const Slideshow = ({ images }) => {
   const { firstImageIndexInSlideshow } = useContext(PageContext);
