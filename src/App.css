@@ -97,16 +97,39 @@ figure {
   padding: 0 50px;
 }
 
-.dragging {
-  user-select: none;
-  cursor: grabbing;
+.carousel-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 150px;
+}
+
+.carousel-buttons button {
+  display: flex;
+  cursor: pointer;
+  color: white;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-buttons > button:hover {
+  color: var(--accent-color);
 }
 
 .carousel-img {
   height: 100%;
 }
 
-.button-scroll {
+.dragging {
+  user-select: none;
+  cursor: grabbing;
+}
+
+.disable-navigation {
+  pointer-events: none;
+}
+
+.slideshow-button-scroll {
   position: absolute;
   height: 80vh;
   width: 100%;
@@ -115,24 +138,24 @@ figure {
   z-index: 10;
 }
 
-.button-scroll div {
+.slideshow-button-scroll div {
   width: 40vw;
   display: flex;
   align-items: center;
 }
 
-.button-scroll div:hover {
+.slideshow-button-scroll div:hover {
   cursor: pointer;
   color: var(--accent-color);
 }
 
-.button-scroll span {
+.slideshow-button-scroll span {
   position: absolute;
 }
-.previous span {
+.slideshow-button-scroll .previous span {
   left: 3%;
 }
-.next span {
+.slideshow-button-scroll .next span {
   right: 3%;
 }
 
@@ -233,7 +256,3 @@ figure {
   left: 7px;
   opacity: 30%;
 } */
-
-.disable-navigation {
-  pointer-events: none;
-}

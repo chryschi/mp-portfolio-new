@@ -89,7 +89,7 @@ const Slideshow = ({ images }) => {
       <>
         <section
           className={
-            "button-scroll " +
+            "slideshow-button-scroll " +
             (disableScrollNavigation ? "disable-navigation" : "")
           }
         >
