@@ -4,10 +4,12 @@ main.kontakt {
 }
 
 .call-to-action {
-  font-size: 4.4rem;
+  font-size: 5rem;
+  line-height: 1.4;
 }
 
 address {
+  margin-bottom: var(--padding-primary);
   margin-top: auto;
 }
 
@@ -15,12 +17,23 @@ address > ul {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   column-gap: var(--padding-primary);
-}
 
-address p {
-  font-size: 1.4rem;
+  font-size: 1.8rem;
 }
 
 p.address-label {
-  font-size: 1.2rem;
+  font-size: 0.7em;
+  margin-bottom: 1em;
+}
+
+address a {
+  display: flex;
+}
+
+address .link-icon {
+  font-size: 1.1em;
+  font-weight: 200;
+  padding: 0;
+  margin-left: 6px;
+  align-self: center;
 }

@@ -60,6 +60,10 @@ body {
   justify-content: space-between;
 }
 
+a:hover {
+  cursor: pointer;
+}
+
 h1 {
   font-size: 2.5rem;
   font-weight: inherit;

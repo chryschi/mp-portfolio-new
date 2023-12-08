@@ -37,7 +37,12 @@ const Kontakt = () => {
             <li key={idx}>
               <p className="address-label">{entry.label}</p>
               <p>
-                <a>{entry.linkContent}</a>
+                <a>
+                  {entry.linkContent}
+                  <span className="material-symbols-outlined link-icon">
+                    north_east
+                  </span>
+                </a>
               </p>
             </li>
           ))}
