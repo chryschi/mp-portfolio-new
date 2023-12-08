@@ -275,7 +275,7 @@ const Carousel = ({ images }) => {
       <div className="carousel-navigation">
         <p>
           Scrollen oder <br />
-          Klicken und Ziehen
+          Klicken &amp; Ziehen
         </p>
 
         <div className="carousel-button-container">
@@ -283,18 +283,22 @@ const Carousel = ({ images }) => {
             disabled={disableButton}
             onClick={() => scrollToChild("previous")}
           >
-            <span className="material-symbols-outlined">navigate_before</span>
+            <span className="material-symbols-outlined navigate-icon">
+              navigate_before
+            </span>
           </button>
           <button
             disabled={disableButton}
             onClick={() => scrollToChild("next")}
           >
-            <span className="material-symbols-outlined">navigate_next</span>
+            <span className="material-symbols-outlined navigate-icon">
+              navigate_next
+            </span>
           </button>
         </div>
         <p style={{ visibility: "hidden" }}>
           Scrollen oder <br />
-          Klicken und Ziehen
+          Klicken &amp; Ziehen
         </p>
       </div>
     </>

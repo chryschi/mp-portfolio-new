@@ -88,20 +88,25 @@ const Slideshow = ({ images }) => {
   if (images.length > 1) {
     return (
       <>
-        <section
-          className={
-            "slideshow-button-scroll " +
-            (disableScrollNavigation ? "disable-navigation" : "")
-          }
-        >
-          <div onClick={() => scrollToChild("previous")} className="previous">
-            <span className="material-symbols-outlined">navigate_before</span>
-          </div>
-          <div onClick={() => scrollToChild("next")} className="next">
-            <span className="material-symbols-outlined">navigate_next</span>
-          </div>
-        </section>
         <div className="slideshow-container">
+          {" "}
+          <nav
+            className={
+              "slideshow-button-scroll " +
+              (disableScrollNavigation ? "disable-navigation" : "")
+            }
+          >
+            <div onClick={() => scrollToChild("previous")} className="previous">
+              <span className="material-symbols-outlined navigate-icon">
+                navigate_before
+              </span>
+            </div>
+            <div onClick={() => scrollToChild("next")} className="next">
+              <span className="material-symbols-outlined navigate-icon">
+                navigate_next
+              </span>
+            </div>
+          </nav>
           <div
             onTransitionEnd={transitionEnd}
             ref={sliderRef}
