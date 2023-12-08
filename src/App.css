@@ -33,9 +33,14 @@ header {
 
 header > div {
   display: flex;
+  align-items: center;
 }
 
-#project-title {
+header > a {
+  margin-left: auto;
+}
+
+.project-title {
   margin-right: 20px;
 }
 

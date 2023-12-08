@@ -18,10 +18,10 @@ const UeberMich = () => {
       <div className="lebenslauf">
         <h2>Lebenslauf</h2>
 
-        {cvData.map((paragraph) => (
-          <p>
+        {cvData.map((paragraph, idx) => (
+          <li key={idx}>
             {paragraph[0]} <br /> {paragraph[1]}
-          </p>
+          </li>
         ))}
       </div>
 

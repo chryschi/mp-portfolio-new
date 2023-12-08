@@ -31,6 +31,7 @@
   overflow: hidden;
   margin-right: var(--carousel-figcaption-margin-right);
   margin-left: var(--carousel-figcaption-margin-left);
+  line-height: 1.5;
 }
 
 .carousel .img-caption {
@@ -42,7 +43,6 @@
   display: flex;
   justify-content: space-between;
   padding: 0 var(--padding-primary);
-  line-height: 1.2;
 }
 
 .carousel-button-container {

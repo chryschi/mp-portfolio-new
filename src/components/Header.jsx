@@ -40,18 +40,20 @@ const Header = () => {
 
   return (
     <header>
-      {project === undefined ? (
-        <h1>{mainPageTitle}</h1>
-      ) : project !== undefined && slideshow === undefined ? (
-        <div>
-          <h1 id="project-title">{projectTitles[project]}</h1>
-          <Link to={`/${name}`}>
-            <span className="material-symbols-outlined">close</span>
-          </Link>
-        </div>
-      ) : (
-        ""
-      )}
+      <div>
+        {project === undefined ? (
+          <h1>{mainPageTitle}</h1>
+        ) : project !== undefined && slideshow === undefined ? (
+          <>
+            <h1 className="project-title">{projectTitles[project]}</h1>
+            <Link to={`/${name}`}>
+              <span className="material-symbols-outlined">close</span>
+            </Link>
+          </>
+        ) : (
+          ""
+        )}
+      </div>
       <Link
         to={
           name === "menue" ||
@@ -61,7 +63,16 @@ const Header = () => {
             : "/menue"
         }
       >
-        <span className="material-symbols-outlined">
+        <span
+          className={
+            "material-symbols-outlined " +
+            (name === "menue" ||
+            slideshow === "slideshow" ||
+            slideshow === "projektbeschreibung"
+              ? ""
+              : "burger-menu")
+          }
+        >
           {name === "menue" ||
           slideshow === "slideshow" ||
           slideshow === "projektbeschreibung"
