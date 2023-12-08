@@ -15,7 +15,11 @@ const Carousel = ({ images }) => {
 
   const UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = -0.2;
   const LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = -0.7;
-  const PREFERED_FIRST_CHILD_POSITION = 50;
+  const PREFERED_FIRST_CHILD_POSITION = getComputedStyle(
+    document.documentElement
+  )
+    .getPropertyValue("--padding-primary")
+    .slice(0, -2);
   const NUMBER_OF_CAROUSEL_CARDS = 2 * images.length;
   let childLeftPositions = [];
   let childRefsCopy = [];
@@ -269,7 +273,10 @@ const Carousel = ({ images }) => {
       </div>
 
       <div className="carousel-navigation">
-        <p className="carousel-nav-text">Scrollen oder Klicken und Ziehen</p>
+        <p>
+          Scrollen oder <br />
+          Klicken und Ziehen
+        </p>
 
         <div className="carousel-button-container">
           <button
@@ -285,8 +292,9 @@ const Carousel = ({ images }) => {
             <span className="material-symbols-outlined">navigate_next</span>
           </button>
         </div>
-        <p className="carousel-nav-text" style={{ visibility: "hidden" }}>
-          Scrollen oder Klicken und Ziehen
+        <p style={{ visibility: "hidden" }}>
+          Scrollen oder <br />
+          Klicken und Ziehen
         </p>
       </div>
     </>

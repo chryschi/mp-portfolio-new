@@ -15,7 +15,7 @@ const UeberMich = () => {
 
   return (
     <main className="uebermich">
-      <section className="lebenslauf">
+      <div className="lebenslauf">
         <h2>Lebenslauf</h2>
 
         {cvData.map((paragraph) => (
@@ -23,9 +23,9 @@ const UeberMich = () => {
             {paragraph[0]} <br /> {paragraph[1]}
           </p>
         ))}
-      </section>
+      </div>
 
-      <section className="philosophie">
+      <div className="philosophie">
         <h2>Philosophie</h2>
         <p>
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
@@ -58,7 +58,7 @@ const UeberMich = () => {
           Nam liber tempor cum soluta nobis eleifend option congue nihil
           imperdiet doming id quod mazim placerat facer
         </p>
-      </section>
+      </div>
 
       <figure>
         <img src="" alt=""></img>

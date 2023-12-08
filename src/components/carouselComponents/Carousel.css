@@ -1,5 +1,5 @@
 .carousel-container {
-  padding: 50px 0;
+  padding: var(--padding-primary) 0;
   max-width: 100%;
   color: white;
   overflow: hidden;
@@ -29,8 +29,8 @@
   writing-mode: vertical-rl;
   align-self: flex-start;
   overflow: hidden;
-  margin-right: 26px;
-  margin-left: 14px;
+  margin-right: var(--carousel-figcaption-margin-right);
+  margin-left: var(--carousel-figcaption-margin-left);
 }
 
 .carousel .img-caption {
@@ -41,7 +41,8 @@
 .carousel-navigation {
   display: flex;
   justify-content: space-between;
-  padding: 0 50px;
+  padding: 0 var(--padding-primary);
+  line-height: 1.2;
 }
 
 .carousel-button-container {
@@ -53,6 +54,11 @@
 
 .carousel-img {
   height: 100%;
+}
+
+.carousel-text-item {
+  margin-right: var(--padding-primary);
+  max-width: 600px;
 }
 
 .dragging {

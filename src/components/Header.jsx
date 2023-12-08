@@ -41,10 +41,10 @@ const Header = () => {
   return (
     <header>
       {project === undefined ? (
-        <h1>mainPageTitle</h1>
+        <h1>{mainPageTitle}</h1>
       ) : project !== undefined && slideshow === undefined ? (
         <div>
-          <h2 id="project-title">{projectTitles[project]}</h2>
+          <h1 id="project-title">{projectTitles[project]}</h1>
           <Link to={`/${name}`}>
             <span className="material-symbols-outlined">close</span>
           </Link>

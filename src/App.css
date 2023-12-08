@@ -27,7 +27,8 @@ figcaption {
 header {
   display: flex;
   justify-content: space-between;
-  padding: 50px;
+  padding: var(--padding-primary);
+  line-height: 1;
 }
 
 header > div {
@@ -42,12 +43,6 @@ main {
   display: flex;
   flex-direction: column;
   flex: 1;
-}
-
-footer {
-  display: flex;
-  justify-content: center;
-  padding: 25px 0;
 }
 
 figure {

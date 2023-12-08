@@ -33,7 +33,7 @@ const Kontakt = () => {
         <ul>
           {contacts.map((entry, idx) => (
             <li key={idx}>
-              <p className="address-type">{entry.label}</p>
+              <p className="address-label">{entry.label}</p>
               <p>
                 <a>{entry.linkContent}</a>
               </p>

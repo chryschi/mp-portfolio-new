@@ -5,12 +5,12 @@ const TextCarouselItem = forwardRef(function TextCarouselItem(props, ref) {
   const { name, project } = useParams();
 
   return (
-    <div ref={ref}>
+    <article className="carousel-text-item" ref={ref}>
       {props.content.map((paragraph, idx) => (
         <p key={idx}>{paragraph}</p>
       ))}
       <Link to={`/${name}/${project}/projektbeschreibung`}>Mehr lesen</Link>
-    </div>
+    </article>
   );
 });
 
