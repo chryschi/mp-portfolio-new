@@ -1,0 +1,26 @@
+main.kontakt {
+  /* display: flex; */
+  padding: var(--padding-primary);
+}
+
+.call-to-action {
+  font-size: 4.4rem;
+}
+
+address {
+  margin-top: auto;
+}
+
+address > ul {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: var(--padding-primary);
+}
+
+address p {
+  font-size: 1.4rem;
+}
+
+p.address-label {
+  font-size: 1.2rem;
+}

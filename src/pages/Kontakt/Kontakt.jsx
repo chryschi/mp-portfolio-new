@@ -1,3 +1,5 @@
+import "./Kontakt.css";
+
 const Kontakt = () => {
   const contacts = [
     {
@@ -23,12 +25,12 @@ const Kontakt = () => {
   ];
 
   return (
-    <main>
-      <h2 className="call-to-action">
-        Zeitlose und minimalistische Architektur für jeden. Let's do this. Da
-        muss mir noch irgendwas tolles einfallen, was man hier hinschreiben
-        kann.
-      </h2>
+    <main className="kontakt">
+      <p className="call-to-action">
+        Zeitlose und minimalistische <br /> Architektur für jeden. Let's do
+        this. <br /> Da muss mir noch irgendwas tolles <br />
+        einfallen, was man hier hinschreiben kann.
+      </p>
       <address>
         <ul>
           {contacts.map((entry, idx) => (
