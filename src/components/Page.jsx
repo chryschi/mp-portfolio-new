@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import Kontakt from "../pages/Kontakt/Kontakt";
-import UeberMich from "../pages/UeberMich";
+import UeberMich from "../pages/UeberMich/UeberMich";
 import Menue from "../pages/Menue/Menue";
 import CarouselPage from "../pages/CarouselPage";
 import "../App.css";

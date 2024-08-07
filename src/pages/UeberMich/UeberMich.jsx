@@ -1,3 +1,5 @@
+import "./UeberMich.css";
+
 const UeberMich = () => {
   const cvData = [
     ["Marius Prechtl", "M.A. Fachrichtung Architektur"],
