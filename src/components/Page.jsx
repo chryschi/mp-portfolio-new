@@ -3,7 +3,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Kontakt from "../pages/Kontakt/Kontakt";
 import UeberMich from "../pages/UeberMich";
-import Menue from "../pages/Menue";
+import Menue from "../pages/Menue/Menue";
 import CarouselPage from "../pages/CarouselPage";
 import "../App.css";
 import SlideshowPage from "../pages/SlideshowPage";

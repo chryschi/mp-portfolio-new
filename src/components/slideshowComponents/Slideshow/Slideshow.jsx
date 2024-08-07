@@ -6,10 +6,10 @@ import {
   useLayoutEffect,
   useContext,
 } from "react";
-import SlideshowItem from "./SlideshowItem";
-import { PageContext } from "../Page";
+import SlideshowItem from "../SlideshowItem";
+import { PageContext } from "../../Page";
 
-import TextSlideshowItem from "./TextSlideshowItem";
+import TextSlideshowItem from "../TextSlideshowItem";
 import "./Slideshow.css";
 
 const Slideshow = ({ images }) => {

@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef, useLayoutEffect } from "react";
-import CarouselItem from "./CarouselItem";
+import CarouselItem from "../CarouselItem";
 import "./Carousel.css";
 
 const Carousel = ({ images }) => {
