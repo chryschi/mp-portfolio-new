@@ -39,9 +39,4 @@ export const imagesProjectPortfolio = [
     imgTitle: "randomImage9",
     projectUrlName: "portfolio",
   },
-  {
-    imgUrl: IMAGES.image10,
-    imgTitle: "randomImage10",
-    projectUrlName: "portfolio",
-  },
 ];

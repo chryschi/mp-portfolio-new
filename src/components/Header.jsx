@@ -23,7 +23,7 @@ const Header = () => {
       : "";
 
   const projectTitles = {
-    "project-biberach": "Biberach HEy Hey 2017",
+    "projekt-architektur-2": "Biberach Schülerwohnheim",
     portfolio: "MPR Portfolio",
   };
 

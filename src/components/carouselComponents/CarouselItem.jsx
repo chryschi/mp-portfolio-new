@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { catalog } from "../../pages/Aktuelles/catalog_Aktuelles";
+import { catalogueProjects, cataloguePages } from "../../pages/catalogues";
 import TextCarouselItem from "./TextCarouselItem";
 import { useContext } from "react";
 import { PageContext } from "../Page";
@@ -40,9 +40,11 @@ const CarouselItem = ({
         <Link
           draggable="false"
           to={
-            projectUrlName in catalog && project === undefined
+            (projectUrlName in cataloguePages ||
+              projectUrlName in catalogueProjects) &&
+            project === undefined
               ? `/${name}/${projectUrlName}`
-              : project in catalog && slideshow === undefined
+              : project in catalogueProjects && slideshow === undefined
               ? `/${name}/${projectUrlName}/slideshow`
               : "/notfound"
           }

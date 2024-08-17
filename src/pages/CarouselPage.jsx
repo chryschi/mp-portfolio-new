@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Carousel from "../components/carouselComponents/Carousel/Carousel.jsx";
-import { catalog } from "./Aktuelles/catalog_Aktuelles.jsx";
+import { catalogueProjects, cataloguePages } from "./catalogues.jsx";
 
 const CarouselPage = () => {
   const { name, project } = useParams();
@@ -9,9 +9,9 @@ const CarouselPage = () => {
   return (
     <main>
       {project === undefined ? (
-        <Carousel images={catalog[`${name}`].images} />
+        <Carousel images={cataloguePages[`${name}`].images} />
       ) : (
-        <Carousel images={catalog[`${project}`].images} />
+        <Carousel images={catalogueProjects[`${project}`].images} />
       )}
     </main>
   );
