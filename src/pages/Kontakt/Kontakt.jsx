@@ -28,8 +28,8 @@ const Kontakt = () => {
     <main className="kontakt">
       <p className="call-to-action">
         Zeitlose und minimalistische <br /> Architektur für jeden. Let's do
-        this. <br /> Da muss mir noch irgendwas tolles <br />
-        einfallen, was man hier hinschreiben kann.
+        this. <br /> Lorem ipsum dolor sit amet, consetetur <br /> sadipscing
+        elitr, sed diam.
       </p>
       <address>
         <ul>
