@@ -33,7 +33,7 @@ const Header = () => {
       if (project !== undefined) {
         currentUrl += "/" + project;
       }
-      console.log(currentUrl);
+
       setCurrentPage(currentUrl);
     }
   }, [name, project]);

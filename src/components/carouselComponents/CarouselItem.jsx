@@ -24,7 +24,6 @@ const CarouselItem = ({
 
   const handleSelectImage = () => {
     setFirstImageIndexInSlideshow(id);
-    console.log(`id ${id} was set! imgUrl ${imgUrl}`);
   };
 
   const showImageCaption = () => {

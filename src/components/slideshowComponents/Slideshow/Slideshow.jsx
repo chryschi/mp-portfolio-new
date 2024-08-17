@@ -58,8 +58,6 @@ const Slideshow = ({ images }) => {
         setCurrentImageIndex((prev) => --prev);
       }
     }
-    console.log("current Image INdex" + currentImageIndex);
-    console.log("translateX" + translateX);
   };
 
   useLayoutEffect(() => {

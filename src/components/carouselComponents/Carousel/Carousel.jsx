@@ -190,18 +190,10 @@ const Carousel = ({ images }) => {
     carouselTrackRef.current.style.transitionDuration = "400ms";
     const carouselRealWidth = carouselTrackRef.current.scrollWidth;
     const currentTranslation = getCurrentCarouselTranslation();
-    console.log("carousel width: " + carouselRealWidth);
-
     childLeftPositions = [];
     childLeftPositions = childRefs.map((currentChild) => {
       return getChildLeftPosition(currentChild);
     });
-
-    console.log("previous childLefts: ");
-    console.log(childLeftPositions);
-
-    console.log(childRefs);
-    console.log(childRefsCopy);
 
     const nextChildIndex = childLeftPositions.findIndex((childLeftPosition) => {
       return Math.floor(childLeftPosition) > PREFERED_FIRST_CHILD_POSITION;
