@@ -17,7 +17,4 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
-  overrides: {
-    "non-unused-var": "warn",
-  },
 };

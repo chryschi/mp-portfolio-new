@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, useLayoutEffect } from "react";
 import CarouselItem from "../CarouselItem";
 import "./Carousel.css";
+import PropTypes from "prop-types";
 
 const Carousel = ({ images }) => {
   const [mousePosX, setMousePosX] = useState();
@@ -298,3 +299,7 @@ const Carousel = ({ images }) => {
 };
 
 export default Carousel;
+
+Carousel.propTypes = {
+  images: PropTypes.array,
+};
