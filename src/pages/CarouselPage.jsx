@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Carousel from "../components/carouselComponents/Carousel/Carousel.jsx";
 import { catalogueProjects, cataloguePages } from "./catalogues.jsx";
