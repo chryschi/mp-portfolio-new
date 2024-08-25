@@ -4,231 +4,230 @@ import "./Carousel.css";
 import PropTypes from "prop-types";
 
 const Carousel = ({ images }) => {
-  const [mousePosX, setMousePosX] = useState();
-  const [isDragging, setDraggingState] = useState(false);
-  const [startPosX, setStartPosX] = useState();
-  const [startTranslatePosition, setStartTranslatePosition] = useState();
-  const [childRefs, setChildRefs] = useState([]);
-  const [disableButton, setDisableButton] = useState(false);
-  const [translateX, setTranslateX] = useState(-4000);
-
-  const containerRef = useRef(null);
-  const carouselTrackRef = useRef(null);
-
-  const UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = -0.2;
-  const LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = -0.7;
   const PREFERED_FIRST_CHILD_POSITION = getComputedStyle(
     document.documentElement
   )
     .getPropertyValue("--padding-primary")
     .slice(0, -2);
 
-  const NUMBER_OF_CAROUSEL_CARDS = 2 * images.length;
-  let childLeftPositions = [];
-  let childRefsCopy = [];
-  let timer;
+  const [mousePosX, setMousePosX] = useState();
+  // const [isDragging, setDraggingState] = useState(false);
+  // const [startPosX, setStartPosX] = useState();
+  // const [startTranslatePosition, setStartTranslatePosition] = useState();
+  const [childrenWidths, setChildrenWidths] = useState([]);
+  const [disableButton, setDisableButton] = useState(false);
+  const [translateX, setTranslateX] = useState(PREFERED_FIRST_CHILD_POSITION);
+  // const [activeIndex, setActiveIndex] = use;
 
-  useLayoutEffect(() => {
-    // const carouselRealWidth = carouselTrackRef.current.scrollWidth;
-    // setTranslateX(-0.5 * carouselRealWidth);
-  }, []);
+  const containerRef = useRef(null);
+  const carouselTrackRef = useRef(null);
+
+  // const UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = -0.2;
+  // const LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = -0.7;
+
+  const NUMBER_OF_CAROUSEL_CARDS = 2 * images.length;
+  let childrenWidthsCopy = [];
+  // let timer;
+
+  const addWidth = (width) => {
+    if (childrenWidthsCopy.length < NUMBER_OF_CAROUSEL_CARDS) {
+      childrenWidthsCopy.push(width);
+    } else if (childrenWidthsCopy.length === NUMBER_OF_CAROUSEL_CARDS) {
+      setChildrenWidths([...childrenWidthsCopy]);
+    }
+  };
 
   //handle carousel mouse dragging
-  useEffect(() => {
-    const currentContainerRef = containerRef.current;
-    const handleMouseMove = (event) => {
-      setMousePosX(event.clientX);
-    };
+  // useEffect(() => {
+  //   const currentContainerRef = containerRef.current;
+  //   const handleMouseMove = (event) => {
+  //     setMousePosX(event.clientX);
+  //   };
 
-    window.addEventListener("mouseup", dragStop);
+  //   window.addEventListener("mouseup", dragStop);
 
-    if (currentContainerRef) {
-      currentContainerRef.addEventListener("mousemove", handleMouseMove);
-    }
+  //   if (currentContainerRef) {
+  //     currentContainerRef.addEventListener("mousemove", handleMouseMove);
+  //   }
 
-    return () => {
-      window.removeEventListener("mouseup", dragStop);
-      currentContainerRef.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("mouseup", dragStop);
+  //     currentContainerRef.removeEventListener("mousemove", handleMouseMove);
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    const currentCarouselRef = carouselTrackRef.current;
-    const transitionEnd = () => {
-      setDisableButton(false);
-      const carouselRealWidth = carouselTrackRef.current.scrollWidth;
-      const currentTranslation = translateX;
+  // useEffect(() => {
+  //   const currentCarouselRef = carouselTrackRef.current;
+  //   const transitionEnd = () => {
+  //     setDisableButton(false);
+  //     const carouselRealWidth = carouselTrackRef.current.scrollWidth;
+  //     const currentTranslation = translateX;
 
-      childLeftPositions = [];
-      childLeftPositions = childRefsCopy.map((currentChild) => {
-        return getChildLeftPosition(currentChild);
-      });
-      const nextChildIndex = childLeftPositions.findIndex(
-        (childLeftPosition) => {
-          return Math.floor(childLeftPosition) > PREFERED_FIRST_CHILD_POSITION;
-        }
-      );
-      const nextChildLeft = childLeftPositions[nextChildIndex];
-      const nextPos =
-        currentTranslation - (nextChildLeft - PREFERED_FIRST_CHILD_POSITION);
-      const previousChildLeft = childLeftPositions[nextChildIndex - 1];
-      if (previousChildLeft) {
-        const previousPos =
-          currentTranslation -
-          (previousChildLeft - PREFERED_FIRST_CHILD_POSITION);
-        nextPos <= previousPos
-          ? infiniteSlide(nextPos, carouselRealWidth)
-          : infiniteSlide(previousPos, carouselRealWidth);
-      }
-    };
+  //     childLeftPositions = [];
+  //     childLeftPositions = childrenWidths.map((currentChild) => {
+  //       return getChildLeftPosition(currentChild);
+  //     });
+  //     const nextChildIndex = childLeftPositions.findIndex(
+  //       (childLeftPosition) => {
+  //         return Math.floor(childLeftPosition) > PREFERED_FIRST_CHILD_POSITION;
+  //       }
+  //     );
+  //     const nextChildLeft = childLeftPositions[nextChildIndex];
+  //     const nextPos =
+  //       currentTranslation - (nextChildLeft - PREFERED_FIRST_CHILD_POSITION);
+  //     const previousChildLeft = childLeftPositions[nextChildIndex - 1];
+  //     if (previousChildLeft) {
+  //       const previousPos =
+  //         currentTranslation -
+  //         (previousChildLeft - PREFERED_FIRST_CHILD_POSITION);
+  //       nextPos <= previousPos
+  //         ? infiniteSlide(nextPos, carouselRealWidth)
+  //         : infiniteSlide(previousPos, carouselRealWidth);
+  //     }
+  //   };
 
-    currentCarouselRef.addEventListener("transitionend", transitionEnd);
+  //   currentCarouselRef.addEventListener("transitionend", transitionEnd);
 
-    return () => {
-      currentCarouselRef.removeEventListener("transitionend", transitionEnd);
-    };
-  }, []);
+  //   return () => {
+  //     currentCarouselRef.removeEventListener("transitionend", transitionEnd);
+  //   };
+  // }, []);
 
   //handle scrolling
-  useEffect(() => {
-    const currentCarouselRef = carouselTrackRef.current;
-    const handleWheel = (e) => {
-      e.preventDefault();
+  // useEffect(() => {
+  //   const currentCarouselRef = carouselTrackRef.current;
+  //   const handleWheel = (e) => {
+  //     e.preventDefault();
 
-      const carouselRealWidth = currentCarouselRef.scrollWidth;
-      const currentCarouselTranslation = translateX;
-      const newTranslateValue = currentCarouselTranslation - e.deltaY * 0.6;
+  //     const carouselRealWidth = currentCarouselRef.scrollWidth;
+  //     const currentCarouselTranslation = translateX;
+  //     const newTranslateValue = currentCarouselTranslation - e.deltaY * 0.6;
 
-      setTranslateX(newTranslateValue);
-      infiniteSlide(newTranslateValue, carouselRealWidth);
-    };
+  //     setTranslateX(newTranslateValue);
+  //     infiniteSlide(newTranslateValue, carouselRealWidth);
+  //   };
 
-    currentCarouselRef.addEventListener("wheel", handleWheel, {
-      passive: false,
-    });
+  //   currentCarouselRef.addEventListener("wheel", handleWheel, {
+  //     passive: false,
+  //   });
 
-    return () => {
-      currentCarouselRef.removeEventListener("wheel", handleWheel, {
-        passive: false,
-      });
-    };
-  }, []);
+  //   return () => {
+  //     currentCarouselRef.removeEventListener("wheel", handleWheel, {
+  //       passive: false,
+  //     });
+  //   };
+  // }, []);
 
-  const dragStart = () => {
-    const currentCarouselRef = carouselTrackRef.current;
-    timer = setTimeout(() => {
-      currentCarouselRef.style.pointerEvents = "none";
-    }, 150);
-    carouselTrackRef.current.style.transitionDuration = "0ms";
-    const currentCarouselTranslation = translateX;
-    setDraggingState(true);
-    setStartTranslatePosition(Number(currentCarouselTranslation));
-    setStartPosX(mousePosX);
-  };
+  // const dragStart = () => {
+  //   const currentCarouselRef = carouselTrackRef.current;
+  //   timer = setTimeout(() => {
+  //     currentCarouselRef.style.pointerEvents = "none";
+  //   }, 150);
+  //   carouselTrackRef.current.style.transitionDuration = "0ms";
+  //   const currentCarouselTranslation = translateX;
+  //   setDraggingState(true);
+  //   setStartTranslatePosition(Number(currentCarouselTranslation));
+  //   setStartPosX(mousePosX);
+  // };
 
-  const dragging = () => {
-    if (!isDragging) return;
+  // const dragging = () => {
+  //   if (!isDragging) return;
 
-    const carouselRealWidth = carouselTrackRef.current.scrollWidth;
-    const mouseMoveDelta = mousePosX - startPosX;
-    const newTranslateValue = Math.round(
-      startTranslatePosition + mouseMoveDelta
-    );
-    setTranslateX(newTranslateValue);
-    infiniteSlide(translateX, carouselRealWidth);
-  };
+  //   const carouselRealWidth = carouselTrackRef.current.scrollWidth;
+  //   const mouseMoveDelta = mousePosX - startPosX;
+  //   const newTranslateValue = Math.round(
+  //     startTranslatePosition + mouseMoveDelta
+  //   );
+  //   setTranslateX(newTranslateValue);
+  //   infiniteSlide(translateX, carouselRealWidth);
+  // };
 
-  const infiniteSlide = (desiredCarouselTranslation, carouselRealWidth) => {
-    if (
-      desiredCarouselTranslation >
-      UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
-    ) {
-      let current = translateX;
-      current -= 0.5 * carouselRealWidth;
-      current = Math.round(current);
-      carouselTrackRef.current.style.transitionDuration = "0ms";
-      setTranslateX(current);
-    } else if (
-      desiredCarouselTranslation <
-      LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
-    ) {
-      let current = translateX;
-      current += 0.5 * carouselRealWidth;
-      current = Math.round(current);
-      carouselTrackRef.current.style.transitionDuration = "0ms";
+  // const infiniteSlide = (desiredCarouselTranslation, carouselRealWidth) => {
+  //   if (
+  //     desiredCarouselTranslation >
+  //     UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
+  //   ) {
+  //     let current = translateX;
+  //     current -= 0.5 * carouselRealWidth;
+  //     current = Math.round(current);
+  //     carouselTrackRef.current.style.transitionDuration = "0ms";
+  //     setTranslateX(current);
+  //   } else if (
+  //     desiredCarouselTranslation <
+  //     LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
+  //   ) {
+  //     let current = translateX;
+  //     current += 0.5 * carouselRealWidth;
+  //     current = Math.round(current);
+  //     carouselTrackRef.current.style.transitionDuration = "0ms";
 
-      setTranslateX(current);
-    }
-  };
+  //     setTranslateX(current);
+  //   }
+  // };
 
-  const dragStop = () => {
-    setDraggingState(false);
-    clearTimeout(timer);
-    const currentCarouselRef = carouselTrackRef.current;
-    currentCarouselRef.style.pointerEvents = "auto";
-  };
+  // const dragStop = () => {
+  //   setDraggingState(false);
+  //   clearTimeout(timer);
+  //   const currentCarouselRef = carouselTrackRef.current;
+  //   currentCarouselRef.style.pointerEvents = "auto";
+  // };
 
-  const addRef = (ref) => {
-    if (childRefsCopy.length < NUMBER_OF_CAROUSEL_CARDS) {
-      childRefsCopy.push(ref.current);
-    } else if (childRefsCopy.length === NUMBER_OF_CAROUSEL_CARDS) {
-      setChildRefs([...childRefsCopy]);
-    }
-  };
+  // const scrollToChild = (mode) => {
+  //   setDisableButton(true);
+  //   carouselTrackRef.current.style.transitionDuration = "400ms";
+  //   // const carouselRealWidth = carouselTrackRef.current.scrollWidth;
+  //   const currentTranslation = translateX;
+  //   childLeftPositions = [];
+  //   childLeftPositions = childRefs.map((currentChild) => {
+  //     return getChildLeftPosition(currentChild);
+  //   });
 
-  const scrollToChild = (mode) => {
-    setDisableButton(true);
-    carouselTrackRef.current.style.transitionDuration = "400ms";
-    // const carouselRealWidth = carouselTrackRef.current.scrollWidth;
-    const currentTranslation = translateX;
-    childLeftPositions = [];
-    childLeftPositions = childRefs.map((currentChild) => {
-      return getChildLeftPosition(currentChild);
-    });
+  //   const nextChildIndex = childLeftPositions.findIndex((childLeftPosition) => {
+  //     return Math.floor(childLeftPosition) > PREFERED_FIRST_CHILD_POSITION;
+  //   });
 
-    const nextChildIndex = childLeftPositions.findIndex((childLeftPosition) => {
-      return Math.floor(childLeftPosition) > PREFERED_FIRST_CHILD_POSITION;
-    });
+  //   if (mode === "next") {
+  //     const nextChildLeft = childLeftPositions[nextChildIndex];
+  //     let newPos =
+  //       currentTranslation - (nextChildLeft - PREFERED_FIRST_CHILD_POSITION);
+  //     setTranslateX(newPos);
+  //   }
 
-    if (mode === "next") {
-      const nextChildLeft = childLeftPositions[nextChildIndex];
-      let newPos =
-        currentTranslation - (nextChildLeft - PREFERED_FIRST_CHILD_POSITION);
-      setTranslateX(newPos);
-    }
+  //   if (mode === "previous") {
+  //     let previousChildLeft = childLeftPositions[nextChildIndex - 2];
+  //     if (
+  //       Math.round(childLeftPositions[nextChildIndex - 1]) <
+  //       PREFERED_FIRST_CHILD_POSITION
+  //     ) {
+  //       previousChildLeft = childLeftPositions[nextChildIndex - 1];
+  //     }
+  //     let newPos =
+  //       currentTranslation -
+  //       (previousChildLeft - PREFERED_FIRST_CHILD_POSITION);
+  //     setTranslateX(newPos);
+  //   }
+  // };
 
-    if (mode === "previous") {
-      let previousChildLeft = childLeftPositions[nextChildIndex - 2];
-      if (
-        Math.round(childLeftPositions[nextChildIndex - 1]) <
-        PREFERED_FIRST_CHILD_POSITION
-      ) {
-        previousChildLeft = childLeftPositions[nextChildIndex - 1];
-      }
-      let newPos =
-        currentTranslation -
-        (previousChildLeft - PREFERED_FIRST_CHILD_POSITION);
-      setTranslateX(newPos);
-    }
-  };
-
-  const getChildLeftPosition = (currentChild) => {
-    const childDetails = currentChild.getBoundingClientRect();
-    const leftPosition = childDetails.left;
-    return leftPosition;
-  };
+  // const getChildLeftPosition = (currentChild) => {
+  //   const childDetails = currentChild.getBoundingClientRect();
+  //   const leftPosition = childDetails.left;
+  //   return leftPosition;
+  // };
 
   return (
     <>
       <div
         className="carousel-container"
-        onMouseDown={dragStart}
-        onMouseMove={dragging}
+        // onMouseDown={dragStart}
+        // onMouseMove={dragging}
         ref={containerRef}
       >
         <div
           ref={carouselTrackRef}
-          className={"carousel " + (isDragging ? "dragging" : "")}
+          className={
+            "carousel "
+            // + (isDragging ? "dragging" : "")
+          }
           style={{ transform: `translate3d(${translateX}px, 0px, 0px)` }}
         >
           {images.map((card, idx) => (
@@ -239,7 +238,7 @@ const Carousel = ({ images }) => {
               imgTitle={card.imgTitle}
               projectUrlName={card.projectUrlName}
               content={card.previewContent}
-              addRef={addRef}
+              addWidth={addWidth}
             />
           ))}
           {images.map((card, idx) => (
@@ -250,7 +249,7 @@ const Carousel = ({ images }) => {
               imgTitle={card.imgTitle}
               projectUrlName={card.projectUrlName}
               content={card.previewContent}
-              addRef={addRef}
+              addWidth={addWidth}
             />
           ))}
         </div>
@@ -265,7 +264,7 @@ const Carousel = ({ images }) => {
         <div className="carousel-button-container">
           <button
             disabled={disableButton}
-            onClick={() => scrollToChild("previous")}
+            // onClick={() => scrollToChild("previous")}
           >
             <span className="material-symbols-outlined navigate-icon">
               navigate_before
@@ -273,7 +272,7 @@ const Carousel = ({ images }) => {
           </button>
           <button
             disabled={disableButton}
-            onClick={() => scrollToChild("next")}
+            // onClick={() => scrollToChild("next")}
           >
             <span className="material-symbols-outlined navigate-icon">
               navigate_next
