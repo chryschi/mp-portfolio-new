@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useLayoutEffect } from "react";
+import { useState, useRef } from "react";
 import CarouselItem from "../CarouselItem";
 import "./Carousel.css";
 import PropTypes from "prop-types";
@@ -14,9 +14,9 @@ const Carousel = ({ images }) => {
   // const [isDragging, setDraggingState] = useState(false);
   // const [startPosX, setStartPosX] = useState();
   // const [startTranslatePosition, setStartTranslatePosition] = useState();
-  const [childrenWidths, setChildrenWidths] = useState([]);
   const [disableButton, setDisableButton] = useState(false);
   const [translateX, setTranslateX] = useState(PREFERED_FIRST_CHILD_POSITION);
+  // const [childrenLeftPositions, setChildrenLeftPositions] = useState([]);
   // const [activeIndex, setActiveIndex] = use;
 
   const containerRef = useRef(null);
@@ -26,35 +26,13 @@ const Carousel = ({ images }) => {
   // const LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = -0.7;
 
   const NUMBER_OF_CAROUSEL_CARDS = 2 * images.length;
-  let childrenWidthsCopy = [];
+  let childrenLeftPositionsCopy = [];
+
+  let childrenTranslateValues = [];
   // let timer;
 
-  const addWidth = (width) => {
-    if (childrenWidthsCopy.length < NUMBER_OF_CAROUSEL_CARDS) {
-      childrenWidthsCopy.push(width);
-    } else if (childrenWidthsCopy.length === NUMBER_OF_CAROUSEL_CARDS) {
-      setChildrenWidths([...childrenWidthsCopy]);
-    }
-  };
-
-  //handle carousel mouse dragging
-  // useEffect(() => {
-  //   const currentContainerRef = containerRef.current;
-  //   const handleMouseMove = (event) => {
-  //     setMousePosX(event.clientX);
-  //   };
-
-  //   window.addEventListener("mouseup", dragStop);
-
-  //   if (currentContainerRef) {
-  //     currentContainerRef.addEventListener("mousemove", handleMouseMove);
-  //   }
-
-  //   return () => {
-  //     window.removeEventListener("mouseup", dragStop);
-  //     currentContainerRef.removeEventListener("mousemove", handleMouseMove);
-  //   };
-  // }, []);
+  let activeIndex = 0;
+  console.log("render");
 
   // useEffect(() => {
   //   const currentCarouselRef = carouselTrackRef.current;
@@ -90,6 +68,41 @@ const Carousel = ({ images }) => {
 
   //   return () => {
   //     currentCarouselRef.removeEventListener("transitionend", transitionEnd);
+  //   };
+  // }, []);
+
+  const addChildLeftPosition = (width) => {
+    if (childrenLeftPositionsCopy.length < NUMBER_OF_CAROUSEL_CARDS) {
+      console.log("array not yet full");
+      childrenLeftPositionsCopy.push(width);
+      if (childrenLeftPositionsCopy.length === NUMBER_OF_CAROUSEL_CARDS) {
+        childrenTranslateValues = childrenLeftPositionsCopy.map(
+          (leftPosition) => -leftPosition + 2 * PREFERED_FIRST_CHILD_POSITION
+        );
+        childrenLeftPositionsCopy = [];
+      }
+
+      console.log(childrenLeftPositionsCopy.length);
+      console.log(width);
+    }
+  };
+
+  //handle carousel mouse dragging
+  // useEffect(() => {
+  //   const currentContainerRef = containerRef.current;
+  //   const handleMouseMove = (event) => {
+  //     setMousePosX(event.clientX);
+  //   };
+
+  //   window.addEventListener("mouseup", dragStop);
+
+  //   if (currentContainerRef) {
+  //     currentContainerRef.addEventListener("mousemove", handleMouseMove);
+  //   }
+
+  //   return () => {
+  //     window.removeEventListener("mouseup", dragStop);
+  //     currentContainerRef.removeEventListener("mousemove", handleMouseMove);
   //   };
   // }, []);
 
@@ -172,41 +185,32 @@ const Carousel = ({ images }) => {
   //   currentCarouselRef.style.pointerEvents = "auto";
   // };
 
-  // const scrollToChild = (mode) => {
-  //   setDisableButton(true);
-  //   carouselTrackRef.current.style.transitionDuration = "400ms";
-  //   // const carouselRealWidth = carouselTrackRef.current.scrollWidth;
-  //   const currentTranslation = translateX;
-  //   childLeftPositions = [];
-  //   childLeftPositions = childRefs.map((currentChild) => {
-  //     return getChildLeftPosition(currentChild);
-  //   });
+  const scrollToChild = (mode) => {
+    setDisableButton(true);
+    carouselTrackRef.current.style.transitionDuration = "400ms";
 
-  //   const nextChildIndex = childLeftPositions.findIndex((childLeftPosition) => {
-  //     return Math.floor(childLeftPosition) > PREFERED_FIRST_CHILD_POSITION;
-  //   });
+    if (mode === "next") {
+      activeIndex += 1;
+      console.log("TRANSLATE FÜR NÄCHSTES IMAGE");
+      console.log(childrenTranslateValues);
+      console.log(childrenTranslateValues[activeIndex]);
+      setTranslateX(childrenTranslateValues[activeIndex]);
+    }
 
-  //   if (mode === "next") {
-  //     const nextChildLeft = childLeftPositions[nextChildIndex];
-  //     let newPos =
-  //       currentTranslation - (nextChildLeft - PREFERED_FIRST_CHILD_POSITION);
-  //     setTranslateX(newPos);
-  //   }
-
-  //   if (mode === "previous") {
-  //     let previousChildLeft = childLeftPositions[nextChildIndex - 2];
-  //     if (
-  //       Math.round(childLeftPositions[nextChildIndex - 1]) <
-  //       PREFERED_FIRST_CHILD_POSITION
-  //     ) {
-  //       previousChildLeft = childLeftPositions[nextChildIndex - 1];
-  //     }
-  //     let newPos =
-  //       currentTranslation -
-  //       (previousChildLeft - PREFERED_FIRST_CHILD_POSITION);
-  //     setTranslateX(newPos);
-  //   }
-  // };
+    // if (mode === "previous") {
+    //   let previousChildLeft = childLeftPositions[nextChildIndex - 2];
+    //   if (
+    //     Math.round(childLeftPositions[nextChildIndex - 1]) <
+    //     PREFERED_FIRST_CHILD_POSITION
+    //   ) {
+    //     previousChildLeft = childLeftPositions[nextChildIndex - 1];
+    //   }
+    //   let newPos =
+    //     currentTranslation -
+    //     (previousChildLeft - PREFERED_FIRST_CHILD_POSITION);
+    //   setTranslateX(newPos);
+    // }
+  };
 
   // const getChildLeftPosition = (currentChild) => {
   //   const childDetails = currentChild.getBoundingClientRect();
@@ -238,7 +242,7 @@ const Carousel = ({ images }) => {
               imgTitle={card.imgTitle}
               projectUrlName={card.projectUrlName}
               content={card.previewContent}
-              addWidth={addWidth}
+              addChildLeftPosition={addChildLeftPosition}
             />
           ))}
           {images.map((card, idx) => (
@@ -249,7 +253,7 @@ const Carousel = ({ images }) => {
               imgTitle={card.imgTitle}
               projectUrlName={card.projectUrlName}
               content={card.previewContent}
-              addWidth={addWidth}
+              addChildLeftPosition={addChildLeftPosition}
             />
           ))}
         </div>
@@ -272,7 +276,7 @@ const Carousel = ({ images }) => {
           </button>
           <button
             disabled={disableButton}
-            // onClick={() => scrollToChild("next")}
+            onClick={() => scrollToChild("next")}
           >
             <span className="material-symbols-outlined navigate-icon">
               navigate_next

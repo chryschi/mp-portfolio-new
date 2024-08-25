@@ -10,7 +10,7 @@ const CarouselItem = ({
   imgUrl,
   imgTitle,
   projectUrlName,
-  addWidth,
+  addChildLeftPosition,
   content,
 }) => {
   const { setFirstImageIndexInSlideshow } = useContext(PageContext);
@@ -20,10 +20,10 @@ const CarouselItem = ({
 
   useEffect(() => {
     if (itemRef.current) {
-      const width = itemRef.current.getBoundingClientRect().left;
-      addWidth(width);
+      const left = itemRef.current.getBoundingClientRect().left;
+      addChildLeftPosition(left);
     }
-  }, [addWidth]);
+  }, [addChildLeftPosition]);
 
   const handleSelectImage = () => {
     setFirstImageIndexInSlideshow(id);
