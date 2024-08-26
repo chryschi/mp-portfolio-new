@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import CarouselItem from "../CarouselItem";
 import "./Carousel.css";
 import PropTypes from "prop-types";
@@ -16,8 +16,8 @@ const Carousel = ({ images }) => {
   // const [startTranslatePosition, setStartTranslatePosition] = useState();
   const [disableButton, setDisableButton] = useState(false);
   const [translateX, setTranslateX] = useState(PREFERED_FIRST_CHILD_POSITION);
-  // const [childrenLeftPositions, setChildrenLeftPositions] = useState([]);
-  // const [activeIndex, setActiveIndex] = use;
+  const [childrenTranslateValues, setChildrenTranslateValues] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const containerRef = useRef(null);
   const carouselTrackRef = useRef(null);
@@ -28,11 +28,7 @@ const Carousel = ({ images }) => {
   const NUMBER_OF_CAROUSEL_CARDS = 2 * images.length;
   let childrenLeftPositionsCopy = [];
 
-  let childrenTranslateValues = [];
   // let timer;
-
-  let activeIndex = 0;
-  console.log("render");
 
   // useEffect(() => {
   //   const currentCarouselRef = carouselTrackRef.current;
@@ -71,21 +67,20 @@ const Carousel = ({ images }) => {
   //   };
   // }, []);
 
-  const addChildLeftPosition = (width) => {
+  const addChildLeftPosition = useCallback((width) => {
     if (childrenLeftPositionsCopy.length < NUMBER_OF_CAROUSEL_CARDS) {
-      console.log("array not yet full");
       childrenLeftPositionsCopy.push(width);
+
       if (childrenLeftPositionsCopy.length === NUMBER_OF_CAROUSEL_CARDS) {
-        childrenTranslateValues = childrenLeftPositionsCopy.map(
-          (leftPosition) => -leftPosition + 2 * PREFERED_FIRST_CHILD_POSITION
+        setChildrenTranslateValues(
+          childrenLeftPositionsCopy.map(
+            (leftPosition) => -leftPosition + 2 * PREFERED_FIRST_CHILD_POSITION
+          )
         );
         childrenLeftPositionsCopy = [];
       }
-
-      console.log(childrenLeftPositionsCopy.length);
-      console.log(width);
     }
-  };
+  }, []);
 
   //handle carousel mouse dragging
   // useEffect(() => {
@@ -190,11 +185,12 @@ const Carousel = ({ images }) => {
     carouselTrackRef.current.style.transitionDuration = "400ms";
 
     if (mode === "next") {
-      activeIndex += 1;
+      const nextIndex = activeIndex + 1;
       console.log("TRANSLATE FÜR NÄCHSTES IMAGE");
       console.log(childrenTranslateValues);
-      console.log(childrenTranslateValues[activeIndex]);
-      setTranslateX(childrenTranslateValues[activeIndex]);
+      console.log(childrenTranslateValues[nextIndex]);
+      setTranslateX(childrenTranslateValues[nextIndex]);
+      setActiveIndex(nextIndex);
     }
 
     // if (mode === "previous") {
@@ -233,6 +229,9 @@ const Carousel = ({ images }) => {
             // + (isDragging ? "dragging" : "")
           }
           style={{ transform: `translate3d(${translateX}px, 0px, 0px)` }}
+          onTransitionEnd={() => {
+            setDisableButton(false);
+          }}
         >
           {images.map((card, idx) => (
             <CarouselItem

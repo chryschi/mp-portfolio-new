@@ -4,6 +4,7 @@ import { catalogueProjects, cataloguePages } from "../../pages/catalogues";
 import TextCarouselItem from "./TextCarouselItem";
 import { useContext } from "react";
 import { PageContext } from "../Page";
+import PropTypes from "prop-types";
 
 const CarouselItem = ({
   id,
@@ -22,6 +23,7 @@ const CarouselItem = ({
     if (itemRef.current) {
       const left = itemRef.current.getBoundingClientRect().left;
       addChildLeftPosition(left);
+      console.log("children are rendered");
     }
   }, [addChildLeftPosition]);
 
@@ -53,7 +55,6 @@ const CarouselItem = ({
           onClick={handleSelectImage}
         >
           <figure>
-            {/* <figcaption style={{ visibility: "hidden" }}>{imgTitle}</figcaption> */}
             <img
               ref={itemRef}
               className="carousel-img"
@@ -83,3 +84,12 @@ const CarouselItem = ({
 };
 
 export default CarouselItem;
+
+CarouselItem.propTypes = {
+  id: PropTypes.number,
+  imgUrl: PropTypes.string,
+  imgTitle: PropTypes.string,
+  projectUrlName: PropTypes.string,
+  addChildLeftPosition: PropTypes.func,
+  content: PropTypes.object,
+};
