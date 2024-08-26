@@ -23,7 +23,6 @@ const CarouselItem = ({
     if (itemRef.current) {
       const left = itemRef.current.getBoundingClientRect().left;
       addChildLeftPosition(left);
-      console.log("children are rendered");
     }
   }, [addChildLeftPosition]);
 

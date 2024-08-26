@@ -1,7 +1,8 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback } from "react";
 import CarouselItem from "../CarouselItem";
 import "./Carousel.css";
 import PropTypes from "prop-types";
+import useViewport from "../../useViewport";
 
 const Carousel = ({ images }) => {
   const PREFERED_FIRST_CHILD_POSITION = getComputedStyle(
@@ -10,7 +11,9 @@ const Carousel = ({ images }) => {
     .getPropertyValue("--padding-primary")
     .slice(0, -2);
 
-  const [mousePosX, setMousePosX] = useState();
+  const NUMBER_OF_CAROUSEL_CARDS = 2 * images.length;
+
+  // const [mousePosX, setMousePosX] = useState();
   // const [isDragging, setDraggingState] = useState(false);
   // const [startPosX, setStartPosX] = useState();
   // const [startTranslatePosition, setStartTranslatePosition] = useState();
@@ -22,50 +25,11 @@ const Carousel = ({ images }) => {
   const containerRef = useRef(null);
   const carouselTrackRef = useRef(null);
 
-  // const UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = -0.2;
-  // const LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT = -0.7;
-
-  const NUMBER_OF_CAROUSEL_CARDS = 2 * images.length;
   let childrenLeftPositionsCopy = [];
 
+  const { width } = useViewport();
+
   // let timer;
-
-  // useEffect(() => {
-  //   const currentCarouselRef = carouselTrackRef.current;
-  //   const transitionEnd = () => {
-  //     setDisableButton(false);
-  //     const carouselRealWidth = carouselTrackRef.current.scrollWidth;
-  //     const currentTranslation = translateX;
-
-  //     childLeftPositions = [];
-  //     childLeftPositions = childrenWidths.map((currentChild) => {
-  //       return getChildLeftPosition(currentChild);
-  //     });
-  //     const nextChildIndex = childLeftPositions.findIndex(
-  //       (childLeftPosition) => {
-  //         return Math.floor(childLeftPosition) > PREFERED_FIRST_CHILD_POSITION;
-  //       }
-  //     );
-  //     const nextChildLeft = childLeftPositions[nextChildIndex];
-  //     const nextPos =
-  //       currentTranslation - (nextChildLeft - PREFERED_FIRST_CHILD_POSITION);
-  //     const previousChildLeft = childLeftPositions[nextChildIndex - 1];
-  //     if (previousChildLeft) {
-  //       const previousPos =
-  //         currentTranslation -
-  //         (previousChildLeft - PREFERED_FIRST_CHILD_POSITION);
-  //       nextPos <= previousPos
-  //         ? infiniteSlide(nextPos, carouselRealWidth)
-  //         : infiniteSlide(previousPos, carouselRealWidth);
-  //     }
-  //   };
-
-  //   currentCarouselRef.addEventListener("transitionend", transitionEnd);
-
-  //   return () => {
-  //     currentCarouselRef.removeEventListener("transitionend", transitionEnd);
-  //   };
-  // }, []);
 
   const addChildLeftPosition = useCallback((width) => {
     if (childrenLeftPositionsCopy.length < NUMBER_OF_CAROUSEL_CARDS) {
@@ -186,9 +150,6 @@ const Carousel = ({ images }) => {
 
     if (mode === "next") {
       const nextIndex = activeIndex + 1;
-      console.log("TRANSLATE FÜR NÄCHSTES IMAGE");
-      console.log(childrenTranslateValues);
-      console.log(childrenTranslateValues[nextIndex]);
       setTranslateX(childrenTranslateValues[nextIndex]);
       setActiveIndex(nextIndex);
     }
@@ -206,6 +167,20 @@ const Carousel = ({ images }) => {
     //     (previousChildLeft - PREFERED_FIRST_CHILD_POSITION);
     //   setTranslateX(newPos);
     // }
+  };
+
+  const handleTransitionEnd = () => {
+    setDisableButton(false);
+    const carouselRealWidth = carouselTrackRef.current.scrollWidth;
+    const minimumTranslateValue = -carouselRealWidth + width;
+
+    // logic for letting carousel appear infinite
+    if (childrenTranslateValues[activeIndex + 1] < minimumTranslateValue) {
+      const newIndex = activeIndex - 0.5 * NUMBER_OF_CAROUSEL_CARDS;
+      carouselTrackRef.current.style.transitionDuration = "0ms";
+      setTranslateX(childrenTranslateValues[newIndex]);
+      setActiveIndex(newIndex);
+    }
   };
 
   // const getChildLeftPosition = (currentChild) => {
@@ -229,9 +204,7 @@ const Carousel = ({ images }) => {
             // + (isDragging ? "dragging" : "")
           }
           style={{ transform: `translate3d(${translateX}px, 0px, 0px)` }}
-          onTransitionEnd={() => {
-            setDisableButton(false);
-          }}
+          onTransitionEnd={handleTransitionEnd}
         >
           {images.map((card, idx) => (
             <CarouselItem
