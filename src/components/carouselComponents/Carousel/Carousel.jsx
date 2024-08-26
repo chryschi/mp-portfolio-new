@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import CarouselItem from "../CarouselItem";
 import "./Carousel.css";
 import PropTypes from "prop-types";
@@ -18,8 +18,8 @@ const Carousel = ({ images }) => {
   // const [startPosX, setStartPosX] = useState();
   // const [startTranslatePosition, setStartTranslatePosition] = useState();
   const [disableButton, setDisableButton] = useState(false);
-  const [translateX, setTranslateX] = useState(PREFERED_FIRST_CHILD_POSITION);
   const [childrenTranslateValues, setChildrenTranslateValues] = useState([]);
+  const [translateX, setTranslateX] = useState(PREFERED_FIRST_CHILD_POSITION);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const containerRef = useRef(null);
@@ -31,6 +31,15 @@ const Carousel = ({ images }) => {
 
   // let timer;
 
+  //correct position for infinite effect on initial render
+  useEffect(() => {
+    if (activeIndex === 0) {
+      const newIndex = activeIndex + 0.5 * NUMBER_OF_CAROUSEL_CARDS;
+      setTranslateX(childrenTranslateValues[newIndex]);
+      setActiveIndex(newIndex);
+    }
+  }, []);
+
   const addChildLeftPosition = useCallback((width) => {
     if (childrenLeftPositionsCopy.length < NUMBER_OF_CAROUSEL_CARDS) {
       childrenLeftPositionsCopy.push(width);
@@ -41,6 +50,7 @@ const Carousel = ({ images }) => {
             (leftPosition) => -leftPosition + 2 * PREFERED_FIRST_CHILD_POSITION
           )
         );
+
         childrenLeftPositionsCopy = [];
       }
     }
@@ -148,39 +158,39 @@ const Carousel = ({ images }) => {
     setDisableButton(true);
     carouselTrackRef.current.style.transitionDuration = "400ms";
 
+    let newIndex;
+
     if (mode === "next") {
-      const nextIndex = activeIndex + 1;
-      setTranslateX(childrenTranslateValues[nextIndex]);
-      setActiveIndex(nextIndex);
+      newIndex = activeIndex + 1;
+    }
+    if (mode === "previous") {
+      newIndex = activeIndex - 1;
     }
 
-    // if (mode === "previous") {
-    //   let previousChildLeft = childLeftPositions[nextChildIndex - 2];
-    //   if (
-    //     Math.round(childLeftPositions[nextChildIndex - 1]) <
-    //     PREFERED_FIRST_CHILD_POSITION
-    //   ) {
-    //     previousChildLeft = childLeftPositions[nextChildIndex - 1];
-    //   }
-    //   let newPos =
-    //     currentTranslation -
-    //     (previousChildLeft - PREFERED_FIRST_CHILD_POSITION);
-    //   setTranslateX(newPos);
-    // }
+    setTranslateX(childrenTranslateValues[newIndex]);
+    setActiveIndex(newIndex);
   };
 
   const handleTransitionEnd = () => {
     setDisableButton(false);
     const carouselRealWidth = carouselTrackRef.current.scrollWidth;
     const minimumTranslateValue = -carouselRealWidth + width;
+    let newIndex;
 
     // logic for letting carousel appear infinite
     if (childrenTranslateValues[activeIndex + 1] < minimumTranslateValue) {
-      const newIndex = activeIndex - 0.5 * NUMBER_OF_CAROUSEL_CARDS;
-      carouselTrackRef.current.style.transitionDuration = "0ms";
-      setTranslateX(childrenTranslateValues[newIndex]);
-      setActiveIndex(newIndex);
+      newIndex = activeIndex - 0.5 * NUMBER_OF_CAROUSEL_CARDS;
+    } else if (
+      childrenTranslateValues[activeIndex - 1] >= PREFERED_FIRST_CHILD_POSITION
+    ) {
+      newIndex = activeIndex + 0.5 * NUMBER_OF_CAROUSEL_CARDS;
+    } else {
+      newIndex = activeIndex;
     }
+
+    carouselTrackRef.current.style.transitionDuration = "0ms";
+    setTranslateX(childrenTranslateValues[newIndex]);
+    setActiveIndex(newIndex);
   };
 
   // const getChildLeftPosition = (currentChild) => {
@@ -240,7 +250,7 @@ const Carousel = ({ images }) => {
         <div className="carousel-button-container">
           <button
             disabled={disableButton}
-            // onClick={() => scrollToChild("previous")}
+            onClick={() => scrollToChild("previous")}
           >
             <span className="material-symbols-outlined navigate-icon">
               navigate_before
