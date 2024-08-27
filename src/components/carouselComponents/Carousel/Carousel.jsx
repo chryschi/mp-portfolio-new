@@ -124,32 +124,28 @@ const Carousel = ({ images }) => {
   const dragging = () => {
     if (!isDragging) return;
 
-    // const carouselRealWidth = carouselTrackRef.current.scrollWidth;
+    const carouselRealWidth = carouselTrackRef.current.scrollWidth;
     const mouseMoveDelta = mousePosX - startPosX;
     const newTranslateValue = Math.round(
       startTranslatePosition + mouseMoveDelta
     );
-    setTranslateX(newTranslateValue);
-    // infiniteSlide(translateX, carouselRealWidth);
 
-    // const minimumTranslateValue = -carouselRealWidth + width;
-    // let newIndex;
+    const minimumTranslateValue = -carouselRealWidth + width;
 
-    // const threshold = 500;
-    // // logic for letting carousel appear infinite
-    // if (translateX - threshold < minimumTranslateValue) {
-    //   // newIndex = activeIndex - 0.5 * NUMBER_OF_CAROUSEL_CARDS;
-    //   setTranslateX(translateX + 0.5 * carouselRealWidth);
-    // } else if (translateX + threshold >= PREFERED_FIRST_CHILD_POSITION) {
-    //   // newIndex = activeIndex + 0.5 * NUMBER_OF_CAROUSEL_CARDS;
-    //   setTranslateX(translateX - 0.5 * carouselRealWidth);
-    // } else {
-    //   newIndex = activeIndex;
-    // }
-
-    // carouselTrackRef.current.style.transitionDuration = "0ms";
-    // setTranslateX(childrenTranslateValues[newIndex]);
-    // setActiveIndex(newIndex);
+    const threshold = 500;
+    // logic for letting carousel appear infinite
+    if (
+      newTranslateValue >= minimumTranslateValue + threshold &&
+      newTranslateValue < PREFERED_FIRST_CHILD_POSITION - threshold
+    ) {
+      setTranslateX(newTranslateValue);
+    } else if (newTranslateValue - threshold < minimumTranslateValue) {
+      // newIndex = activeIndex - 0.5 * NUMBER_OF_CAROUSEL_CARDS;
+      setTranslateX(newTranslateValue + 0.5 * carouselRealWidth);
+    } else if (newTranslateValue + threshold >= PREFERED_FIRST_CHILD_POSITION) {
+      // newIndex = activeIndex + 0.5 * NUMBER_OF_CAROUSEL_CARDS;
+      setTranslateX(newTranslateValue - 0.5 * carouselRealWidth);
+    }
   };
 
   // const infiniteSlide = (desiredCarouselTranslation, carouselRealWidth) => {
