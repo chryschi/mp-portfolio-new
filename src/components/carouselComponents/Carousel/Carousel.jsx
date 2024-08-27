@@ -13,10 +13,16 @@ const Carousel = ({ images }) => {
 
   const NUMBER_OF_CAROUSEL_CARDS = 2 * images.length;
 
-  // const [mousePosX, setMousePosX] = useState();
-  // const [isDragging, setDraggingState] = useState(false);
-  // const [startPosX, setStartPosX] = useState();
-  // const [startTranslatePosition, setStartTranslatePosition] = useState();
+  //for dragging
+  const [mousePosX, setMousePosX] = useState();
+  const [isDragging, setDraggingState] = useState(false);
+  const [startPosX, setStartPosX] = useState();
+  const [startTranslatePosition, setStartTranslatePosition] = useState();
+
+  //switching between dragging and button navigation
+  const [wasDragged, setWasDragged] = useState(false);
+
+  //for button navigation
   const [disableButton, setDisableButton] = useState(false);
   const [childrenTranslateValues, setChildrenTranslateValues] = useState([]);
   const [translateX, setTranslateX] = useState(PREFERED_FIRST_CHILD_POSITION);
@@ -29,15 +35,36 @@ const Carousel = ({ images }) => {
 
   const { width } = useViewport();
 
-  // let timer;
+  let timer;
 
   //correct position for infinite effect on initial render
   useEffect(() => {
     if (activeIndex === 0) {
+      carouselTrackRef.current.style.transitionDuration = "0ms";
       const newIndex = activeIndex + 0.5 * NUMBER_OF_CAROUSEL_CARDS;
       setTranslateX(childrenTranslateValues[newIndex]);
       setActiveIndex(newIndex);
     }
+  }, []);
+
+  //handle carousel mouse dragging
+  useEffect(() => {
+    const currentContainerRef = containerRef.current;
+    console.log("effect for dragging");
+    const handleMouseMove = (event) => {
+      setMousePosX(event.clientX);
+    };
+
+    window.addEventListener("mouseup", dragStop);
+
+    if (currentContainerRef) {
+      currentContainerRef.addEventListener("mousemove", handleMouseMove);
+    }
+
+    return () => {
+      window.removeEventListener("mouseup", dragStop);
+      currentContainerRef.removeEventListener("mousemove", handleMouseMove);
+    };
   }, []);
 
   const addChildLeftPosition = useCallback((width) => {
@@ -55,25 +82,6 @@ const Carousel = ({ images }) => {
       }
     }
   }, []);
-
-  //handle carousel mouse dragging
-  // useEffect(() => {
-  //   const currentContainerRef = containerRef.current;
-  //   const handleMouseMove = (event) => {
-  //     setMousePosX(event.clientX);
-  //   };
-
-  //   window.addEventListener("mouseup", dragStop);
-
-  //   if (currentContainerRef) {
-  //     currentContainerRef.addEventListener("mousemove", handleMouseMove);
-  //   }
-
-  //   return () => {
-  //     window.removeEventListener("mouseup", dragStop);
-  //     currentContainerRef.removeEventListener("mousemove", handleMouseMove);
-  //   };
-  // }, []);
 
   //handle scrolling
   // useEffect(() => {
@@ -100,29 +108,49 @@ const Carousel = ({ images }) => {
   //   };
   // }, []);
 
-  // const dragStart = () => {
-  //   const currentCarouselRef = carouselTrackRef.current;
-  //   timer = setTimeout(() => {
-  //     currentCarouselRef.style.pointerEvents = "none";
-  //   }, 150);
-  //   carouselTrackRef.current.style.transitionDuration = "0ms";
-  //   const currentCarouselTranslation = translateX;
-  //   setDraggingState(true);
-  //   setStartTranslatePosition(Number(currentCarouselTranslation));
-  //   setStartPosX(mousePosX);
-  // };
+  const dragStart = () => {
+    setWasDragged(true);
+    const currentCarouselRef = carouselTrackRef.current;
+    timer = setTimeout(() => {
+      currentCarouselRef.style.pointerEvents = "none";
+    }, 150);
+    carouselTrackRef.current.style.transitionDuration = "0ms";
+    const currentCarouselTranslation = translateX;
+    setDraggingState(true);
+    setStartTranslatePosition(Number(currentCarouselTranslation));
+    setStartPosX(mousePosX);
+  };
 
-  // const dragging = () => {
-  //   if (!isDragging) return;
+  const dragging = () => {
+    if (!isDragging) return;
 
-  //   const carouselRealWidth = carouselTrackRef.current.scrollWidth;
-  //   const mouseMoveDelta = mousePosX - startPosX;
-  //   const newTranslateValue = Math.round(
-  //     startTranslatePosition + mouseMoveDelta
-  //   );
-  //   setTranslateX(newTranslateValue);
-  //   infiniteSlide(translateX, carouselRealWidth);
-  // };
+    // const carouselRealWidth = carouselTrackRef.current.scrollWidth;
+    const mouseMoveDelta = mousePosX - startPosX;
+    const newTranslateValue = Math.round(
+      startTranslatePosition + mouseMoveDelta
+    );
+    setTranslateX(newTranslateValue);
+    // infiniteSlide(translateX, carouselRealWidth);
+
+    // const minimumTranslateValue = -carouselRealWidth + width;
+    // let newIndex;
+
+    // const threshold = 500;
+    // // logic for letting carousel appear infinite
+    // if (translateX - threshold < minimumTranslateValue) {
+    //   // newIndex = activeIndex - 0.5 * NUMBER_OF_CAROUSEL_CARDS;
+    //   setTranslateX(translateX + 0.5 * carouselRealWidth);
+    // } else if (translateX + threshold >= PREFERED_FIRST_CHILD_POSITION) {
+    //   // newIndex = activeIndex + 0.5 * NUMBER_OF_CAROUSEL_CARDS;
+    //   setTranslateX(translateX - 0.5 * carouselRealWidth);
+    // } else {
+    //   newIndex = activeIndex;
+    // }
+
+    // carouselTrackRef.current.style.transitionDuration = "0ms";
+    // setTranslateX(childrenTranslateValues[newIndex]);
+    // setActiveIndex(newIndex);
+  };
 
   // const infiniteSlide = (desiredCarouselTranslation, carouselRealWidth) => {
   //   if (
@@ -147,14 +175,15 @@ const Carousel = ({ images }) => {
   //   }
   // };
 
-  // const dragStop = () => {
-  //   setDraggingState(false);
-  //   clearTimeout(timer);
-  //   const currentCarouselRef = carouselTrackRef.current;
-  //   currentCarouselRef.style.pointerEvents = "auto";
-  // };
+  const dragStop = () => {
+    setDraggingState(false);
+    clearTimeout(timer);
+    const currentCarouselRef = carouselTrackRef.current;
+    currentCarouselRef.style.pointerEvents = "auto";
+  };
 
   const scrollToChild = (mode) => {
+    setWasDragged(false);
     setDisableButton(true);
     carouselTrackRef.current.style.transitionDuration = "400ms";
 
@@ -172,47 +201,42 @@ const Carousel = ({ images }) => {
   };
 
   const handleTransitionEnd = () => {
+    console.log("transition has ended");
     setDisableButton(false);
     const carouselRealWidth = carouselTrackRef.current.scrollWidth;
     const minimumTranslateValue = -carouselRealWidth + width;
     let newIndex;
 
-    // logic for letting carousel appear infinite
-    if (childrenTranslateValues[activeIndex + 1] < minimumTranslateValue) {
-      newIndex = activeIndex - 0.5 * NUMBER_OF_CAROUSEL_CARDS;
-    } else if (
-      childrenTranslateValues[activeIndex - 1] >= PREFERED_FIRST_CHILD_POSITION
-    ) {
-      newIndex = activeIndex + 0.5 * NUMBER_OF_CAROUSEL_CARDS;
-    } else {
-      newIndex = activeIndex;
+    if (!wasDragged) {
+      // logic for letting carousel appear infinite when navigating with button
+      if (childrenTranslateValues[activeIndex + 1] < minimumTranslateValue) {
+        newIndex = activeIndex - 0.5 * NUMBER_OF_CAROUSEL_CARDS;
+      } else if (
+        childrenTranslateValues[activeIndex - 1] >=
+        PREFERED_FIRST_CHILD_POSITION
+      ) {
+        newIndex = activeIndex + 0.5 * NUMBER_OF_CAROUSEL_CARDS;
+      } else {
+        newIndex = activeIndex;
+      }
+
+      carouselTrackRef.current.style.transitionDuration = "0ms";
+      setTranslateX(childrenTranslateValues[newIndex]);
+      setActiveIndex(newIndex);
     }
-
-    carouselTrackRef.current.style.transitionDuration = "0ms";
-    setTranslateX(childrenTranslateValues[newIndex]);
-    setActiveIndex(newIndex);
   };
-
-  // const getChildLeftPosition = (currentChild) => {
-  //   const childDetails = currentChild.getBoundingClientRect();
-  //   const leftPosition = childDetails.left;
-  //   return leftPosition;
-  // };
 
   return (
     <>
       <div
         className="carousel-container"
-        // onMouseDown={dragStart}
-        // onMouseMove={dragging}
+        onMouseDown={dragStart}
+        onMouseMove={dragging}
         ref={containerRef}
       >
         <div
           ref={carouselTrackRef}
-          className={
-            "carousel "
-            // + (isDragging ? "dragging" : "")
-          }
+          className={"carousel " + (isDragging ? "dragging" : "")}
           style={{ transform: `translate3d(${translateX}px, 0px, 0px)` }}
           onTransitionEnd={handleTransitionEnd}
         >

@@ -90,5 +90,5 @@ CarouselItem.propTypes = {
   imgTitle: PropTypes.string,
   projectUrlName: PropTypes.string,
   addChildLeftPosition: PropTypes.func,
-  content: PropTypes.object,
+  content: PropTypes.array,
 };
