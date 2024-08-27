@@ -129,47 +129,21 @@ const Carousel = ({ images }) => {
     const newTranslateValue = Math.round(
       startTranslatePosition + mouseMoveDelta
     );
-
     const minimumTranslateValue = -carouselRealWidth + width;
-
     const threshold = 500;
-    // logic for letting carousel appear infinite
+
+    // logic for letting carousel appear infinite while dragging
     if (
       newTranslateValue >= minimumTranslateValue + threshold &&
       newTranslateValue < PREFERED_FIRST_CHILD_POSITION - threshold
     ) {
       setTranslateX(newTranslateValue);
     } else if (newTranslateValue - threshold < minimumTranslateValue) {
-      // newIndex = activeIndex - 0.5 * NUMBER_OF_CAROUSEL_CARDS;
       setTranslateX(newTranslateValue + 0.5 * carouselRealWidth);
     } else if (newTranslateValue + threshold >= PREFERED_FIRST_CHILD_POSITION) {
-      // newIndex = activeIndex + 0.5 * NUMBER_OF_CAROUSEL_CARDS;
       setTranslateX(newTranslateValue - 0.5 * carouselRealWidth);
     }
   };
-
-  // const infiniteSlide = (desiredCarouselTranslation, carouselRealWidth) => {
-  //   if (
-  //     desiredCarouselTranslation >
-  //     UPPER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
-  //   ) {
-  //     let current = translateX;
-  //     current -= 0.5 * carouselRealWidth;
-  //     current = Math.round(current);
-  //     carouselTrackRef.current.style.transitionDuration = "0ms";
-  //     setTranslateX(current);
-  //   } else if (
-  //     desiredCarouselTranslation <
-  //     LOWER_BOUNDARY_FACTOR_FOR_INFINITE_EFFECT * carouselRealWidth
-  //   ) {
-  //     let current = translateX;
-  //     current += 0.5 * carouselRealWidth;
-  //     current = Math.round(current);
-  //     carouselTrackRef.current.style.transitionDuration = "0ms";
-
-  //     setTranslateX(current);
-  //   }
-  // };
 
   const dragStop = () => {
     setDraggingState(false);
@@ -186,14 +160,20 @@ const Carousel = ({ images }) => {
     let newIndex;
 
     if (mode === "next") {
-      newIndex = activeIndex + 1;
+      newIndex = wasDragged ? getNextIndex() : activeIndex + 1;
     }
     if (mode === "previous") {
-      newIndex = activeIndex - 1;
+      newIndex = wasDragged ? getNextIndex() - 1 : activeIndex - 1;
     }
 
     setTranslateX(childrenTranslateValues[newIndex]);
     setActiveIndex(newIndex);
+  };
+
+  const getNextIndex = () => {
+    return childrenTranslateValues.findIndex(
+      (translateValue) => translateValue < translateX
+    );
   };
 
   const handleTransitionEnd = () => {
@@ -204,7 +184,7 @@ const Carousel = ({ images }) => {
     let newIndex;
 
     if (!wasDragged) {
-      // logic for letting carousel appear infinite when navigating with button
+      // logic for letting carousel appear infinite when navigating with buttons
       if (childrenTranslateValues[activeIndex + 1] < minimumTranslateValue) {
         newIndex = activeIndex - 0.5 * NUMBER_OF_CAROUSEL_CARDS;
       } else if (
