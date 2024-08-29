@@ -47,10 +47,9 @@ const Carousel = ({ images }) => {
     }
   }, []);
 
-  //handle carousel mouse dragging
+  //effect for carousel mouse dragging
   useEffect(() => {
     const currentContainerRef = containerRef.current;
-    console.log("effect for dragging");
     const handleMouseMove = (event) => {
       setMousePosX(event.clientX);
     };
@@ -67,6 +66,7 @@ const Carousel = ({ images }) => {
     };
   }, []);
 
+  //retrieving positions of carousel images
   const addChildLeftPosition = useCallback((width) => {
     if (childrenLeftPositionsCopy.length < NUMBER_OF_CAROUSEL_CARDS) {
       childrenLeftPositionsCopy.push(width);
@@ -83,31 +83,15 @@ const Carousel = ({ images }) => {
     }
   }, []);
 
-  //handle scrolling
-  // useEffect(() => {
-  //   const currentCarouselRef = carouselTrackRef.current;
-  //   const handleWheel = (e) => {
-  //     e.preventDefault();
+  // function for wheel scrolling
+  const handleWheel = (e) => {
+    setWasDragged(true);
+    const currentCarouselTranslation = translateX;
+    const newTranslateValue = currentCarouselTranslation - e.deltaY * 0.6;
+    infiniteEffect(newTranslateValue);
+  };
 
-  //     const carouselRealWidth = currentCarouselRef.scrollWidth;
-  //     const currentCarouselTranslation = translateX;
-  //     const newTranslateValue = currentCarouselTranslation - e.deltaY * 0.6;
-
-  //     setTranslateX(newTranslateValue);
-  //     infiniteSlide(newTranslateValue, carouselRealWidth);
-  //   };
-
-  //   currentCarouselRef.addEventListener("wheel", handleWheel, {
-  //     passive: false,
-  //   });
-
-  //   return () => {
-  //     currentCarouselRef.removeEventListener("wheel", handleWheel, {
-  //       passive: false,
-  //     });
-  //   };
-  // }, []);
-
+  // functions for dragging the carousel
   const dragStart = () => {
     setWasDragged(true);
     const currentCarouselRef = carouselTrackRef.current;
@@ -124,25 +108,11 @@ const Carousel = ({ images }) => {
   const dragging = () => {
     if (!isDragging) return;
 
-    const carouselRealWidth = carouselTrackRef.current.scrollWidth;
     const mouseMoveDelta = mousePosX - startPosX;
     const newTranslateValue = Math.round(
       startTranslatePosition + mouseMoveDelta
     );
-    const minimumTranslateValue = -carouselRealWidth + width;
-    const threshold = 500;
-
-    // logic for letting carousel appear infinite while dragging
-    if (
-      newTranslateValue >= minimumTranslateValue + threshold &&
-      newTranslateValue < PREFERED_FIRST_CHILD_POSITION - threshold
-    ) {
-      setTranslateX(newTranslateValue);
-    } else if (newTranslateValue - threshold < minimumTranslateValue) {
-      setTranslateX(newTranslateValue + 0.5 * carouselRealWidth);
-    } else if (newTranslateValue + threshold >= PREFERED_FIRST_CHILD_POSITION) {
-      setTranslateX(newTranslateValue - 0.5 * carouselRealWidth);
-    }
+    infiniteEffect(newTranslateValue);
   };
 
   const dragStop = () => {
@@ -152,6 +122,25 @@ const Carousel = ({ images }) => {
     currentCarouselRef.style.pointerEvents = "auto";
   };
 
+  // logic for letting carousel appear infinite while dragging or scrolling
+  const infiniteEffect = (newTranslate) => {
+    const carouselRealWidth = carouselTrackRef.current.scrollWidth;
+    const minimumTranslateValue = -carouselRealWidth + width;
+    const threshold = 500;
+
+    if (
+      newTranslate >= minimumTranslateValue + threshold &&
+      newTranslate < PREFERED_FIRST_CHILD_POSITION - threshold
+    ) {
+      setTranslateX(newTranslate);
+    } else if (newTranslate - threshold < minimumTranslateValue) {
+      setTranslateX(newTranslate + 0.5 * carouselRealWidth);
+    } else if (newTranslate + threshold >= PREFERED_FIRST_CHILD_POSITION) {
+      setTranslateX(newTranslate - 0.5 * carouselRealWidth);
+    }
+  };
+
+  //arrow button navigation
   const scrollToChild = (mode) => {
     setWasDragged(false);
     setDisableButton(true);
@@ -177,7 +166,6 @@ const Carousel = ({ images }) => {
   };
 
   const handleTransitionEnd = () => {
-    console.log("transition has ended");
     setDisableButton(false);
     const carouselRealWidth = carouselTrackRef.current.scrollWidth;
     const minimumTranslateValue = -carouselRealWidth + width;
@@ -208,6 +196,7 @@ const Carousel = ({ images }) => {
         className="carousel-container"
         onMouseDown={dragStart}
         onMouseMove={dragging}
+        onWheel={handleWheel}
         ref={containerRef}
       >
         <div
