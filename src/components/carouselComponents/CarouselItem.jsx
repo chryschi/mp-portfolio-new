@@ -23,8 +23,9 @@ const CarouselItem = ({
     const imageRef = itemRef.current;
     const getLeftPositions = () => {
       if (itemRef.current) {
-        const left = itemRef.current.getBoundingClientRect().left;
-        addChildLeftPosition(left);
+        // const left = itemRef.current.getBoundingClientRect().left;
+        // addChildLeftPosition(left);
+        addChildLeftPosition(imageRef);
       }
     };
     imageRef.addEventListener("load", getLeftPositions);
