@@ -20,10 +20,15 @@ const CarouselItem = ({
   const [translateCaption, setTranslateCaption] = useState(-20);
 
   useEffect(() => {
-    if (itemRef.current) {
-      const left = itemRef.current.getBoundingClientRect().left;
-      addChildLeftPosition(left);
-    }
+    const imageRef = itemRef.current;
+    const getLeftPositions = () => {
+      if (itemRef.current) {
+        const left = itemRef.current.getBoundingClientRect().left;
+        addChildLeftPosition(left);
+      }
+    };
+    imageRef.addEventListener("load", getLeftPositions);
+    return () => imageRef.removeEventListener("load", getLeftPositions);
   }, [addChildLeftPosition]);
 
   const handleSelectImage = () => {

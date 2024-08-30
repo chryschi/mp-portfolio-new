@@ -66,12 +66,18 @@ const Carousel = ({ images }) => {
     };
   }, []);
 
+  const compareNumbers = (a, b) => {
+    return a - b;
+  };
+
   //retrieving positions of carousel images
   const addChildLeftPosition = useCallback((width) => {
     if (childrenLeftPositionsCopy.length < NUMBER_OF_CAROUSEL_CARDS) {
       childrenLeftPositionsCopy.push(width);
 
       if (childrenLeftPositionsCopy.length === NUMBER_OF_CAROUSEL_CARDS) {
+        childrenLeftPositionsCopy.sort(compareNumbers);
+
         setChildrenTranslateValues(
           childrenLeftPositionsCopy.map(
             (leftPosition) => -leftPosition + 2 * PREFERED_FIRST_CHILD_POSITION
