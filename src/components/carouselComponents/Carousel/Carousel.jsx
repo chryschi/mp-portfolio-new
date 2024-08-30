@@ -71,10 +71,9 @@ const Carousel = ({ images }) => {
   };
 
   //retrieving positions of carousel images
-  const addChildLeftPosition = useCallback((imgRef) => {
+  const addChildLeftPosition = useCallback((width) => {
     if (childrenLeftPositionsCopy.length < NUMBER_OF_CAROUSEL_CARDS) {
-      const left = imgRef.getBoundingClientRect().left;
-      childrenLeftPositionsCopy.push(left);
+      childrenLeftPositionsCopy.push(width);
 
       if (childrenLeftPositionsCopy.length === NUMBER_OF_CAROUSEL_CARDS) {
         childrenLeftPositionsCopy.sort(compareNumbers);

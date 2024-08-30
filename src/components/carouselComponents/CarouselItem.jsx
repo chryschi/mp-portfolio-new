@@ -20,16 +20,24 @@ const CarouselItem = ({
   const [translateCaption, setTranslateCaption] = useState(-20);
 
   useEffect(() => {
-    const imageRef = itemRef.current;
+    // const imageRef = itemRef.current;
+
     const getLeftPositions = () => {
       if (itemRef.current) {
-        // const left = itemRef.current.getBoundingClientRect().left;
-        // addChildLeftPosition(left);
-        addChildLeftPosition(imageRef);
+        const left = itemRef.current.getBoundingClientRect().left;
+        console.log(left);
+        addChildLeftPosition(left);
       }
     };
-    imageRef.addEventListener("load", getLeftPositions);
-    return () => imageRef.removeEventListener("load", getLeftPositions);
+
+    //simulate fade in transition in order to fire getBoundingClientRect late enough
+    const timer = setTimeout(() => {
+      getLeftPositions();
+    }, 300);
+
+    // imageRef.addEventListener("load", getLeftPositions);
+    return () => clearTimeout(timer);
+    // () => imageRef.removeEventListener("load", getLeftPositions);
   }, [addChildLeftPosition]);
 
   const handleSelectImage = () => {
