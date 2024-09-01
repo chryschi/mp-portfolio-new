@@ -27,7 +27,7 @@ figcaption {
 header {
   display: flex;
   justify-content: space-between;
-  height: 17vh;
+  height: 13vh;
   padding: 0 3vw;
 
   line-height: 1;
@@ -49,17 +49,13 @@ header > a {
 main {
   display: flex;
   flex-direction: column;
-  flex: 1 auto;
+  /* flex: 1 auto; */
+  height: 80vh;
 }
 
 figure {
   margin: 0;
   padding: 0;
-}
-
-footer {
-  box-sizing: border-box;
-  height: 5vh;
 }
 
 /* Carousel */

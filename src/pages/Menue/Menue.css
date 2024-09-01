@@ -6,10 +6,6 @@ nav {
   text-align: center;
 }
 
-nav ul {
-  padding-top: calc(2 * var(--padding-primary));
-}
-
 nav li {
   display: flex;
   justify-content: center;

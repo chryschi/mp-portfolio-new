@@ -1,14 +1,14 @@
 main.carousel-page {
   justify-content: space-between;
-  padding-top: 7vh;
-  gap: 7vh;
+  padding-top: 6vh;
+  gap: 6vh;
 }
 
 .carousel-container {
   max-width: 100%;
   color: white;
   overflow: hidden;
-  height: 60vh;
+  /* height: 60vh; */
   cursor: grab;
 }
 
