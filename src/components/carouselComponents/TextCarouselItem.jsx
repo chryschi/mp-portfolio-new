@@ -8,10 +8,17 @@ const TextCarouselItem = forwardRef(function TextCarouselItem(props, ref) {
 
   return (
     <article className="carousel-text-item" ref={ref}>
-      {content.map((paragraph, idx) => (
-        <p key={idx}>{paragraph}</p>
-      ))}
-      <Link to={`/${name}/${project}/projektbeschreibung`}>Mehr lesen</Link>
+      <div>
+        {content.map((paragraph, idx) => (
+          <p key={idx}>{paragraph}</p>
+        ))}{" "}
+      </div>
+      <Link to={`/${name}/${project}/projektbeschreibung`}>
+        Mehr lesen
+        <span className="material-symbols-outlined link-icon-carousel">
+          north_east
+        </span>
+      </Link>
     </article>
   );
 });

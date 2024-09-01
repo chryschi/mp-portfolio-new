@@ -47,7 +47,9 @@ const Header = () => {
           <>
             <h1 className="project-title">{projectTitles[project]}</h1>
             <Link to={`/${name}`}>
-              <span className="material-symbols-outlined">close</span>
+              <span className="material-symbols-outlined close-project-icon">
+                close
+              </span>
             </Link>
           </>
         ) : (

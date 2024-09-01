@@ -27,7 +27,7 @@ const Kontakt = () => {
   return (
     <main className="kontakt">
       <p className="call-to-action">
-        Zeitlose und minimalistische <br /> Architektur für jeden. Let's do
+        Zeitlose und minimalistische <br /> Architektur für jeden. Let&apos;s do
         this. <br /> Lorem ipsum dolor sit amet, consetetur <br /> sadipscing
         elitr, sed diam.
       </p>

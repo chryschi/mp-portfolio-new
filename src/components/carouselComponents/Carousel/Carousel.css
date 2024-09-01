@@ -8,7 +8,6 @@ main.carousel-page {
   max-width: 100%;
   color: white;
   overflow: hidden;
-  /* height: 60vh; */
   cursor: grab;
 }
 
@@ -16,7 +15,6 @@ main.carousel-page {
   list-style: none;
   display: flex;
   height: 100%;
-  /* transform: translate3d(-1000px, 0px, 0px); */
   transition: transform 500ms ease;
 }
 
@@ -63,7 +61,31 @@ main.carousel-page {
 
 .carousel-text-item {
   margin-right: var(--carousel-item-gap);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   max-width: 600px;
+
+  font-size: 1.2rem;
+}
+
+.carousel-text-item p {
+  width: 500px;
+  margin-bottom: 2em;
+  text-align: justify;
+}
+
+.carousel-text-item a {
+  text-transform: uppercase;
+  font-weight: bolder;
+}
+
+.link-icon-carousel {
+  font-size: 1.6em;
+  font-weight: 200;
+  padding: 0;
+  margin-left: 6px;
+  align-self: center;
 }
 
 .dragging {
