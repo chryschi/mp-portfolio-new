@@ -27,6 +27,6 @@ Vite, React, HTML/CSS/JS
 
 ## Future Bug Fixes
 
-- [] carousel behaving as expected when trying to drag or click the arrow buttons
+- [x] carousel behaving as expected when trying to drag it or navigate with arrow buttons
 - [] carousel has always full length regardless of screen width
 - [] scrollbar only appears when necessary

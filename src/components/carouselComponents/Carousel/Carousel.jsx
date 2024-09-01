@@ -77,7 +77,6 @@ const Carousel = ({ images }) => {
 
       if (childrenLeftPositionsCopy.length === NUMBER_OF_CAROUSEL_CARDS) {
         childrenLeftPositionsCopy.sort(compareNumbers);
-        console.log(childrenLeftPositionsCopy);
 
         setChildrenTranslateValues(
           childrenLeftPositionsCopy.map(
