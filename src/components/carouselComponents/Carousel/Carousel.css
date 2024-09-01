@@ -1,5 +1,10 @@
+main.carousel-page {
+  justify-content: space-between;
+  padding-top: 7vh;
+  gap: 7vh;
+}
+
 .carousel-container {
-  padding: var(--padding-primary) 0;
   max-width: 100%;
   color: white;
   overflow: hidden;
@@ -11,7 +16,7 @@
   list-style: none;
   display: flex;
   height: 100%;
-  transform: translate3d(-1000px, 0px, 0px);
+  /* transform: translate3d(-1000px, 0px, 0px); */
   transition: transform 500ms ease;
 }
 
@@ -42,7 +47,7 @@
 .carousel-navigation {
   display: flex;
   justify-content: space-between;
-  padding: 0 var(--padding-primary);
+  padding: 0 var(--padding-left);
 }
 
 .carousel-button-container {
@@ -57,7 +62,7 @@
 }
 
 .carousel-text-item {
-  margin-right: var(--padding-primary);
+  margin-right: var(--carousel-item-gap);
   max-width: 600px;
 }
 

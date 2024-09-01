@@ -1,12 +1,14 @@
 import { Link, useParams } from "react-router-dom";
 import { forwardRef } from "react";
+import PropTypes from "prop-types";
 
 const TextCarouselItem = forwardRef(function TextCarouselItem(props, ref) {
   const { name, project } = useParams();
+  const content = props.content;
 
   return (
     <article className="carousel-text-item" ref={ref}>
-      {props.content.map((paragraph, idx) => (
+      {content.map((paragraph, idx) => (
         <p key={idx}>{paragraph}</p>
       ))}
       <Link to={`/${name}/${project}/projektbeschreibung`}>Mehr lesen</Link>
@@ -15,3 +17,8 @@ const TextCarouselItem = forwardRef(function TextCarouselItem(props, ref) {
 });
 
 export default TextCarouselItem;
+
+TextCarouselItem.propTypes = {
+  props: PropTypes.object,
+  content: PropTypes.array,
+};

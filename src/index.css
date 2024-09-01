@@ -8,14 +8,16 @@
 }
 
 :root {
-  --scrollPos: -1000px;
+  /* --scrollPos: -1000px; */
   --accent-color: rgb(255, 82, 13);
-  --padding-primary: 70px;
+  --padding-left: 3vw;
+  --carousel-item-gap: 70px;
+  --padding-vertical: 5vh;
 
   --carousel-figcaption-width: 24px;
   --carousel-figcaption-margin-left: 5px;
   --carousel-figcaption-margin-right: calc(
-    var(--padding-primary) - var(--carousel-figcaption-margin-left) -
+    var(--carousel-item-gap) - var(--carousel-figcaption-margin-left) -
       var(--carousel-figcaption-width)
   );
 
@@ -41,6 +43,12 @@
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {

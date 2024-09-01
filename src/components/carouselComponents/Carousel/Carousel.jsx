@@ -5,11 +5,14 @@ import PropTypes from "prop-types";
 import useViewport from "../../useViewport";
 
 const Carousel = ({ images }) => {
-  const PREFERED_FIRST_CHILD_POSITION = getComputedStyle(
-    document.documentElement
-  )
-    .getPropertyValue("--padding-primary")
-    .slice(0, -2);
+  const { width } = useViewport();
+
+  const PREFERED_FIRST_CHILD_POSITION =
+    getComputedStyle(document.documentElement)
+      .getPropertyValue("--padding-left")
+      .slice(0, -2) *
+    0.01 *
+    width;
 
   const NUMBER_OF_CAROUSEL_CARDS = 2 * images.length;
 
@@ -32,8 +35,6 @@ const Carousel = ({ images }) => {
   const carouselTrackRef = useRef(null);
 
   let childrenLeftPositionsCopy = [];
-
-  const { width } = useViewport();
 
   let timer;
 

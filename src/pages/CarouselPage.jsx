@@ -6,7 +6,7 @@ const CarouselPage = () => {
   const { name, project } = useParams();
 
   return (
-    <main>
+    <main className="carousel-page">
       {project === undefined ? (
         <Carousel images={cataloguePages[`${name}`].images} />
       ) : (
