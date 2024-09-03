@@ -1,4 +1,18 @@
+.menu-container {
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: calc(100vh - var(--footer-height) - var(--header-height));
+
+  display: flex;
+  align-items: center;
+  /* height: calc(100vw - var(--header-height)); */
+}
+
 nav {
+  /* position: absolute;
+  top: var(--header-height); */
+
   display: flex;
   flex: 1;
   justify-content: center;

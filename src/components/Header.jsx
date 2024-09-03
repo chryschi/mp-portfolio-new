@@ -38,7 +38,9 @@ const Header = ({ menuVisible, visibilityHandler }) => {
   return (
     <header>
       <div>
-        {project === undefined ? (
+        {menuVisible ? (
+          <h1>Menü</h1>
+        ) : project === undefined ? (
           <h1>{mainPageTitle}</h1>
         ) : project !== undefined && slideshow === undefined ? (
           <>

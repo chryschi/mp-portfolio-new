@@ -13,6 +13,8 @@
   --padding-left: 3vw;
   --carousel-item-gap: max(var(--padding-left), 70px);
   --padding-vertical: 5vh;
+  --header-height: 13vh;
+  --footer-height: 7vh;
 
   --carousel-figcaption-width: 24px;
   --carousel-figcaption-margin-left: 5px;
@@ -90,7 +92,7 @@ footer {
   text-transform: lowercase;
   justify-content: center;
   align-items: center;
-  height: 7vh;
+  height: var(--footer-height);
 }
 
 figcaption,

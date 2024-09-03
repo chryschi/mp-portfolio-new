@@ -35,24 +35,30 @@ const Page = () => {
         menuVisible={menuIsVisible}
         visibilityHandler={toggleMenuVisibility}
       />
-      <PageContext.Provider
-        value={{ firstImageIndexInSlideshow, setFirstImageIndexInSlideshow }}
-      >
-        {slideshow === undefined && carouselPages.includes(name) ? (
-          <CarouselPage />
-        ) : (slideshow === "projektbeschreibung" ||
-            slideshow === "slideshow") &&
-          carouselPages.includes(name) ? (
-          <SlideshowPage />
-        ) : name === "kontakt" ? (
-          <Kontakt />
-        ) : name === "uebermich" ? (
-          <UeberMich />
-        ) : (
-          <div>Diese Seite existiert nicht!</div>
-        )}
-      </PageContext.Provider>
-      {menuIsVisible ? <Menue menuVisible={menuIsVisible} /> : null}
+      <div className="main-content">
+        <PageContext.Provider
+          value={{ firstImageIndexInSlideshow, setFirstImageIndexInSlideshow }}
+        >
+          <div style={{ visibility: menuIsVisible ? "hidden" : "visible" }}>
+            {slideshow === undefined && carouselPages.includes(name) ? (
+              <CarouselPage />
+            ) : (slideshow === "projektbeschreibung" ||
+                slideshow === "slideshow") &&
+              carouselPages.includes(name) ? (
+              <SlideshowPage />
+            ) : name === "kontakt" ? (
+              <Kontakt />
+            ) : name === "uebermich" ? (
+              <UeberMich />
+            ) : (
+              <div>Diese Seite existiert nicht!</div>
+            )}
+          </div>
+        </PageContext.Provider>
+
+        {<Menue menuVisible={menuIsVisible} />}
+      </div>
+
       <Footer />
     </>
   );

@@ -26,7 +26,7 @@ figcaption {
 header {
   display: flex;
   justify-content: space-between;
-  height: 13vh;
+  height: var(--header-height);
   padding: 0 var(--padding-left);
 
   line-height: 1;
@@ -53,6 +53,10 @@ main {
   display: flex;
   flex-direction: column;
   height: 80vh;
+}
+
+.main-content {
+  position: relative;
 }
 
 figure {
