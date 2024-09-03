@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
 import "./Menue.css";
+import PropTypes from "prop-types";
 
-const Menue = () => {
+const Menue = ({ menuVisible }) => {
   return (
-    <nav>
+    <nav style={{ visibility: menuVisible ? "visible" : "hidden" }}>
       <ul>
         <li>
           <Link to="/aktuelles">Aktuelles</Link>
@@ -29,3 +30,7 @@ const Menue = () => {
 };
 
 export default Menue;
+
+Menue.propTypes = {
+  menuVisible: PropTypes.bool,
+};

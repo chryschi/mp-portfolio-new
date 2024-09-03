@@ -7,12 +7,15 @@ import CarouselPage from "../pages/CarouselPage";
 import "../App.css";
 import SlideshowPage from "../pages/SlideshowPage";
 import { createContext, useState } from "react";
+import Menue from "../pages/Menue/Menue";
 
 export const PageContext = createContext();
 
 const Page = () => {
   const [firstImageIndexInSlideshow, setFirstImageIndexInSlideshow] =
     useState(1);
+  const [menuIsVisible, setMenuIsVisible] = useState(false);
+
   const { name, slideshow } = useParams();
 
   const carouselPages = [
@@ -22,9 +25,16 @@ const Page = () => {
     "aktuelles",
   ];
 
+  const toggleMenuVisibility = () => {
+    setMenuIsVisible(!menuIsVisible);
+  };
+
   return (
     <>
-      <Header />
+      <Header
+        menuVisible={menuIsVisible}
+        visibilityHandler={toggleMenuVisibility}
+      />
       <PageContext.Provider
         value={{ firstImageIndexInSlideshow, setFirstImageIndexInSlideshow }}
       >
@@ -42,6 +52,7 @@ const Page = () => {
           <div>Diese Seite existiert nicht!</div>
         )}
       </PageContext.Provider>
+      {menuIsVisible ? <Menue menuVisible={menuIsVisible} /> : null}
       <Footer />
     </>
   );

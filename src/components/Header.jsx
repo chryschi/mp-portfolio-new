@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const Header = () => {
+const Header = ({ menuVisible, visibilityHandler }) => {
   const { name, project, slideshow } = useParams();
   const [currentPage, setCurrentPage] = useState();
 
@@ -26,14 +27,12 @@ const Header = () => {
   };
 
   useEffect(() => {
-    if (name !== "menue") {
-      let currentUrl = "/" + name;
-      if (project !== undefined) {
-        currentUrl += "/" + project;
-      }
-
-      setCurrentPage(currentUrl);
+    let currentUrl = "/" + name;
+    if (project !== undefined) {
+      currentUrl += "/" + project;
     }
+
+    setCurrentPage(currentUrl);
   }, [name, project]);
 
   return (
@@ -59,9 +58,13 @@ const Header = () => {
           <span className={"material-symbols-outlined"}>{"close"}</span>
         </Link>
       ) : (
-        <button>
-          <span className={"material-symbols-outlined " + "burger-menu"}>
-            {"menu"}
+        <button onClick={visibilityHandler}>
+          <span
+            className={
+              "material-symbols-outlined " + (menuVisible ? "" : "burger-menu")
+            }
+          >
+            {menuVisible ? "close" : "menu"}
           </span>
         </button>
       )}
@@ -70,3 +73,8 @@ const Header = () => {
 };
 
 export default Header;
+
+Header.propTypes = {
+  menuVisible: PropTypes.bool,
+  visibilityHandler: PropTypes.func,
+};
