@@ -14,8 +14,6 @@ const Header = () => {
       ? "Architektur"
       : name === "kontakt"
       ? "Kontakt"
-      : name === "menue"
-      ? "Menü"
       : name === "uebermich"
       ? "Über mich"
       : name === "aktuelles"
@@ -56,32 +54,17 @@ const Header = () => {
           ""
         )}
       </div>
-      <Link
-        to={
-          name === "menue" ||
-          slideshow === "slideshow" ||
-          slideshow === "projektbeschreibung"
-            ? currentPage
-            : "/menue"
-        }
-      >
-        <span
-          className={
-            "material-symbols-outlined " +
-            (name === "menue" ||
-            slideshow === "slideshow" ||
-            slideshow === "projektbeschreibung"
-              ? ""
-              : "burger-menu")
-          }
-        >
-          {name === "menue" ||
-          slideshow === "slideshow" ||
-          slideshow === "projektbeschreibung"
-            ? "close"
-            : "menu"}
-        </span>
-      </Link>
+      {slideshow === "slideshow" || slideshow === "projektbeschreibung" ? (
+        <Link to={currentPage}>
+          <span className={"material-symbols-outlined"}>{"close"}</span>
+        </Link>
+      ) : (
+        <button>
+          <span className={"material-symbols-outlined " + "burger-menu"}>
+            {"menu"}
+          </span>
+        </button>
+      )}
     </header>
   );
 };

@@ -3,7 +3,6 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Kontakt from "../pages/Kontakt/Kontakt";
 import UeberMich from "../pages/UeberMich/UeberMich";
-import Menue from "../pages/Menue/Menue";
 import CarouselPage from "../pages/CarouselPage";
 import "../App.css";
 import SlideshowPage from "../pages/SlideshowPage";
@@ -35,8 +34,6 @@ const Page = () => {
             slideshow === "slideshow") &&
           carouselPages.includes(name) ? (
           <SlideshowPage />
-        ) : name === "menue" ? (
-          <Menue />
         ) : name === "kontakt" ? (
           <Kontakt />
         ) : name === "uebermich" ? (
