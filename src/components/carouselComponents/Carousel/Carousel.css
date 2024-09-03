@@ -18,7 +18,8 @@ main.carousel-page {
   transition: transform 500ms ease;
 }
 
-.carousel > Link {
+.carousel > a {
+  display: inline;
   height: 100%;
 }
 
@@ -26,6 +27,10 @@ main.carousel-page {
   display: flex;
   height: 100%;
   justify-content: center;
+}
+
+.carousel-img {
+  height: 100%;
 }
 
 .carousel figcaption {
@@ -53,10 +58,6 @@ main.carousel-page {
   flex-direction: row;
   justify-content: space-between;
   gap: 150px;
-}
-
-.carousel-img {
-  height: 100%;
 }
 
 .carousel-text-item {

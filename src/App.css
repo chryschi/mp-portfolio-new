@@ -53,7 +53,6 @@ header .close-project-icon {
 main {
   display: flex;
   flex-direction: column;
-  /* flex: 1 auto; */
   height: 80vh;
 }
 
