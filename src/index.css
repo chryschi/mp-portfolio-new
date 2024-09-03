@@ -11,7 +11,7 @@
   /* --scrollPos: -1000px; */
   --accent-color: rgb(255, 82, 13);
   --padding-left: 3vw;
-  --carousel-item-gap: 70px;
+  --carousel-item-gap: max(var(--padding-left), 70px);
   --padding-vertical: 5vh;
 
   --carousel-figcaption-width: 24px;
