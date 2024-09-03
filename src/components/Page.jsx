@@ -56,7 +56,12 @@ const Page = () => {
           </div>
         </PageContext.Provider>
 
-        {<Menue menuVisible={menuIsVisible} />}
+        {
+          <Menue
+            menuVisible={menuIsVisible}
+            visibilityHandler={toggleMenuVisibility}
+          />
+        }
       </div>
 
       <Footer />
