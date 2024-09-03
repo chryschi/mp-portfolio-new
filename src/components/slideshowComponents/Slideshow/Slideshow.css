@@ -23,11 +23,11 @@
 }
 
 .slideshow-button-scroll .previous span {
-  left: var(--padding-primary);
+  left: var(--padding-left);
 }
 
 .slideshow-button-scroll .next span {
-  right: var(--padding-primary);
+  right: var(--padding-left);
 }
 
 .slideshow-container {
@@ -77,7 +77,7 @@
   display: flex;
   justify-content: end;
   align-items: center;
-  padding: 10px var(--padding-primary);
+  padding: 10px var(--padding-left);
   max-height: 200px;
   margin-top: auto;
 

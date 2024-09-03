@@ -1,6 +1,6 @@
 main.kontakt {
   /* display: flex; */
-  padding: var(--padding-primary);
+  padding: var(--padding-left);
 }
 
 .call-to-action {
@@ -9,14 +9,14 @@ main.kontakt {
 }
 
 address {
-  margin-bottom: var(--padding-primary);
+  margin-bottom: var(--padding-left);
   margin-top: auto;
 }
 
 address > ul {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  column-gap: var(--padding-primary);
+  column-gap: var(--padding-left);
 
   font-size: 1.8rem;
 }
