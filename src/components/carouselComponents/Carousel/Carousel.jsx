@@ -40,6 +40,14 @@ const Carousel = ({ images }) => {
 
   let timer;
 
+  //initialize carousel position on page change
+  useEffect(() => {
+    setTranslateX(PREFERED_FIRST_CHILD_POSITION);
+    setActiveIndex(0);
+    console.log(activeIndex);
+    console.log("page change");
+  }, [name, project, slideshow]);
+
   //correct position for infinite effect on initial render
   useEffect(() => {
     if (activeIndex === 0) {
@@ -47,14 +55,11 @@ const Carousel = ({ images }) => {
       const newIndex = activeIndex + 0.5 * NUMBER_OF_CAROUSEL_CARDS;
       setTranslateX(childrenTranslateValues[newIndex]);
       setActiveIndex(newIndex);
+      console.log("infinite slide");
     }
-  }, []);
-
-  //initialize carousel position on page change
-  useEffect(() => {
-    setTranslateX(PREFERED_FIRST_CHILD_POSITION);
-    setActiveIndex(0);
-  }, [name, project, slideshow]);
+    // name dependency needed to make sure that switching from a carousel page to and non info page back to
+    // to a carousel page initializes the carousel properly
+  }, [childrenTranslateValues, name]);
 
   //effect for carousel mouse dragging
   useEffect(() => {
@@ -208,6 +213,8 @@ const Carousel = ({ images }) => {
       setTranslateX(childrenTranslateValues[newIndex]);
       setActiveIndex(newIndex);
     }
+    console.log("after transition");
+    console.log(activeIndex);
   };
 
   return (
