@@ -3,9 +3,11 @@ import CarouselItem from "../CarouselItem";
 import "./Carousel.css";
 import PropTypes from "prop-types";
 import useViewport from "../../useViewport";
+import { useParams } from "react-router-dom";
 
 const Carousel = ({ images }) => {
   const { width } = useViewport();
+  const { name, project, slideshow } = useParams();
 
   const PREFERED_FIRST_CHILD_POSITION =
     getComputedStyle(document.documentElement)
@@ -47,6 +49,12 @@ const Carousel = ({ images }) => {
       setActiveIndex(newIndex);
     }
   }, []);
+
+  //initialize carousel position on page change
+  useEffect(() => {
+    setTranslateX(PREFERED_FIRST_CHILD_POSITION);
+    setActiveIndex(0);
+  }, [name, project, slideshow]);
 
   //effect for carousel mouse dragging
   useEffect(() => {

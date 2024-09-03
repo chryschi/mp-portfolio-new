@@ -37,7 +37,7 @@ const CarouselItem = ({
     // imageRef.addEventListener("load", getLeftPositions);
     return () => clearTimeout(timer);
     // () => imageRef.removeEventListener("load", getLeftPositions);
-  }, [addChildLeftPosition]);
+  }, [addChildLeftPosition, name, project, slideshow]);
 
   const handleSelectImage = () => {
     setFirstImageIndexInSlideshow(id);
