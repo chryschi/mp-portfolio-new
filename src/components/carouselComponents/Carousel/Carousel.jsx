@@ -189,7 +189,7 @@ const Carousel = ({ images }) => {
         newIndex = activeIndex - 0.5 * NUMBER_OF_CAROUSEL_CARDS;
       } else if (
         childrenTranslateValues[activeIndex - 1] >=
-        PREFERED_FIRST_CHILD_POSITION
+        PREFERED_FIRST_CHILD_POSITION - 1
       ) {
         newIndex = activeIndex + 0.5 * NUMBER_OF_CAROUSEL_CARDS;
       } else {
