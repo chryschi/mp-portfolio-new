@@ -40,11 +40,26 @@ const Carousel = ({ images }) => {
 
   let timer;
 
+  useEffect(() => {
+    const timerSecond = setTimeout(() => {
+      if (activeIndex === 0) {
+        carouselTrackRef.current.style.transitionDuration = "0ms";
+        const newIndex = 0.5 * NUMBER_OF_CAROUSEL_CARDS;
+        setActiveIndex(newIndex);
+        console.log(childrenTranslateValues[newIndex]);
+        setTranslateX(childrenTranslateValues[newIndex]);
+      }
+    }, 310);
+
+    return () => clearTimeout(timerSecond);
+  });
+
   //initialize carousel position on page change
   useEffect(() => {
     setTranslateX(PREFERED_FIRST_CHILD_POSITION);
     setActiveIndex(0);
     setWasDragged(false);
+    console.log(activeIndex);
   }, [name, project, slideshow]);
 
   //effect for carousel mouse dragging
@@ -156,6 +171,9 @@ const Carousel = ({ images }) => {
     }
     if (mode === "previous") {
       newIndex = wasDragged ? getNextIndex() - 1 : activeIndex - 1;
+      // if (newIndex === -1) {
+      //   newIndex = 0.5 * NUMBER_OF_CAROUSEL_CARDS - 1;
+      // }
     }
 
     setTranslateX(childrenTranslateValues[newIndex]);
