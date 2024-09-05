@@ -6,6 +6,7 @@ _This is a personal project, not a paid one._
 ## Features
 
 - Clickable, scrollable and dragable carousel for every content and project page
+- Carousel can hold images independent of aspect-ratio (working in Chrome)
 
 ## Used Technologies
 
@@ -24,9 +25,11 @@ Vite, React, HTML/CSS/JS
 - Custom scrollbar for project description view
 - Page transitions
 - Styled error page
+- Carousel images resize when viewport is resized
 
 ## Future Bug Fixes
 
-- [x] carousel behaving as expected when trying to drag it or navigate with arrow buttons
-- [] carousel has always full length regardless of screen width
-- [] scrollbar only appears when necessary
+- [x] Carousel behaving as expected when trying to drag it or navigate with arrow buttons
+- [] Carousel image gaps are just as wide as necessary (not like viewed with Firefox)
+- [] Carousel has always full length regardless of screen width
+- [] Scrollbar only appears when necessary for all pages
