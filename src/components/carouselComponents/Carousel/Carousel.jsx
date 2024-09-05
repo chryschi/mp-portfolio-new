@@ -46,7 +46,6 @@ const Carousel = ({ images }) => {
         carouselTrackRef.current.style.transitionDuration = "0ms";
         const newIndex = 0.5 * NUMBER_OF_CAROUSEL_CARDS;
         setActiveIndex(newIndex);
-        console.log(childrenTranslateValues[newIndex]);
         setTranslateX(childrenTranslateValues[newIndex]);
       }
     }, 310);
@@ -59,7 +58,6 @@ const Carousel = ({ images }) => {
     setTranslateX(PREFERED_FIRST_CHILD_POSITION);
     setActiveIndex(0);
     setWasDragged(false);
-    console.log(activeIndex);
   }, [name, project, slideshow]);
 
   //effect for carousel mouse dragging
@@ -210,8 +208,6 @@ const Carousel = ({ images }) => {
       setTranslateX(childrenTranslateValues[newIndex]);
       setActiveIndex(newIndex);
     }
-    console.log("after transition");
-    console.log(activeIndex);
   };
 
   return (
