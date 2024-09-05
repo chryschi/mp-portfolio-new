@@ -14,8 +14,11 @@ const Menue = ({ menuVisible, visibilityHandler }) => {
 
   return (
     <div
-      className="menu-container"
-      style={{ visibility: menuVisible ? "visible" : "hidden" }}
+      className="menu-container transition-container"
+      style={{
+        visibility: menuVisible ? "visible" : "hidden",
+        opacity: menuVisible ? "1" : "0",
+      }}
     >
       <nav>
         <ul>

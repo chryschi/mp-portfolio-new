@@ -15,7 +15,7 @@ main.carousel-page {
   list-style: none;
   display: flex;
   height: 100%;
-  transition: transform 500ms ease;
+  transition: transform 400ms ease;
 }
 
 .carousel > a {

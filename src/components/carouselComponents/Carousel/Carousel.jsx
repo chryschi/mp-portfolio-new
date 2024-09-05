@@ -44,22 +44,8 @@ const Carousel = ({ images }) => {
   useEffect(() => {
     setTranslateX(PREFERED_FIRST_CHILD_POSITION);
     setActiveIndex(0);
-    console.log(activeIndex);
-    console.log("page change");
+    setWasDragged(false);
   }, [name, project, slideshow]);
-
-  //correct position for infinite effect on initial render
-  useEffect(() => {
-    if (activeIndex === 0) {
-      carouselTrackRef.current.style.transitionDuration = "0ms";
-      const newIndex = activeIndex + 0.5 * NUMBER_OF_CAROUSEL_CARDS;
-      setTranslateX(childrenTranslateValues[newIndex]);
-      setActiveIndex(newIndex);
-      console.log("infinite slide");
-    }
-    // name dependency needed to make sure that switching from a carousel page to and non info page back to
-    // to a carousel page initializes the carousel properly
-  }, [childrenTranslateValues, name]);
 
   //effect for carousel mouse dragging
   useEffect(() => {
@@ -91,18 +77,10 @@ const Carousel = ({ images }) => {
 
       if (childrenLeftPositionsCopy.length === NUMBER_OF_CAROUSEL_CARDS) {
         childrenLeftPositionsCopy.sort(compareNumbers);
-
-        setChildrenTranslateValues(
-          childrenLeftPositionsCopy.map(
-            (leftPosition) => -leftPosition + 2 * PREFERED_FIRST_CHILD_POSITION
-          )
+        const finishedArray = childrenLeftPositionsCopy.map(
+          (leftPosition) => -leftPosition + 2 * PREFERED_FIRST_CHILD_POSITION
         );
-        console.log(
-          childrenLeftPositionsCopy.map(
-            (leftPosition) => -leftPosition + 2 * PREFERED_FIRST_CHILD_POSITION
-          )
-        );
-
+        setChildrenTranslateValues([...finishedArray]);
         childrenLeftPositionsCopy = [];
       }
     }
@@ -202,7 +180,8 @@ const Carousel = ({ images }) => {
         newIndex = activeIndex - 0.5 * NUMBER_OF_CAROUSEL_CARDS;
       } else if (
         childrenTranslateValues[activeIndex - 1] >=
-        PREFERED_FIRST_CHILD_POSITION - 1
+          PREFERED_FIRST_CHILD_POSITION - 1 ||
+        activeIndex === 0
       ) {
         newIndex = activeIndex + 0.5 * NUMBER_OF_CAROUSEL_CARDS;
       } else {

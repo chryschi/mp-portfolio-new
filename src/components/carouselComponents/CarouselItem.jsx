@@ -32,7 +32,7 @@ const CarouselItem = ({
     //simulate fade in transition in order to fire getBoundingClientRect late enough
     const timer = setTimeout(() => {
       getLeftPositions();
-    }, 300);
+    }, 100);
 
     return () => clearTimeout(timer);
   }, [addChildLeftPosition, name, project, slideshow]);
