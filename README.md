@@ -26,10 +26,12 @@ Vite, React, HTML/CSS/JS
 - Page transitions
 - Styled error page
 - Carousel images resize when viewport is resized
+- Favicon changing to respect theme color based on light/dark mode
 
 ## Future Bug Fixes
 
 - [x] Carousel behaving as expected when trying to drag it or navigate with arrow buttons
+- [] Carousel resets properly after changing pages
 - [] Carousel image gaps are just as wide as necessary (not like viewed with Firefox)
 - [] Carousel has always full length regardless of screen width
 - [] Scrollbar only appears when necessary for all pages
