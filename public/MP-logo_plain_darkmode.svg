@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg1"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <g
+     id="layer1"
+     style="display:inline;fill:#000000">
+    <g
+       id="g22"
+       transform="matrix(1.1792164,0,0,1.1792164,-22.366503,151.14039)"
+       style="fill:#ffffff">
+      <rect
+         style="opacity:0.825566;fill:#ffffff;stroke-width:3.19065;stroke-opacity:0.218027;paint-order:stroke fill markers"
+         id="rect1"
+         width="13.662351"
+         height="177.84625"
+         x="40.685642"
+         y="0" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#rect1"
+         id="use1"
+         transform="translate(97.82208)"
+         style="fill:#ffffff" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#rect1"
+         id="use2"
+         transform="translate(195.64416)"
+         style="fill:#ffffff" />
+      <use
+         x="0"
+         y="0"
+         xlink:href="#rect1"
+         id="use3"
+         transform="translate(293.46624)"
+         style="fill:#ffffff" />
+      <path
+         id="path20"
+         style="display:inline;opacity:0.825566;fill:#ffffff;stroke-width:12.8521;stroke-opacity:0.218027;paint-order:stroke fill markers"
+         d="m 361.48047,0 v 1.7558594 0 13.7207026 l 13.26953,0.0098 c 22.75383,-3.5e-4 41.19957,18.445396 41.19922,41.199219 -7.3e-4,22.753059 -18.44616,41.197615 -41.19922,41.197265 l -13.26953,0.0078 v 13.722654 0 1.75391 h 12.88867 c 0.13189,0.003 0.2539,0.001 0.38082,0.002 31.30605,6.7e-4 56.68514,-25.377544 56.68555,-56.683592 C 431.42875,25.868859 406.8034,0.70306364 375.99414,0.02734375 375.57954,0.01367702 375.1648,0.00456189 374.75,0 v 0 z m 14.51367,0.02734375 C 0,0 0,0 375.99414,0.02734375 Z M 368.0625,0.484375 C 0,0 0,0 368.0625,0.484375 Z" />
+    </g>
+  </g>
+</svg>

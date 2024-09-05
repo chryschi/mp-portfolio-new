@@ -6,7 +6,7 @@ import UeberMich from "../pages/UeberMich/UeberMich";
 import CarouselPage from "../pages/CarouselPage";
 import "../App.css";
 import SlideshowPage from "../pages/SlideshowPage";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import Menue from "../pages/Menue/Menue";
 
 export const PageContext = createContext();
@@ -18,10 +18,6 @@ const Page = () => {
   const [menuIsVisible, setMenuIsVisible] = useState(false);
 
   const { name, slideshow } = useParams();
-
-  // useEffect(()=> {
-
-  // })
 
   const carouselPages = [
     "innenarchitektur",
