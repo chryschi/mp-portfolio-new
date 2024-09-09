@@ -1,4 +1,4 @@
-# [MP Portfolio Website](https://mp-portfolio-preview.netlify.app/aktuelles) (for an architect)
+# [MP Portfolio Website](https://mp-portfolio.abigailmajor.com) (for an architect)
 
 I'm currently working on a portfolio website for a friend, who provided the desired design.
 _This is a personal project, not a paid one._
@@ -31,7 +31,7 @@ Vite, React, HTML/CSS/JS
 ## Future Bug Fixes
 
 - [x] Carousel behaving as expected when trying to drag it or navigate with arrow buttons
-- [] Carousel resets properly after changing pages
+- [] Carousel resets properly everytime after changing pages
 - [] Carousel image gaps are just as wide as necessary (not like viewed with Firefox)
 - [] Carousel has always full length regardless of screen width
 - [] Scrollbar only appears when necessary for all pages
