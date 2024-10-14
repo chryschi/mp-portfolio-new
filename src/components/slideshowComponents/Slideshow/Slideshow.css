@@ -89,8 +89,25 @@
   left: 35vw;
 }
 
+.slide-text-wrapper :nth-child(-n + 2) {
+  margin-bottom: 20px;
+}
+
+.slide-text-wrapper p {
+  text-align: justify;
+  margin-bottom: 16px;
+}
+
 .description-container {
   overflow-x: hidden;
+  overflow-y: scroll;
+  padding-right: 28px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  .description-container {
+    scrollbar-color: #888 transparent;
+  }
 }
 
 .description-container::-webkit-scrollbar {
@@ -103,7 +120,7 @@
 }
 
 .description-container::-webkit-scrollbar-thumb {
-  background: white;
+  background: rgb(218, 218, 218);
 }
 
 .disable-navigation {

@@ -1,13 +1,7 @@
-import { useParams } from "react-router-dom";
-import {
-  useEffect,
-  useRef,
-  useState,
-  useLayoutEffect,
-  useContext,
-} from "react";
+import { useRef, useState, useLayoutEffect, useContext } from "react";
 import SlideshowItem from "../SlideshowItem";
 import { PageContext } from "../../Page";
+import PropTypes from "prop-types";
 
 import TextSlideshowItem from "../TextSlideshowItem";
 import "./Slideshow.css";
@@ -163,3 +157,7 @@ const Slideshow = ({ images }) => {
 };
 
 export default Slideshow;
+
+Slideshow.propTypes = {
+  images: PropTypes.array,
+};

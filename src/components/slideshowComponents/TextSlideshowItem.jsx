@@ -1,6 +1,7 @@
 // import { useEffect } from "react";
 // import { useRef } from "react";
 // import { useState } from "react";
+import PropTypes from "prop-types";
 
 const TextSlideshowItem = ({ content }) => {
   //KEEP FOR CUSTOM SCROLLBAR
@@ -79,3 +80,7 @@ const TextSlideshowItem = ({ content }) => {
 };
 
 export default TextSlideshowItem;
+
+TextSlideshowItem.propTypes = {
+  content: PropTypes.object,
+};
