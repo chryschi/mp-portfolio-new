@@ -1,6 +1,6 @@
 .slideshow-button-scroll {
   position: absolute;
-  height: 75vh;
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -31,13 +31,11 @@
 }
 
 .slideshow-container {
-  position: absolute;
+  position: relative;
   width: 100%;
   overflow: hidden;
-  height: 75vh;
+  height: 100%;
   flex: 1;
-  top: 12.5vh;
-  /* cursor: grab; */
 }
 
 .slider {
@@ -79,7 +77,6 @@
   align-items: center;
   padding: 10px var(--padding-left);
   max-height: 200px;
-  margin-top: auto;
 
   font-size: 1.2rem;
 }
